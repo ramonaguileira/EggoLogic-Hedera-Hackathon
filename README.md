@@ -1,7 +1,7 @@
-# EcoLogic: Decentralized Carbon Credit Verification on Hedera
+# EggoLogic: Decentralized Carbon Credit Verification on Hedera
 
 ## 🌍 Project Overview
-**EcoLogic** is a decentralized solution built on the **Hedera network** to provide transparent and immutable verification for carbon credits. This project is part of the **Hedera Hello Future Apex Hackathon 2026**.
+**EggoLogic** is a decentralized solution built on the **Hedera network** to provide transparent and immutable verification for carbon credits. This project is part of the **Hedera Hello Future Apex Hackathon 2026**.
 
 - **Track:** Sustainability
 - **Project Description:** (Max 100 words) A platform to verify and track carbon offsets using Hedera's low-carbon infrastructure.
