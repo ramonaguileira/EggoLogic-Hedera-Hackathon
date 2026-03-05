@@ -16,7 +16,7 @@
     {
       "name": "eggologic-dashboard",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["dashboard/node_modules/vite/bin/vite.js", "dashboard"],
+      "runtimeArgs": ["eggologic-hedera/node_modules/vite/bin/vite.js", "eggologic-hedera/dashboard"],
       "port": 5173
     }
   ]
