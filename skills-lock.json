@@ -1,6 +1,11 @@
 {
   "version": 1,
   "skills": {
+    "Hedera Hackathon PRD": {
+      "source": "hedera-dev/hedera-skills",
+      "sourceType": "github",
+      "computedHash": "ee75233a7b225278b70c23c939a2d4769d17ad34d716cc07cb6be504a859f6e0"
+    },
     "Hedera Hackathon Submission Validator": {
       "source": "hedera-dev/hedera-skills",
       "sourceType": "github",

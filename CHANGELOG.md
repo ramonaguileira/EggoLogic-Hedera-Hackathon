@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **skills**: add hedera-hackathon-architect super skill
 - **skills**: add vercel-react-best-practices and find-skills
 - **skills**: add changelogger skill and integrate into committer
 - **core**: add changelogger skill
