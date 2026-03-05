@@ -15,8 +15,8 @@ yarn-error.log
 .git/
 
 # Agent/Antigravity specific
-.agent/
-.agents/
+# .agent/
+# .agents/
 _agent/
 _agents/
 .gemini/
