@@ -1,22 +1,40 @@
-# Windows
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+dist/
+out/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
 Thumbs.db
 Desktop.ini
 
-# IDEs
-.vscode/
-.idea/
-
-# Node (in case it's used later)
-node_modules/
-npm-debug.log
-yarn-error.log
-
-# Git
-.git/
-
-# Agent/Antigravity specific
-# .agent/
-# .agents/
+# Agent tooling (Antigravity / Claude / Gemini)
+.Agent/
+.agent/
+.agents/
+.claude/skills/
+.claude/settings.local.json
+.gemini/
 _agent/
 _agents/
-.gemini/
+__pycache__/
+*.skill
+skills-lock.json
+
+# Debug logs
+npm-debug.log*
+yarn-error.log
