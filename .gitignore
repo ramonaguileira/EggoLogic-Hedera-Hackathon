@@ -1,0 +1,22 @@
+# Windows
+Thumbs.db
+Desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+
+# Node (in case it's used later)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Git
+.git/
+
+# Agent/Antigravity specific
+.agent/
+.agents/
+_agent/
+_agents/
+.gemini/
