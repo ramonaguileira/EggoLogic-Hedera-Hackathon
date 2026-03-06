@@ -117,7 +117,7 @@ The demo shows the complete pipeline:
      │            ┌───────▼───────┐
      └────────────┤  React        │
                   │  Dashboard    │
-                  │  + HashPack   │
+                  │ (Operator UI) │
                   └───────────────┘
 ```
 
@@ -320,9 +320,8 @@ This is not a simulation. Every data point in this project maps to a physical op
 - **[Hedera Guardian](https://github.com/hashgraph/guardian)** — MRV policy engine + Verifiable Credentials
 - **[CDM AMS-III.F](https://cdm.unfccc.int/methodologies/DB/GNFWB3Y818MFBDH1SVXBLI8TQGGPK2)** — UN composting methodology
 - **[@hashgraph/sdk](https://www.npmjs.com/package/@hashgraph/sdk)** — Hedera JavaScript SDK (Hiero)
-- **Node.js + Express** — Middleware
-- **React + Tailwind** — Dashboard
-- **HashPack** — Wallet integration
+- **Node.js + Express** — Middleware ligero en memoria
+- **React + Tailwind** — Dashboard Operator View
 - **Google Sheets API** — Data source bridge
 
 ---

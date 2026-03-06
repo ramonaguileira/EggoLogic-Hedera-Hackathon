@@ -8,6 +8,11 @@ const logger = require('../utils/logger');
 let lastProcessedCount = 0;
 
 async function pollDeliveries() {
+  if (process.env.DEMO_MODE === 'true') {
+    logger.info('[DEMO_MODE] Salteando el polling a Google Sheets y Guardian.');
+    return;
+  }
+
   try {
     const newDeliveries = await getNewDeliveries(lastProcessedCount);
     if (!newDeliveries || newDeliveries.length === 0) return;

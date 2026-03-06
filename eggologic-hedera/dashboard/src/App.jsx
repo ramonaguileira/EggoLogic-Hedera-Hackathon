@@ -23,7 +23,6 @@ function cn(...inputs) {
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
 
 const App = () => {
-  const [walletConnected, setWalletConnected] = useState(false);
   const [deliveries, setDeliveries] = useState([]);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -123,18 +122,10 @@ const App = () => {
 
         <div className="flex items-center gap-4">
           {loading && <Loader2 className="w-4 h-4 text-primary animate-spin" />}
-          <button
-            onClick={() => setWalletConnected(!walletConnected)}
-            className={cn(
-              "flex items-center gap-2 px-5 py-2.5 rounded-full font-bold transition-all active:scale-95 shadow-lg",
-              walletConnected
-                ? "bg-white border border-slate-200 text-slate-700"
-                : "bg-primary text-white hover:bg-green-600 shadow-green-200"
-            )}
-          >
-            <Wallet className="w-4 h-4" />
-            {walletConnected ? "0x7a...f2e" : "Connect Wallet"}
-          </button>
+          <div className="flex items-center gap-2 px-5 py-2.5 rounded-full font-bold bg-white border border-slate-200 text-slate-700 shadow-sm">
+            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+            Operator Node: 0.0.xxxxx
+          </div>
         </div>
       </header>
 
