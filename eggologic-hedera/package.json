@@ -16,9 +16,24 @@
     "test": "cd middleware && npm test"
   },
   "keywords": [
-    "hedera", "guardian", "circular-economy", "carbon-credits",
-    "sustainability", "HTS", "HCS", "MRV", "BSF", "tokenization"
+    "hedera",
+    "guardian",
+    "circular-economy",
+    "carbon-credits",
+    "sustainability",
+    "HTS",
+    "HCS",
+    "MRV",
+    "BSF",
+    "tokenization"
   ],
   "author": "Ramon Aguileira",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@hashgraph/sdk": "2.80.0",
+    "dotenv": "17.3.1"
+  },
+  "overrides": {
+    "pino": "8.19.0"
+  }
 }

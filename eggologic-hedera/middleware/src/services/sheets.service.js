@@ -1,27 +1,43 @@
-import { GoogleSpreadsheet } from 'google-spreadsheet';
-import { JWT } from 'google-auth-library';
-import { config } from '../config/env.js';
-import { logger } from '../utils/logger.js';
+const { GoogleSpreadsheet } = require('google-spreadsheet');
+const { JWT } = require('google-auth-library');
+const config = require('../config/env');
+const logger = require('../utils/logger');
+
+const GOOGLE_ENABLED = config.google && config.google.spreadsheetId && config.google.serviceAccountEmail && config.google.privateKey;
 
 let doc;
 
 async function getDoc() {
+  if (!GOOGLE_ENABLED) {
+    logger.info("Google Sheets polling disabled in demo mode");
+    return null;
+  }
   if (doc) return doc;
-  const auth = new JWT({
-    email: config.google.serviceAccountEmail,
-    key: config.google.privateKey,
-    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-  });
-  doc = new GoogleSpreadsheet(config.google.spreadsheetId, auth);
-  await doc.loadInfo();
-  logger.info(`Connected to Google Sheet: ${doc.title}`);
-  return doc;
+  try {
+    const auth = new JWT({
+      email: config.google.serviceAccountEmail,
+      key: config.google.privateKey,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+    });
+    doc = new GoogleSpreadsheet(config.google.spreadsheetId, auth);
+    await doc.loadInfo();
+    logger.info(`Connected to Google Sheet: ${doc.title}`);
+    return doc;
+  } catch (err) {
+    logger.error(`Google Sheets connection error: ${err.message}`);
+    return null;
+  }
 }
 
-export async function getDeliveryRows() {
+async function getDeliveryRows() {
   const document = await getDoc();
+  if (!document) return [];
+
   const sheet = document.sheetsByTitle['Entregas'] || document.sheetsByTitle['ENTREGAS'];
-  if (!sheet) throw new Error('Sheet "Entregas" not found');
+  if (!sheet) {
+    logger.error('Sheet "Entregas" not found');
+    return [];
+  }
   const rows = await sheet.getRows();
   return rows.map(row => ({
     delivery_id: row.get('delivery_id'),
@@ -41,9 +57,23 @@ export async function getDeliveryRows() {
   }));
 }
 
-export async function getDeliveryRowCount() {
+async function getDeliveryRowCount() {
   const document = await getDoc();
+  if (!document) return 0;
+
   const sheet = document.sheetsByTitle['Entregas'] || document.sheetsByTitle['ENTREGAS'];
+  if (!sheet) return 0;
   const rows = await sheet.getRows();
   return rows.length;
 }
+
+async function getNewDeliveries(offset = 0) {
+  const rows = await getDeliveryRows();
+  return rows.slice(offset);
+}
+
+module.exports = {
+  getDeliveryRows,
+  getDeliveryRowCount,
+  getNewDeliveries
+};

@@ -71,11 +71,13 @@ We built a blockchain verification layer on **Hedera** that:
 > **[▶️ Watch the Demo Video](https://youtu.be/PLACEHOLDER)**
 
 The demo shows the complete pipeline:
-1. A supplier delivers organic waste → data enters via Google Form
+1. A supplier delivers organic waste → data enters via Google Form (or simulated via script)
 2. Middleware picks up the new row and submits it to Guardian
 3. Guardian creates a Verifiable Credential, calculates EGGOCOINS, and mints tokens
 4. The supplier sees their updated EGGOCOINS balance in the dashboard
 5. After accumulating 1,000 kg adjusted waste, a CARBONCOIN NFT is minted
+
+**Demo Mode**: If Google Sheets or Guardian credentials are missing, the middleware can run in "Demo Mode" (bypassing external integrations) to allow testing the dashboard and basic API flows.
 
 ---
 
@@ -241,7 +243,7 @@ npm run dev
 ```bash
 cd dashboard
 npm run dev
-# Opens at http://localhost:3000
+# Opens at http://localhost:5173
 ```
 
 ### 7. Run Demo Flow

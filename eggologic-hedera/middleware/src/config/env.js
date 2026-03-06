@@ -1,6 +1,6 @@
-require('dotenv').config({ path: '../../.env' });
+require('dotenv').config({ path: '../../../.env' });
 
-module.exports = {
+const config = {
   hedera: {
     network: process.env.HEDERA_NETWORK || 'testnet',
     operatorId: process.env.HEDERA_OPERATOR_ID,
@@ -30,3 +30,5 @@ module.exports = {
     conservativeFactor: parseFloat(process.env.CONSERVATIVE_FACTOR || '0.70'),
   },
 };
+
+module.exports = config;

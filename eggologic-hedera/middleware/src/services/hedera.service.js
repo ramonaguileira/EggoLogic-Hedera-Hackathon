@@ -1,9 +1,9 @@
-import { TokenMintTransaction, TokenAssociateTransaction, TransferTransaction, TopicMessageSubmitTransaction, TokenId, AccountId } from '@hashgraph/sdk';
-import { getHederaClient } from '../config/hedera.js';
-import { config } from '../config/env.js';
-import { logger } from '../utils/logger.js';
+const { TokenMintTransaction, TokenAssociateTransaction, TransferTransaction, TopicMessageSubmitTransaction, TokenId, AccountId } = require('@hashgraph/sdk');
+const { getHederaClient } = require('../config/hedera');
+const config = require('../config/env');
+const logger = require('../utils/logger');
 
-export async function mintEggocoins(amount) {
+async function mintEggocoins(amount) {
   const client = getHederaClient();
   const amountLowestDenom = Math.round(amount * 100); // 2 decimals
   const tx = await new TokenMintTransaction()
@@ -15,7 +15,7 @@ export async function mintEggocoins(amount) {
   return { amount, status: receipt.status.toString(), txId: tx.transactionId.toString() };
 }
 
-export async function transferEggocoins(supplierAccountId, amount) {
+async function transferEggocoins(supplierAccountId, amount) {
   const client = getHederaClient();
   const amountLowestDenom = Math.round(amount * 100);
   const tokenId = TokenId.fromString(config.hedera.eggocoinsTokenId);
@@ -31,7 +31,7 @@ export async function transferEggocoins(supplierAccountId, amount) {
   return { status: receipt.status.toString(), txId: tx.transactionId.toString() };
 }
 
-export async function publishHcsMessage(topicId, message) {
+async function publishHcsMessage(topicId, message) {
   const client = getHederaClient();
   const tx = await new TopicMessageSubmitTransaction()
     .setTopicId(topicId)
@@ -42,7 +42,7 @@ export async function publishHcsMessage(topicId, message) {
   return { sequenceNumber: receipt.topicSequenceNumber.toString(), txId: tx.transactionId.toString() };
 }
 
-export async function mintCarboncoinNft(metadataCid) {
+async function mintCarboncoinNft(metadataCid) {
   const client = getHederaClient();
   const tx = await new TokenMintTransaction()
     .setTokenId(TokenId.fromString(config.hedera.carboncoinTokenId))
@@ -52,3 +52,10 @@ export async function mintCarboncoinNft(metadataCid) {
   logger.info(`HTS: Minted CARBONCOIN NFT #${receipt.serials[0]} (CID: ${metadataCid})`);
   return { serial: receipt.serials[0].toString(), status: receipt.status.toString(), txId: tx.transactionId.toString() };
 }
+
+module.exports = {
+  mintEggocoins,
+  transferEggocoins,
+  publishHcsMessage,
+  mintCarboncoinNft
+};

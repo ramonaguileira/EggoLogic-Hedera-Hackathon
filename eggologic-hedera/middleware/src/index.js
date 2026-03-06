@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config({ path: '../../.env' });
 const express = require('express');
 const cron = require('node-cron');
 const { initHederaClient } = require('./config/hedera');
@@ -11,6 +11,8 @@ const dashboardRoutes = require('./routes/dashboard.routes');
 const logger = require('./utils/logger');
 
 const app = express();
+const cors = require('cors');
+app.use(cors());
 app.use(express.json());
 
 // Routes
@@ -22,7 +24,11 @@ app.use('/api/dashboard', dashboardRoutes);
 app.get('/health', (req, res) => res.json({ status: 'ok', service: 'eggologic-middleware' }));
 
 // Initialize Hedera client
-initHederaClient();
+try {
+  initHederaClient();
+} catch (err) {
+  logger.error(`Hedera initialization failed: ${err.message}`);
+}
 
 // Cron jobs
 const interval = process.env.POLLING_INTERVAL_MINUTES || 5;

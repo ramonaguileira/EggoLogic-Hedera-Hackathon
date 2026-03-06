@@ -10,7 +10,7 @@ let lastProcessedCount = 0;
 async function pollDeliveries() {
   try {
     const newDeliveries = await getNewDeliveries(lastProcessedCount);
-    if (newDeliveries.length === 0) return;
+    if (!newDeliveries || newDeliveries.length === 0) return;
     logger.info(`Found ${newDeliveries.length} new deliveries`);
 
     for (const delivery of newDeliveries) {

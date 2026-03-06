@@ -1,61 +1,131 @@
 #!/usr/bin/env node
 /**
- * Eggologic Demo Flow
+ * Eggologic Demo Flow (CommonJS version)
  * Executes the complete pipeline with sample data for hackathon presentation.
- * Run: node scripts/demo-flow.js [--testnet] [--verbose]
+ * Run: node scripts/demo-flow.js
  */
-import 'dotenv/config';
+require('dotenv').config();
+const {
+  Client,
+  AccountId,
+  PrivateKey,
+  TokenMintTransaction,
+  TopicMessageSubmitTransaction,
+} = require('@hashgraph/sdk');
 
+// 0. Client Setup
+const operatorId = AccountId.fromString(process.env.HEDERA_OPERATOR_ID);
+const operatorKey = PrivateKey.fromString(process.env.HEDERA_OPERATOR_KEY);
+const client = Client.forTestnet().setOperator(operatorId, operatorKey);
+
+const EGGOCOINS_ID = process.env.EGGOCOINS_TOKEN_ID;
+const CARBONCOIN_ID = process.env.CARBONCOIN_TOKEN_ID;
+const TOPIC_ID = process.env.HCS_TOPIC_DELIVERIES;
+
+// 1. Simulator Data
 const DEMO_DELIVERIES = [
-  { delivery_id: 'E-20260315-01', supplier_id: 'PROV-001', fecha: '2026-03-15', kg_brutos: 80, pct_impropios: 5, destino: 'BSF', supplier_name: 'Restaurante La Esquina' },
-  { delivery_id: 'E-20260315-02', supplier_id: 'PROV-002', fecha: '2026-03-15', kg_brutos: 60, pct_impropios: 25, destino: 'compost', supplier_name: 'Restaurante El Molino' },
-  { delivery_id: 'E-20260316-01', supplier_id: 'PROV-001', fecha: '2026-03-16', kg_brutos: 95, pct_impropios: 3, destino: 'BSF', supplier_name: 'Restaurante La Esquina' },
-  { delivery_id: 'E-20260317-01', supplier_id: 'PROV-003', fecha: '2026-03-17', kg_brutos: 45, pct_impropios: 12, destino: 'mixto', supplier_name: 'Poda Municipal' },
+  { delivery_id: 'E-001', supplier_name: 'Restaurante La Esquina', kg_brutos: 80, pct_impropios: 5, alliance_factor: 1.1 },
+  { delivery_id: 'E-002', supplier_name: 'Parrilla Don José', kg_brutos: 60, pct_impropios: 12, alliance_factor: 1.0 },
+  { delivery_id: 'E-003', supplier_name: 'Cafetería Central', kg_brutos: 45, pct_impropios: 25, alliance_factor: 1.0 },
+  { delivery_id: 'E-004', supplier_name: 'Hotel Playa', kg_brutos: 120, pct_impropios: 3, alliance_factor: 1.2 },
+  { delivery_id: 'E-005', supplier_name: 'Comedor Escolar', kg_brutos: 55, pct_impropios: 8, alliance_factor: 1.1 },
 ];
 
-function getQualityGrade(pct) {
+function getQualityFactor(pct) {
   if (pct <= 5) return { grade: 'A', factor: 1.2 };
   if (pct <= 15) return { grade: 'B', factor: 1.0 };
   if (pct <= 30) return { grade: 'C', factor: 0.8 };
   return { grade: 'D', factor: 0.5 };
 }
 
+// 2. Hedera Functions
+async function mintTokens(tokenId, amount, memo) {
+  const transaction = await new TokenMintTransaction()
+    .setTokenId(tokenId)
+    .setAmount(Math.round(amount * 100)) // 2 decimals
+    .setTransactionMemo(memo)
+    .execute(client);
+  await transaction.getReceipt(client);
+  return transaction.transactionId.toString();
+}
+
+async function mintNft(tokenId, memo) {
+  const transaction = await new TokenMintTransaction()
+    .setTokenId(tokenId)
+    .addMetadata(Buffer.from(memo))
+    .execute(client);
+  await transaction.getReceipt(client);
+  return transaction.transactionId.toString();
+}
+
+async function submitHcsMessage(topicId, message) {
+  const transaction = await new TopicMessageSubmitTransaction()
+    .setTopicId(topicId)
+    .setMessage(JSON.stringify(message))
+    .execute(client);
+  await transaction.getReceipt(client);
+  return transaction.transactionId.toString();
+}
+
+// 3. Execution Pipeline
 async function main() {
-  const verbose = process.argv.includes('--verbose');
-  console.log('🥚 Eggologic — Demo Flow');
-  console.log('========================\n');
+  console.log('\n🥚 Eggologic — Live Demo Flow (Hedera Testnet)');
+  console.log('============================================\n');
 
   let totalEggocoins = 0;
   let carbonAccumulator = 0;
+  const carbonThreshold = 1000;
+  const conservativeFactor = 0.70;
 
   for (const d of DEMO_DELIVERIES) {
     const kgNetos = d.kg_brutos * (1 - d.pct_impropios / 100);
-    const { grade, factor } = getQualityGrade(d.pct_impropios);
-    const eggocoins = Math.round(kgNetos * factor * 1.0 * 100) / 100; // alianza=1.0 for demo
-    const adjustedKg = Math.round(d.kg_brutos * 0.70 * 100) / 100;
+    const { grade, factor: qualityFactor } = getQualityFactor(d.pct_impropios);
+    const eggocoins = Math.round(kgNetos * qualityFactor * d.alliance_factor * 100) / 100;
+    const adjustedKg = Math.round(d.kg_brutos * conservativeFactor * 100) / 100;
 
     totalEggocoins += eggocoins;
     carbonAccumulator += adjustedKg;
 
-    console.log(`📦 ${d.delivery_id} — ${d.supplier_name}`);
-    console.log(`   ${d.kg_brutos} kg brutos → ${Math.round(kgNetos*100)/100} kg netos (${d.pct_impropios}% impropios)`);
-    console.log(`   Grade ${grade} (×${factor}) → ${eggocoins} EGGOCOINS`);
-    console.log(`   Carbon: +${adjustedKg} kg → accumulator: ${Math.round(carbonAccumulator*100)/100}/1000 kg`);
-    if (verbose) console.log(`   Destination: ${d.destino}`);
-    console.log('');
+    console.log(`📦 ENTREGA ${d.delivery_id}: ${d.supplier_name}`);
+    console.log(`   ⚖️  ${d.kg_brutos}kg brutos -> ${kgNetos.toFixed(2)}kg netos (${d.pct_impropios}% impropios)`);
+    console.log(`   🏆 Grado ${grade} (x${qualityFactor}) | Alianza: x${d.alliance_factor} -> ✨ ${eggocoins} EGGOCOINS`);
+
+    // HTS Mint
+    const mintTxId = await mintTokens(EGGOCOINS_ID, eggocoins, `Mint ${eggocoins} to ${d.supplier_name}`);
+    console.log(`   ✅ HTS Mint: ${mintTxId}`);
+
+    // HCS Message
+    const hcsMsg = {
+      event: 'DELIVERY_VERIFIED',
+      data: { ...d, kg_netos: kgNetos, eggocoins, quality_grade: grade, timestamp: new Date().toISOString() }
+    };
+    const hcsTxId = await submitHcsMessage(TOPIC_ID, hcsMsg);
+    console.log(`   📝 HCS Log: ${hcsTxId}`);
+
+    console.log(`   🌱 Carbon Accumulator: ${carbonAccumulator.toFixed(2)} / ${carbonThreshold} kg\n`);
   }
 
-  console.log('═══════════════════════════════════');
-  console.log(`  Total EGGOCOINS minted: ${Math.round(totalEggocoins*100)/100}`);
-  console.log(`  Carbon accumulator: ${Math.round(carbonAccumulator*100)/100}/1000 kg`);
-  console.log(`  CARBONCOIN progress: ${Math.round(carbonAccumulator/10)}%`);
-  console.log('═══════════════════════════════════\n');
+  console.log('═══════════════════════════════════════════════════');
+  console.log(`🏁 RESUMEN FINAL`);
+  console.log(`Total EGGOCOINS: ${totalEggocoins.toFixed(2)}`);
+  console.log(`Acumulador Carbono: ${carbonAccumulator.toFixed(2)} kg`);
 
-  if (carbonAccumulator >= 1000) {
-    console.log('🌍 CARBONCOIN NFT would be minted! (1 tCO₂e avoided)');
+  if (carbonAccumulator >= carbonThreshold) {
+    console.log(`🌍 Límite alcanzado! Minteando CARBONCOIN NFT...`);
+    const nftTxId = await mintNft(CARBONCOIN_ID, `Carbon credit for ${carbonAccumulator}kg waste`);
+    console.log(`✅ NFT Minted: ${nftTxId}`);
   } else {
-    console.log(`📊 ${Math.round(1000 - carbonAccumulator)} kg more needed for next CARBONCOIN`);
+    console.log(`📊 Faltan ${(carbonThreshold - carbonAccumulator).toFixed(2)} kg para el próximo CARBONCOIN`);
   }
+
+  console.log('\n🔗 VERIFICAR EN HASHSCAN:');
+  console.log(`- Tokens: https://hashscan.io/testnet/token/${EGGOCOINS_ID}`);
+  console.log(`- Carbon: https://hashscan.io/testnet/token/${CARBONCOIN_ID}`);
+  console.log(`- Audit:  https://hashscan.io/testnet/topic/${TOPIC_ID}`);
+  console.log('═══════════════════════════════════════════════════\n');
 }
 
-main().catch(console.error);
+main().catch(error => {
+  console.error('\n❌ ERROR:', error.message);
+  process.exit(1);
+});
