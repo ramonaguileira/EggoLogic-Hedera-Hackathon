@@ -70,17 +70,14 @@ async function handleTelegramUpdate(update) {
       Foto: photoUrl,
       Fecha: new Date().toLocaleDateString('es-ES'),
       Semana: `W${getWeekNumber(new Date())}`,
-      external_id: extractedData.external_id
+      delivery_id: extractedData.external_id || extractedData.delivery_id || `${extractedData.supplier_id || 'unkn'}_${Date.now()}`
     };
 
     await addDeliveryRow(rowData);
 
-    // 7. Trigger Sync
-    pollDeliveries().catch(e => logger.error(`Sync error: ${e.message}`));
-
-    // 8. Confirm to user with detailed response
+    // 7. Confirm to user with detailed response
     let responseMsg = `✅ **¡Entrega Registrada!**\n\n` +
-      `📍 **ID:** \`${extractedData.external_id}\`\n` +
+      `📍 **ID:** \`${rowData.delivery_id}\`\n` +
       `📍 **Proveedor:** ${extractedData.supplier_id}\n` +
       `⚖️ **Peso:** ${extractedData.kg_brutos} kg\n` +
       `♻️ **Impropios:** ${(extractedData.pct_impropios || 0) * 100}%\n` +
@@ -88,6 +85,9 @@ async function handleTelegramUpdate(update) {
       `🔗 [Ver en Google Sheets](https://docs.google.com/spreadsheets/d/${process.env.GOOGLE_SPREADSHEET_ID})`;
     
     await sendMessage(chatId, responseMsg, "Markdown");
+
+    // 8. Trigger Sync (Background)
+    pollDeliveries().catch(e => logger.error(`Sync error: ${e.message}`));
 
     // 9. Interactive Follow-up for empty optional fields
     if (extractedData.empty_optional_fields && extractedData.empty_optional_fields.length > 0) {

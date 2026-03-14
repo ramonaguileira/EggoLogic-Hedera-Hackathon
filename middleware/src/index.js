@@ -51,6 +51,9 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   logger.info(`Eggologic middleware running on port ${PORT}`);
   logger.info(`Polling Google Sheets every ${interval} minutes`);
+  
+  // Initial run
+  pollDeliveries().catch(err => logger.error(`Initial poll failed: ${err.message}`));
 });
 
 module.exports = app;

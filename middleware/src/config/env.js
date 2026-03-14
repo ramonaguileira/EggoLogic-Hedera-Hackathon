@@ -9,6 +9,7 @@ const config = {
     eggocoinsTokenId: process.env.EGGOCOINS_TOKEN_ID,
     carboncoinTokenId: process.env.CARBONCOIN_TOKEN_ID,
     treasuryAccountId: process.env.TREASURY_ACCOUNT_ID,
+    treasuryPrivateKey: process.env.TREASURY_PRIVATE_KEY,
     topics: {
       deliveries: process.env.HCS_TOPIC_DELIVERIES,
       batches: process.env.HCS_TOPIC_BATCHES,

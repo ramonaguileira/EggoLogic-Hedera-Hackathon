@@ -4,30 +4,45 @@ const { DEMO_DELIVERIES } = require('../data/demo-data');
 const { getDeliveryRows } = require('../services/sheets.service');
 const config = require('../config/env');
 
-const normalizeDeliveryRow = (row) => ({
-  id: row.delivery_id || (row._rowNumber ? `${row._rowNumber}` : null),
-  date: row.fecha || row.date || null,
-  provider: row.supplier_id || row.proveedor || null,
-  kg_brutos: Number(row.kg_brutos) || 0,
-  pct_impropios: Number(row.pct_impropios) || 0,
-  kg_netos: Number(row.kg_netos) || 0,
-  grade: row.quality_grade || row.grade || null,
-  coins: Number(row.puntos_generados) || Number(row.coins) || 0,
-  hcs_tx: row.hcs_tx || null,
-  hts_mint_tx: row.hts_mint_tx || null,
-});
+const { calculateEggocoins } = require('../services/points.service');
+const { getQualityGrade } = require('../utils/validators');
+
+const normalizeDeliveryRow = (row) => {
+  const kg_brutos = Number(row.kg_brutos) || 0;
+  const pct_impropios = Number(row.pct_impropios) || 0;
+  
+  // Calculate if missing
+  const calculated = calculateEggocoins({ kg_brutos, pct_impropios });
+  
+  return {
+    id: row.delivery_id || (row._rowNumber ? `${row._rowNumber}` : null),
+    date: row.Fecha || row.fecha || row.date || null,
+    provider: row.supplier_id || row.Proveedor || null,
+    kg_brutos,
+    pct_impropios: Math.round(pct_impropios * 100),
+    kg_netos: Number(row.kg_netos) || calculated.kg_netos || 0,
+    grade: row.quality_grade || getQualityGrade(pct_impropios) || null,
+    coins: Number(row.Eggocoin) || Number(row.eggocoins_earned) || calculated.eggocoins || 0,
+    hcs_tx: row.hcs_tx || null,
+    hts_mint_tx: row.hts_mint_tx || null,
+  };
+};
 
 async function getCurrentDeliveries() {
   try {
     const rows = await getDeliveryRows();
     if (rows && rows.length > 0) {
-      return rows.map(normalizeDeliveryRow);
+      return rows
+        .map(normalizeDeliveryRow)
+        .filter(d => d.provider && d.date); // Filter out empty template rows
     }
   } catch (err) {
-    // Intentionally swallow; fallback to demo deliveries
+    // Fallback to demo deliveries
   }
   return DEMO_DELIVERIES;
 }
+
+const { getTokenBalance } = require('../services/hedera.service');
 
 router.get('/stats', async (req, res) => {
   const deliveries = await getCurrentDeliveries();
@@ -35,7 +50,16 @@ router.get('/stats', async (req, res) => {
   const total_deliveries = deliveries.length;
   const kg_brutos_total = deliveries.reduce((sum, d) => sum + (d.kg_brutos || 0), 0);
   const kg_net_total = deliveries.reduce((sum, d) => sum + (d.kg_netos || 0), 0);
-  const eggocoins_total = deliveries.reduce((sum, d) => sum + (d.coins || 0), 0);
+  
+  // Real balance from Hedera Network
+  let eggocoins_total = 0;
+  try {
+    eggocoins_total = await getTokenBalance(config.hedera.treasuryAccountId, config.hedera.eggocoinsTokenId);
+  } catch (err) {
+    logger.error(`Dashboard: Failed to fetch on-chain balance: ${err.message}`);
+    // Fallback if network query fails
+    eggocoins_total = deliveries.reduce((sum, d) => sum + (d.coins || 0), 0);
+  }
 
   const conservativeFactor = config.carbon.conservativeFactor || 0.7;
   const carbon_threshold = config.carbon.thresholdKg || 1000;

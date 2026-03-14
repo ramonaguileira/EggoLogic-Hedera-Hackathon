@@ -6,7 +6,7 @@ const logger = require('../utils/logger');
  * Formula: kg_netos × factor_calidad × factor_alianza
  */
 function calculateEggocoins(deliveryData, deliveriesThisMonth = 0) {
-  const kgNetos = deliveryData.kg_brutos * (1 - deliveryData.pct_impropios / 100);
+  const kgNetos = deliveryData.kg_brutos * (1 - (deliveryData.pct_impropios || 0));
   const grade = getQualityGrade(deliveryData.pct_impropios);
   const factorCalidad = getQualityFactor(grade);
   const factorAlianza = typeof deliveryData.factor_alianza === 'number'
@@ -20,7 +20,7 @@ function calculateEggocoins(deliveryData, deliveriesThisMonth = 0) {
     factor_alianza: factorAlianza,
     eggocoins: Math.round(eggocoins * 100) / 100,
   };
-  logger.info(`Points: ${result.kg_netos} kg × ${factorCalidad} × ${factorAlianza} = ${result.eggocoins} EGGOCOINS`);
+  // logger.info(`Points: ${result.kg_netos} kg × ${factorCalidad} × ${factorAlianza} = ${result.eggocoins} EGGOCOINS`);
   return result;
 }
 

@@ -6,8 +6,8 @@ let client;
 
 function initHederaClient() {
   const operatorId = AccountId.fromString(config.hedera.operatorId);
-  // The operator key in the .env is an ECDSA key (secp256k1), so parse accordingly.
-  const operatorKey = PrivateKey.fromStringECDSA(config.hedera.operatorKey);
+  // The operator key in the .env is an ED25519 key for 0.0.7166777
+  const operatorKey = PrivateKey.fromString(config.hedera.operatorKey);
 
   client = config.hedera.network === 'mainnet'
     ? Client.forMainnet()

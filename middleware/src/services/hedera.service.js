@@ -1,4 +1,4 @@
-const { TokenMintTransaction, TokenAssociateTransaction, TransferTransaction, TopicMessageSubmitTransaction, TokenId, AccountId } = require('@hashgraph/sdk');
+const { TokenMintTransaction, TokenAssociateTransaction, TransferTransaction, TopicMessageSubmitTransaction, TokenId, AccountId, AccountBalanceQuery, PrivateKey } = require('@hashgraph/sdk');
 const { getClient: getHederaClient } = require('../config/hedera');
 const config = require('../config/env');
 const logger = require('../utils/logger');
@@ -6,10 +6,12 @@ const logger = require('../utils/logger');
 async function mintEggocoins(amount) {
   const client = getHederaClient();
   const amountLowestDenom = Math.round(amount * 100); // 2 decimals
+  
   const tx = await new TokenMintTransaction()
     .setTokenId(TokenId.fromString(config.hedera.eggocoinsTokenId))
     .setAmount(amountLowestDenom)
     .execute(client);
+
   const receipt = await tx.getReceipt(client);
   logger.info(`HTS: Minted ${amount} EGGOCOINS (status: ${receipt.status})`);
   return { amount, status: receipt.status.toString(), txId: tx.transactionId.toString() };
@@ -26,6 +28,7 @@ async function transferEggocoins(supplierAccountId, amount) {
     .addTokenTransfer(tokenId, treasuryId, -amountLowestDenom)
     .addTokenTransfer(tokenId, supplierId, amountLowestDenom)
     .execute(client);
+
   const receipt = await tx.getReceipt(client);
   logger.info(`HTS: Transferred ${amount} EGGOCOINS to ${supplierAccountId}`);
   return { status: receipt.status.toString(), txId: tx.transactionId.toString() };
@@ -33,28 +36,40 @@ async function transferEggocoins(supplierAccountId, amount) {
 
 async function publishHcsMessage(topicId, message) {
   const client = getHederaClient();
-  const tx = await new TopicMessageSubmitTransaction()
-    .setTopicId(topicId)
-    .setMessage(JSON.stringify({ v: '1.0', ts: new Date().toISOString(), ...message }))
-    .execute(client);
-  const receipt = await tx.getReceipt(client);
-  logger.info(`HCS: Message published to ${topicId} (seq: ${receipt.topicSequenceNumber})`);
-  return { sequenceNumber: receipt.topicSequenceNumber.toString(), txId: tx.transactionId.toString() };
+  const messageStr = JSON.stringify(message);
+  
+  try {
+    const tx = await new TopicMessageSubmitTransaction()
+      .setTopicId(topicId)
+      .setMessage(messageStr)
+      .execute(client);
+    const receipt = await tx.getReceipt(client);
+    return { status: receipt.status.toString(), txId: tx.transactionId.toString() };
+  } catch (err) {
+    logger.error(`HCS Error: ${err.message}`);
+    throw err;
+  }
 }
 
-async function publishAuditLog(topicId, message) {
-  return publishHcsMessage(topicId, message);
+async function publishAuditLog(topicId, data) {
+  return publishHcsMessage(topicId, {
+    ...data,
+    timestamp: new Date().toISOString()
+  });
 }
 
-async function mintCarboncoinNft(metadataCid) {
+async function getTokenBalance(accountId, tokenId) {
   const client = getHederaClient();
-  const tx = await new TokenMintTransaction()
-    .setTokenId(TokenId.fromString(config.hedera.carboncoinTokenId))
-    .addMetadata(Buffer.from(metadataCid))
-    .execute(client);
-  const receipt = await tx.getReceipt(client);
-  logger.info(`HTS: Minted CARBONCOIN NFT #${receipt.serials[0]} (CID: ${metadataCid})`);
-  return { serial: receipt.serials[0].toString(), status: receipt.status.toString(), txId: tx.transactionId.toString() };
+  try {
+    const query = new AccountBalanceQuery()
+      .setAccountId(AccountId.fromString(accountId));
+    const balance = await query.execute(client);
+    const tokenBalance = balance.tokens.get(TokenId.fromString(tokenId));
+    return tokenBalance ? tokenBalance.toNumber() / 100 : 0;
+  } catch (err) {
+    logger.error(`Error fetching token balance: ${err.message}`);
+    return 0;
+  }
 }
 
 module.exports = {
@@ -62,5 +77,5 @@ module.exports = {
   transferEggocoins,
   publishHcsMessage,
   publishAuditLog,
-  mintCarboncoinNft
+  getTokenBalance
 };

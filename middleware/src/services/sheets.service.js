@@ -53,7 +53,9 @@ function mapRowToEntrega(row) {
     eggo_entrega_kg_neto: kgNeto || (kgBruto - tara),
     eggo_entrega_waste_type: mapWasteType(row.get('Tipo de Residuo') || row.get('tipo_residuo') || 'organico'),
     eggo_entrega_period: row.get('Semana') || row.get('periodo') || '',
-    external_id: row.get('external_id') || row.get('ID') || '',
+    delivery_id: row.get('delivery_id') || row.get('ID') || '',
+    hts_mint_tx: row.get('hts_mint_tx') || '',
+    hcs_tx: row.get('hcs_tx') || '',
     _rowNumber: row.rowNumber,
   };
 }
@@ -101,13 +103,37 @@ async function addDeliveryRow(data) {
       Foto: data.Foto || '',
       Semana: data.Semana || `W${getWeekNumber(new Date())}`,
       'Tipo de Residuo': data.waste_type || 'organico',
-      external_id: data.external_id || `${data.supplier_id || 'unkn'}_${new Date().getTime()}`
+      delivery_id: data.delivery_id || data.external_id || `${data.supplier_id || 'unkn'}_${new Date().getTime()}`
     });
     return row;
   } catch (err) {
     logger.error(`Error adding row: ${err.message}`);
     throw err;
   }
+}
+
+async function updateDeliveryRow(rowNumber, data) {
+  const document = await getDoc(false);
+  if (!document) return null;
+
+  const sheet = document.sheetsByTitle['Entregas'] || document.sheetsByTitle['ENTREGAS'];
+  if (!sheet) return null;
+
+  try {
+    const rows = await sheet.getRows();
+    const row = rows.find(r => r.rowNumber === rowNumber);
+    if (row) {
+      Object.keys(data).forEach(key => {
+        row.set(key, data[key]);
+      });
+      await row.save();
+      return row;
+    }
+  } catch (err) {
+    logger.error(`Error updating row ${rowNumber}: ${err.message}`);
+    throw err;
+  }
+  return null;
 }
 
 async function getNewDeliveries(offset = 0) {
@@ -121,8 +147,10 @@ async function getDeliveryRowCount() {
 }
 
 module.exports = {
+  getDoc,
   getDeliveryRows,
   addDeliveryRow,
+  updateDeliveryRow,
   getDeliveryRowCount,
   getNewDeliveries
 };

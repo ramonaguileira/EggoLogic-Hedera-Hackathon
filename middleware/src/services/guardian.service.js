@@ -1,75 +1,136 @@
 const config = require('../config/env');
 const logger = require('../utils/logger');
 
-const GUARDIAN_ENABLED = config.guardian && config.guardian.policyId && config.guardian.username && config.guardian.password;
-const GUARDIAN_URL = config.guardian?.url || 'http://localhost:3000';
-let accessToken = null;
-let refreshToken = null;
+const GUARDIAN_URL = config.guardian.url;
+const TENANT_ID = "69a20b80b545b115a3d33542";
 
 async function guardianLogin() {
-  if (!GUARDIAN_ENABLED) {
-    logger.info("Guardian integration disabled in demo mode");
-    return null;
-  }
   try {
-    const res = await fetch(`${GUARDIAN_URL}/api/v1/accounts/login`, {
+    const loginRes = await fetch(`${GUARDIAN_URL}/api/v1/accounts/loginByEmail`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: config.guardian.username, password: config.guardian.password }),
+      body: JSON.stringify({ 
+        email: config.guardian.username, 
+        password: config.guardian.password,
+        tenantId: TENANT_ID
+      }),
     });
-    if (!res.ok) throw new Error(`Guardian login failed: ${res.status}`);
-    const data = await res.json();
-    accessToken = data.accessToken;
-    refreshToken = data.refreshToken;
-    logger.info('Guardian: authenticated successfully');
-    return accessToken;
+
+    if (!loginRes.ok) throw new Error(`Login failed: ${loginRes.status}`);
+
+    const loginData = await loginRes.json();
+    const refreshToken = loginData.login?.refreshToken;
+    if (!refreshToken) return null;
+
+    const tokenRes = await fetch(`${GUARDIAN_URL}/api/v1/accounts/access-token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refreshToken }),
+    });
+
+    if (!tokenRes.ok) throw new Error(`Access-token exchange failed`);
+
+    const tokenData = await tokenRes.json();
+    return tokenData.accessToken;
   } catch (err) {
     logger.error(`Guardian login error: ${err.message}`);
     return null;
   }
 }
 
-async function getToken() {
-  if (!accessToken) return guardianLogin();
-  return accessToken;
+async function getSuppliers() {
+  const token = await guardianLogin();
+  if (!token) return [];
+
+  try {
+    // Using the search-documents endpoint discovered by visual inspection
+    const res = await fetch(`${GUARDIAN_URL}/api/v1/policies/${config.guardian.policyId}/search-documents?pageIndex=0&pageSize=50`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    
+    if (!res.ok) return [];
+    
+    const data = await res.json();
+    logger.info(`Guardian docs response keys: ${Object.keys(data).join(', ')}`);
+    const results = Array.isArray(data) ? data : (data.results || []);
+    logger.info(`Guardian: Found ${results.length} documents.`);
+    if (results.length > 0) {
+      logger.info(`Sample doc type: ${JSON.stringify(results[0].type)}`);
+      logger.info(`Sample doc keys: ${Object.keys(results[0]).join(', ')}`);
+    }
+    // Filter for documents that look like suppliers (by schema or fields)
+    const suppliers = results
+      .filter(doc => {
+        const d = doc.document || doc;
+        return d.credentialSubject && d.credentialSubject[0].field2;
+      })
+      .map(doc => {
+        const d = doc.document || doc;
+        const sub = d.credentialSubject[0];
+        return {
+          id: sub.id,
+          nombre: sub.field0 || sub.field1,
+          wallet: sub.field2
+        };
+      });
+    logger.info(`Guardian: Logic found ${suppliers.length} matching suppliers.`);
+    return suppliers;
+  } catch (err) {
+    logger.error(`Error fetching suppliers: ${err.message}`);
+  }
+  return [];
 }
 
 async function submitDelivery(deliveryData) {
-  if (!GUARDIAN_ENABLED) return { status: 'DISABLED' };
-
-  const token = await getToken();
-  if (!token) return { status: 'AUTH_FAILED' };
+  const token = await guardianLogin();
+  if (!token) return { status: 'ERROR', message: 'Auth failed' };
 
   try {
-    const res = await fetch(
-      `${GUARDIAN_URL}/api/v1/policies/${config.guardian.policyId}/tag/submit_entrega_mrv`,
-      {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          document: {
-            delivery_id: deliveryData.delivery_id,
-            supplier_id: deliveryData.supplier_id,
-            kg_brutos: deliveryData.kg_brutos,
-            pct_impropios: deliveryData.pct_impropios,
-            kg_netos: deliveryData.kg_netos,
-            fecha: deliveryData.fecha,
-            destino: deliveryData.destino,
-            quality_grade: deliveryData.quality_grade,
-            factor_calidad: deliveryData.factor_calidad,
-            factor_alianza: deliveryData.factor_alianza,
-          },
-          ref: null,
-        }),
+    const tagName = 'OWNER_requestVcDocumentBlock_17';
+    
+    // Format date to YYYY-MM-DD
+    let formattedDate = deliveryData.Fecha || new Date().toISOString().split('T')[0];
+    if (formattedDate.includes('/')) {
+      const parts = formattedDate.split('/');
+      if (parts.length === 3) {
+        formattedDate = `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
       }
-    );
-    if (!res.ok) throw new Error(`Guardian submission failed: ${res.status}`);
-    logger.info(`Guardian: delivery ${deliveryData.delivery_id} submitted`);
-    return res.json();
+    }
+
+    const payload = {
+      "document": {
+        "field0": deliveryData.delivery_id || `${deliveryData.supplier_id}_${Date.now()}`,
+        "field1": String(deliveryData.supplier_id),
+        "field2": String(deliveryData.supplier_wallet || '0.0.0'), 
+        "field3": formattedDate,
+        "field4": String(deliveryData.kg_brutos || '0'),
+        "field5": String(deliveryData.pct_impropios || '0'),
+        "field6": Number(deliveryData.kg_netos || 0),
+        "field7": String(deliveryData.observaciones || 'Carga via Middleware')
+      },
+      "ref": null
+    };
+
+    const res = await fetch(`${GUARDIAN_URL}/api/v1/policies/${config.guardian.policyId}/tag/${tagName}/blocks`, {
+      method: 'POST',
+      headers: { 
+        'Authorization': `Bearer ${token}`, 
+        'Content-Type': 'application/json' 
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      return { status: 'ERROR', message: errorText };
+    }
+
+    const result = await res.json();
+    return { status: 'SUCCESS', result };
   } catch (err) {
     logger.error(`Guardian submission error: ${err.message}`);
     return { status: 'ERROR', message: err.message };
   }
 }
 
-module.exports = { guardianLogin, submitDelivery };
+module.exports = { guardianLogin, submitDelivery, getSuppliers };

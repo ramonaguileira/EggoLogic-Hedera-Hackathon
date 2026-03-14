@@ -133,9 +133,14 @@ const App = () => {
 
         <div className="flex items-center gap-4">
           {loading && <Loader2 className="w-4 h-4 text-primary animate-spin" />}
-          <div className="flex items-center gap-2 px-5 py-2.5 rounded-full font-bold bg-white border border-slate-200 text-slate-700 shadow-sm">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-            Operator Node: 0.0.xxxxx
+          <div className="flex flex-col items-end">
+            <div className="flex items-center gap-2 px-4 py-1.5 rounded-full font-bold bg-white border border-slate-200 text-slate-700 shadow-sm text-[10px]">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+              Hedera Account: 0.0.7166777
+            </div>
+            <div className="text-[8px] font-black text-slate-400 mt-1 uppercase tracking-tighter">
+              Topic: 0.0.1960
+            </div>
           </div>
         </div>
       </header>
@@ -261,7 +266,7 @@ const App = () => {
                         </div>
                       </td>
                       <td className="px-6 py-5 text-right font-black text-primary">
-                        +{d.coins.toFixed(2)} EGGO
+                        +{Number(d.coins || 0).toFixed(2)} EGGO
                       </td>
                     </tr>
                   ))}
