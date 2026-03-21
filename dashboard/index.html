@@ -144,7 +144,7 @@
   <div class="flex items-center justify-center gap-2 mb-6">
     <span class="relative flex h-2.5 w-2.5">
       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500 live-glow"></span>
     </span>
     <span class="text-white/70 text-[10px] font-bold uppercase tracking-[0.2em]">Live from Hedera</span>
   </div>
@@ -210,7 +210,7 @@
         <div>
           <button onclick="UI.openLogin()" class="px-10 py-4 rounded-full bg-white text-[#10381E] font-bold text-sm hover:bg-[#C1EDC7] transition-all shadow-lg">Sign In to Submit</button>
         </div>
-        <p class="text-white/40 text-xs mt-8 font-medium">1 kg composted = 1 $EGGO minted &bull; CDM AMS-III.F methodology</p>
+        <p class="text-white/40 text-xs mt-8 font-medium">1 kg composted = 1 $EGGO minted &bull; EWD-RB v0.3
       </div>
     </div>
     <!-- State 2: Logged In Form -->
@@ -221,7 +221,7 @@
         </div>
         <div>
           <h3 class="font-bold text-2xl text-primary">New Waste Delivery</h3>
-          <p class="text-on-surface-variant text-xs mt-0.5">Submit to Guardian Policy &bull; CDM AMS-III.F</p>
+          <p class="text-on-surface-variant text-xs mt-0.5">Submit to Guardian Policy &bull; EWD-RB v0.3</p>
         </div>
       </div>
       <!-- Auto-filled chips -->
@@ -275,12 +275,13 @@
     <div class="bg-[#10381E] rounded-3xl overflow-hidden shadow-xl glass-card !bg-primary/90 h-full">
       <div class="p-8 pb-4 flex justify-between items-start">
         <h4 class="text-white text-xl font-bold">Wallet &amp; Tokens</h4>
-        <div class="bg-white/10 rounded-full px-3 py-1 flex items-center gap-1.5 border border-white/10">
+        <a href="https://hashscan.io/testnet/token/0.0.8287358" target="_blank" rel="noopener" class="bg-white/10 rounded-full px-3 py-1 flex items-center gap-1.5 border border-white/10 hover:bg-white/20 transition-all no-underline">
           <div class="w-4 h-4 bg-yellow-500 rounded-full flex items-center justify-center">
             <span class="material-symbols-outlined text-[10px] text-[#10381E] font-bold">egg</span>
           </div>
           <span class="text-[10px] text-white/90 font-bold">Eggocoin</span>
-        </div>
+          <span class="material-symbols-outlined text-white/40 text-[10px]">open_in_new</span>
+        </a>
       </div>
       <div class="mx-6 p-10 glass-card rounded-2xl mb-8">
         <p class="text-white/60 text-xs font-medium mb-2">Balance</p>
@@ -342,6 +343,14 @@
         <li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li><li><a href="#">Security</a></li>
       </ul>
     </div>
+  </div>
+</div>
+<div class="max-w-screen-2xl mx-auto mt-12 text-center">
+  <h6 class="font-bold text-primary text-xs uppercase tracking-[0.2em] mb-4">Powered by</h6>
+  <div class="flex items-center justify-center gap-8">
+    <img src="img/logo-hedera.svg" alt="Hedera" class="h-8 opacity-40 hover:opacity-70 transition-opacity" />
+    <img src="img/logo-guardian.svg" alt="Guardian" class="h-8 opacity-40 hover:opacity-70 transition-opacity" />
+    <img src="img/logo-hashgraph.svg" alt="Hashgraph" class="h-8 opacity-40 hover:opacity-70 transition-opacity" />
   </div>
 </div>
 <div class="max-w-screen-2xl mx-auto border-t border-stone-200/50 mt-20 pt-10 text-center text-[10px] text-on-surface-variant font-bold uppercase tracking-[0.3em]">

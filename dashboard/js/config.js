@@ -21,6 +21,7 @@ const CONFIG = {
     TOKEN_HISTORY:   'cd9ed4c2-ff79-474c-bd7c-6a9c525c6035',
     REGISTRY_SUPPLIER: 'd6b1e092-59c1-48af-8671-1a5dfdeaaddb',
     PP_DELIVERY_FORM:  'b322eaa1-7611-4704-be60-b033db83dadb',
+    VVB_DELIVERY_APPROVE: '337cef47-e484-48bb-9249-a952cb72f203',
   },
 
   // User Accounts (for demo login selector)

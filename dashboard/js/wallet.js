@@ -55,7 +55,8 @@ async function loadUserWallet() {
     ]);
 
     UI.setText('hero-balance', `${UI.fmt(balance)} $EGGO`);
-    UI.setText('hero-hedera', user.hedera);
+    const heroHedera = document.getElementById('hero-hedera');
+    if (heroHedera) heroHedera.innerHTML = `<a href="${CONFIG.HASHSCAN_URL}/account/${user.hedera}" target="_blank" rel="noopener" class="hover:text-[#C1EDC7] transition-colors no-underline text-inherit">${user.hedera} <span class="material-symbols-outlined text-[10px]">open_in_new</span></a>`;
     renderTxHistory(txs);
 
     // CIT card — switch to user view
@@ -110,6 +111,39 @@ function renderCITLog(nfts) {
   }).join('');
 }
 
+function _renderTxRow(tx) {
+  const amount = tx.eggocoin.amount;
+  const isCredit = amount > 0;
+  const icon = isCredit ? 'add_circle' : 'remove_circle';
+  const amountColor = isCredit ? 'text-secondary' : 'text-error';
+  const label = tx.memo || (isCredit ? 'EGGOCOIN Received' : 'EGGOCOIN Sent');
+  const shortTx = tx.txId.split('-')[0] + '...' + tx.txId.slice(-6);
+  const txUrl = `${CONFIG.HASHSCAN_URL}/transaction/${tx.txId}`;
+
+  return `
+    <a href="${txUrl}" target="_blank" rel="noopener" class="flex items-center justify-between py-4 px-4 hover:bg-stone-50 rounded-xl transition-all border border-transparent hover:border-stone-100 no-underline text-inherit group">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-full ${isCredit ? 'bg-[#C1EDC7]/30' : 'bg-stone-100'} flex items-center justify-center">
+          <span class="material-symbols-outlined ${isCredit ? 'text-secondary' : 'text-stone-500'} text-xl">${icon}</span>
+        </div>
+        <div>
+          <p class="text-sm font-bold text-primary">${label}</p>
+          <p class="text-[10px] text-stone-400 font-mono">${shortTx} • ${UI.timeAgo(tx.date)}</p>
+        </div>
+      </div>
+      <div class="text-right flex items-center gap-2">
+        <div>
+          <p class="text-sm font-bold ${amountColor}">${isCredit ? '+' : ''}${UI.fmt(amount)} $EGGO</p>
+          <span class="text-[8px] bg-[#C1EDC7]/40 text-[#10381E] px-2 py-0.5 rounded-full font-bold uppercase">completed</span>
+        </div>
+        <span class="material-symbols-outlined text-stone-300 group-hover:text-primary text-sm transition-colors">open_in_new</span>
+      </div>
+    </a>
+  `;
+}
+
+const TX_PAGE_SIZE = 5;
+
 function renderTxHistory(txs) {
   const container = document.getElementById('tx-history');
   if (!container) return;
@@ -119,36 +153,43 @@ function renderTxHistory(txs) {
     return;
   }
 
-  container.innerHTML = txs.map(tx => {
-    const amount = tx.eggocoin.amount;
-    const isCredit = amount > 0;
-    const icon = isCredit ? 'add_circle' : 'remove_circle';
-    const amountColor = isCredit ? 'text-secondary' : 'text-error';
-    const label = tx.memo || (isCredit ? 'EGGOCOIN Received' : 'EGGOCOIN Sent');
-    const shortTx = tx.txId.split('-')[0] + '...' + tx.txId.slice(-6);
-    const txUrl = `${CONFIG.HASHSCAN_URL}/transaction/${tx.txId}`;
+  window._allTxs = txs;
+  window._txPage = 0;
+  _renderTxPage();
+}
 
-    return `
-      <a href="${txUrl}" target="_blank" rel="noopener" class="flex items-center justify-between py-4 px-4 hover:bg-stone-50 rounded-xl transition-all border border-transparent hover:border-stone-100 no-underline text-inherit group">
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 rounded-full ${isCredit ? 'bg-[#C1EDC7]/30' : 'bg-stone-100'} flex items-center justify-center">
-            <span class="material-symbols-outlined ${isCredit ? 'text-secondary' : 'text-stone-500'} text-xl">${icon}</span>
-          </div>
-          <div>
-            <p class="text-sm font-bold text-primary">${label}</p>
-            <p class="text-[10px] text-stone-400 font-mono">${shortTx} • ${UI.timeAgo(tx.date)}</p>
-          </div>
-        </div>
-        <div class="text-right flex items-center gap-2">
-          <div>
-            <p class="text-sm font-bold ${amountColor}">${isCredit ? '+' : ''}${UI.fmt(amount)} $EGGO</p>
-            <span class="text-[8px] bg-[#C1EDC7]/40 text-[#10381E] px-2 py-0.5 rounded-full font-bold uppercase">completed</span>
-          </div>
-          <span class="material-symbols-outlined text-stone-300 group-hover:text-primary text-sm transition-colors">open_in_new</span>
-        </div>
-      </a>
-    `;
-  }).join('');
+function _renderTxPage() {
+  const container = document.getElementById('tx-history');
+  if (!container || !window._allTxs) return;
+
+  const txs = window._allTxs;
+  const page = window._txPage;
+  const totalPages = Math.ceil(txs.length / TX_PAGE_SIZE);
+  const start = page * TX_PAGE_SIZE;
+  const visible = txs.slice(start, start + TX_PAGE_SIZE);
+
+  const prevDisabled = page === 0;
+  const nextDisabled = page >= totalPages - 1;
+
+  container.innerHTML = visible.map(_renderTxRow).join('') + `
+    <div class="flex items-center justify-between pt-2">
+      <button onclick="_txNav(-1)" ${prevDisabled ? 'disabled' : ''} class="w-9 h-9 rounded-full border border-stone-200 flex items-center justify-center transition-all ${prevDisabled ? 'opacity-30 cursor-not-allowed' : 'hover:bg-stone-100 hover:border-stone-300'}">
+        <span class="material-symbols-outlined text-primary text-lg">chevron_left</span>
+      </button>
+      <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">${start + 1}–${start + visible.length} of ${txs.length}</span>
+      <button onclick="_txNav(1)" ${nextDisabled ? 'disabled' : ''} class="w-9 h-9 rounded-full border border-stone-200 flex items-center justify-center transition-all ${nextDisabled ? 'opacity-30 cursor-not-allowed' : 'hover:bg-stone-100 hover:border-stone-300'}">
+        <span class="material-symbols-outlined text-primary text-lg">chevron_right</span>
+      </button>
+    </div>
+  `;
+}
+
+function _txNav(dir) {
+  const totalPages = Math.ceil(window._allTxs.length / TX_PAGE_SIZE);
+  const next = window._txPage + dir;
+  if (next < 0 || next >= totalPages) return;
+  window._txPage = next;
+  _renderTxPage();
 }
 
 function renderHolders(balances) {
