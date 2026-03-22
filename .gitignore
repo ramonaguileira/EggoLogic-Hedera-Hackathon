@@ -42,3 +42,9 @@ _archive/
 # Coverage
 coverage/
 .nyc_output/
+
+# AI Agent
+.agent/
+.agents/
+.claude/
+skills-lock.json

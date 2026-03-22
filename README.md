@@ -27,7 +27,9 @@
 
 ## The Problem
 
-Every year, **1.3 billion tonnes** of food are wasted globally. In Latin America, most organic waste from restaurants ends up in landfills, producing methane — a greenhouse gas **80× more potent** than CO₂ over 20 years. No transparent, auditable system exists to verify that organic waste was actually diverted from landfills and converted into productive outputs.
+Every year, [**1.3 billion tonnes**](https://www.fao.org/platform-food-loss-waste/en/) of food are wasted globally (FAO, 2023). Latin America alone generates [~160 million tonnes annually](https://www.fao.org/platform-food-loss-waste/en/). In Uruguay, most restaurant organic waste ends up in landfills, where it decomposes anaerobically and produces **methane** — a greenhouse gas [**80× more potent**](https://www.ipcc.ch/report/ar6/wg1/) than CO₂ over 20 years (IPCC AR6, 2021).
+
+The voluntary carbon market reached [**$2 billion in 2023**](https://www.ecosystemmarketplace.com/publications/state-of-the-voluntary-carbon-market-2024/) (Ecosystem Marketplace), but **small-scale operators are excluded** because traditional MRV audits cost $10,000+ per verification cycle. No transparent, affordable, auditable system exists to verify that organic waste was actually diverted from landfills and converted into productive outputs.
 
 ## The Solution
 
@@ -235,9 +237,9 @@ Non-fungible HTS token. Minted by Guardian when VVB approves an Impact Calculati
 ```
 1 CIN = 1 tCO₂e avoided
 
-Carbon calculation (CDM AMS-III.F methodology):
-  CO₂_avoided = Σ(kg_ajustados) × 0.70 × emission_factor
-  When accumulated total crosses 1,000 kg threshold → eligible for 1 CIN
+Carbon calculation (adapted from CDM AMS-III.F):
+  CO₂e_avoided = Σ(kg_ajustados) / 1,000  [in tCO₂e]
+  When accumulated total ≥ 1,000 kg adjusted → eligible for 1 CIN
 ```
 
 **Purpose**: Auditable, on-chain carbon credits. Each CIN links back to specific Waste Delivery VCs through Guardian's Trust Chain — full provenance from restaurant to carbon credit.
@@ -405,6 +407,7 @@ EggoLogic-Hedera-Hackathon/
 │   ├── blueprint-en.md
 │   ├── blueprint-es.md
 │   ├── carbon-methodology.md
+│   ├── lean-canvas.md         # Business Model Canvas
 │   └── token-economics.md
 ├── pitch/                     # Hackathon presentation materials
 │   ├── pitch-script.md
@@ -463,6 +466,92 @@ Even at **10× current volume**, monthly costs stay under $3. Guardian MGS handl
 
 ---
 
+## Hedera Network Impact
+
+### Current Impact (Phase 1 — Testnet)
+
+| Metric | Value |
+|---|---|
+| Hedera accounts created | **5** (OWNER, Registry, Project_Proponent, Operator, VVB) |
+| HTS tokens deployed | **2** (EGGOCOIN fungible + CIN NFT) |
+| HCS topics active | **3** (policy, instance, sync) |
+| Monthly transactions | ~148 (24 mints + 24 VC submissions + ~100 HCS messages) |
+| Monthly active accounts | 3–5 |
+
+> **Custody model (Phase 1–2):** Eggologic custodies EGGOCOIN balances on behalf of restaurant partners. Restaurants do not need their own Hedera wallet — they interact through the dashboard and redeem $EGGO for physical products (eggs, compost). Self-custody wallets are planned for Phase 3 when partners are onboarded to HashPack or equivalent.
+
+### Projected Impact at Scale
+
+| Metric | Phase 2 (10 restaurants, custodial) | Phase 3 (50+ restaurants, self-custody) |
+|---|---|---|
+| New Hedera accounts | **+5–8** (new operators, VVBs, hub roles) | **200+** (50+ supplier wallets, multi-hub operators, VVBs) |
+| Monthly HTS mints | **~240** (10× deliveries + impact calcs) | **~2,400+** (50× deliveries across hubs) |
+| Monthly HCS messages | **~1,000** | **~10,000+** |
+| Monthly active accounts | **8–12** (operational roles; suppliers use dashboard) | **100–200+** (suppliers with own wallets) |
+| CIN NFTs/year | **~24** (24 tCO₂e avoided) | **~240+** (240+ tCO₂e avoided) |
+| TPS contribution | ~0.001 sustained | **~0.01+ sustained** |
+
+### New Audience Exposure
+
+Eggologic brings Hedera into **three sectors with no current Web3 presence**:
+
+1. **Organic waste management** — Latin America generates [~160 million tonnes of food waste annually](https://www.fao.org/platform-food-loss-waste/en/) (FAO, 2023). No blockchain-based MRV exists in the sector.
+2. **Regenerative agriculture** — The global regenerative agriculture market is projected to reach [**$36.6 billion by 2032**](https://www.precedenceresearch.com/regenerative-agriculture-market) (Precedence Research). Zero on-chain traceability solutions exist for BSF bioconversion.
+3. **Small-scale carbon credits** — The voluntary carbon market was valued at [**$2 billion in 2023**](https://www.ecosystemmarketplace.com/publications/state-of-the-voluntary-carbon-market-2024/) (Ecosystem Marketplace) but excludes small operators (<1,000 tCO₂e/year) due to verification costs. Guardian + Hedera reduces verification cost from **$10,000+ per audit** to **$0.20/month** — making micro-scale credits viable for the first time.
+
+### Why Hedera (Not Another Chain)
+
+| Requirement | Hedera Advantage |
+|---|---|
+| Sub-cent transactions | $0.001 per token mint, $0.0008 per HCS message |
+| Guardian MRV integration | Native policy engine — no smart contract development needed |
+| Carbon-negative network | Hedera purchases carbon offsets quarterly, aligning with our sustainability mission |
+| Regulatory readiness | HTS tokens are native assets with built-in compliance (KYC, freeze, clawback keys) |
+| Finality speed | 3–5 second finality — each delivery verified before the truck leaves |
+
+---
+
+## Market Validation
+
+### Restaurant Partnership
+
+Eggologic operates with a **real restaurant partner in Maldonado, Uruguay** that delivers organic waste 3–5 times per week. This is not a test scenario — it is a running commercial relationship:
+
+- **Weekly waste volume**: 300–600 kg of restaurant kitchen organic waste (vegetable scraps, fruit peels, coffee grounds, eggshells)
+- **Delivery frequency**: 3–5 deliveries/week, each recorded as a Verifiable Credential on Hedera
+- **Partner motivation**: Free waste collection (saves municipal disposal costs) + EGGOCOIN rewards redeemable for eggs and compost (Eggologic custodies $EGGO balances on behalf of partners in Phase 1–2)
+- **Contamination rate**: Consistently Category A (≤5% improper waste) — partner trained on separation protocol
+
+### Physical Operation Evidence
+
+The Eggologic hub in El Tesoro processes every delivery through the BSF bioconversion cycle:
+
+| Stage | Output | Verified By |
+|---|---|---|
+| Waste reception | Weighed, photographed, categorized | Waste Delivery VC (Project_Proponent → VVB approval) |
+| BSF bioconversion | ~70% mass converted to larvae protein | Waste Batch VC (Operator) |
+| Egg production | 35–45 eggs/week from BSF-fed laying hens | Production Output VC (Operator) |
+| Composting | ~70 kg/week from residual organic matter | Production Output VC (Operator) |
+| Carbon accounting | ~210–420 kg CO₂e avoided/week | Impact Calculation VC (OWNER → VVB approval → CIN NFT) |
+
+### On-Chain Traction
+
+All token mints and VC submissions are verifiable on Hedera testnet:
+
+- **EGGOCOIN mints**: [HashScan → 0.0.8287358](https://hashscan.io/testnet/token/0.0.8287358) — each mint corresponds to an approved waste delivery
+- **CIN NFTs**: [HashScan → 0.0.8287362](https://hashscan.io/testnet/token/0.0.8287362) — each NFT = 1 tCO₂e avoided
+- **Policy topic**: [HashScan → 0.0.8291451](https://hashscan.io/testnet/topic/0.0.8291451) — all VCs anchored on HCS
+
+### Scaling Pipeline
+
+| Phase | Restaurants | Status |
+|---|---|---|
+| Phase 1 (current) | 1 active partner | ✅ Operating |
+| Phase 2 (Q3-Q4 2026) | 10–15 in Maldonado/Punta del Este | Conversations initiated with 3 restaurants |
+| Phase 3 (2027) | 50+ across 3-5 hubs in Uruguay | Hub-in-a-Box replication model designed |
+
+---
+
 ## Built With
 
 - **[Hedera Token Service (HTS)](https://hedera.com/token-service)** — EGGOCOIN + CIN tokens
@@ -479,7 +568,7 @@ Even at **10× current volume**, monthly costs stay under $3. Guardian MGS handl
 
 | Name | Role | Links |
 |---|---|---|
-| Rafael Aguileira | Founder & Developer | [GitHub](https://github.com/c4p5) |
+| Ramon Aguileira | Founder & Developer | [GitHub](https://github.com/c4p5) |
 | Santiago | Technical Advisor | — |
 
 ---
