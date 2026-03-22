@@ -21,22 +21,41 @@ Four changes to the Eggologic dashboard before hackathon submission:
 
 ### Architecture
 
-- Privy JS SDK loaded via CDN (`@privy-io/js-sdk-core`)
-- No build tools — static HTML compatible
+- Privy JS SDK loaded via **esm.sh CDN** as ES module (`<script type="module">`)
+- esm.sh resolves all transitive dependencies automatically — no bundler needed
 - Guardian login unchanged — still works for PP/VVB demo roles
 - Privy users get "viewer" mode (read-only dashboard access)
+
+### SDK Loading Strategy
+
+The `@privy-io/js-sdk-core` package ships only CJS/ESM (no UMD browser bundle). To use it without a bundler:
+
+```html
+<script type="module" src="js/privy.js"></script>
+```
+
+Inside `privy.js`:
+```js
+import Privy from 'https://esm.sh/@privy-io/js-sdk-core';
+```
+
+esm.sh converts npm packages to browser-ready ES modules and resolves all transitive deps via URL imports.
+
+### Fallback
+
+If the Privy SDK fails to load (network error, ad blocker), the "Continue with Email" button is hidden and only Guardian login remains. Implemented via a load error handler on the module script.
 
 ### Files Changed
 
 | File | Change |
 |------|--------|
-| `dashboard/js/config.js` | Add `PRIVY_APP_ID` placeholder |
-| `dashboard/js/privy.js` | **NEW** — Privy SDK init, login, logout, state management (~60 lines) |
+| `dashboard/js/config.js` | Add `PRIVY_APP_ID` and `PRIVY_CLIENT_ID` placeholders |
+| `dashboard/js/privy.js` | **NEW** (ES module) — Privy SDK init, login, logout, state management |
 | `dashboard/js/ui.js` | Check Privy auth state on page load, show/hide nav elements |
-| `dashboard/index.html` | Add Privy CDN script, "Continue with Email" button below Guardian login, Privy nav indicator |
-| `dashboard/wallet.html` | Add Privy CDN script, nav indicator |
-| `dashboard/marketplace.html` | Add Privy CDN script, nav indicator |
-| `dashboard/impact.html` | Add Privy CDN script, nav indicator |
+| `dashboard/index.html` | Add module script for privy.js, "Continue with Email" button below Guardian login, Privy nav indicator |
+| `dashboard/wallet.html` | Add module script for privy.js, nav indicator |
+| `dashboard/marketplace.html` | Add module script for privy.js, nav indicator |
+| `dashboard/impact.html` | Add module script for privy.js, nav indicator |
 
 ### Login Flow
 
@@ -58,7 +77,8 @@ If a user logs in via Guardian, Guardian auth takes precedence. Privy state is i
 
 ```js
 // dashboard/js/config.js
-PRIVY_APP_ID: 'YOUR_PRIVY_APP_ID' // Replace with real App ID from privy.io
+PRIVY_APP_ID: 'YOUR_PRIVY_APP_ID',       // Replace with real App ID from privy.io
+PRIVY_CLIENT_ID: 'YOUR_PRIVY_CLIENT_ID'  // Replace with real Client ID from privy.io
 ```
 
 ---
@@ -70,10 +90,10 @@ PRIVY_APP_ID: 'YOUR_PRIVY_APP_ID' // Replace with real App ID from privy.io
 | Card | Current | New |
 |------|---------|-----|
 | Dine Out | Material Symbol icon + gradient | `img/Dine out.jpg` as background image |
-| Eggs | Material Symbol icon + gradient | `img/Eggs.jpg` as background image |
-| Certification | Material Symbol icon + gradient | `img/Zero_Waste.png` as background image |
-| Compost | Material Symbol icon + gradient | No change (stays icon-only) |
-| Bins | Material Symbol icon + gradient | No change (stays icon-only) |
+| EGGOLOGIC Eggs | Material Symbol icon + gradient | `img/Eggs.jpg` as background image |
+| Zero-Waste Certification | Material Symbol icon + gradient | `img/Zero_Waste.png` as background image |
+| EGGOLOGIC Compost | Material Symbol icon + gradient | No change (stays icon-only) |
+| MICROLOGIC Bins | Material Symbol icon + gradient | No change (stays icon-only) |
 
 ### Implementation
 
@@ -119,7 +139,9 @@ All footers are identical. Update the Company and Legal columns:
 | Terms | `https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1` |
 | Security | `https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1` |
 
-All external links use `target="_blank" rel="noopener noreferrer"`.
+All external links (Company + Legal columns) use `target="_blank" rel="noopener noreferrer"`. Platform column links (Dashboard, Impact Report, Marketplace) are internal navigation and do NOT get `target="_blank"`.
+
+Note: Legal links are intentional placeholder/easter eggs for the hackathon demo.
 
 ---
 
