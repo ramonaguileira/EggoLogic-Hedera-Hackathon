@@ -1,4 +1,4 @@
-// Eggologic Dashboard — Screen 3 (wallet.html) Data Binding
+// Eggologic — Wallet
 // Global data (supply, holders) loads for everyone; user data (balance, txs) needs login
 
 /**
