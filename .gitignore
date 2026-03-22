@@ -36,9 +36,8 @@ Thumbs.db
 *.pem
 *-private-key*
 
-# Guardian data
-guardian/data/
-guardian/mongo-data/
+# Archive (deprecated files kept locally)
+_archive/
 
 # Coverage
 coverage/

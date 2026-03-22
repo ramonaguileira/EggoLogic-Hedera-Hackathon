@@ -1,7 +1,6 @@
 // Eggologic Dashboard — Shared Configuration
 const CONFIG = {
   // Guardian API via CORS proxy (Cloudflare Worker)
-  // After deploying: wrangler deploy → paste your *.workers.dev URL here
   GUARDIAN_URL: 'https://eggologic-proxy.sargas.workers.dev/api/v1',
   // Direct Guardian URL (for reference / curl testing)
   GUARDIAN_DIRECT: 'https://guardianservice.app/api/v1',

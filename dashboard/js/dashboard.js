@@ -355,6 +355,13 @@ async function submitDeliveryForm() {
   if (preview) { preview.innerHTML = stepperHTML; preview.classList.remove('hidden'); }
   btn.textContent = 'Workflow in progress...';
 
+  // Safeguard: handle massive data URIs (base64 images) that can block the request
+  let processedEvidence = evidence;
+  if (evidence.startsWith('data:') && evidence.length > 100000) {
+    console.warn('[Dashboard] Evidence too large, truncating for Guardian submission');
+    processedEvidence = evidence.substring(0, 100) + '...[truncated large image data]';
+  }
+
   try {
     // Step 1: PP submits delivery
     await GuardianAPI.submitDelivery({
@@ -363,7 +370,7 @@ async function submitDeliveryForm() {
       field7: wasteType, field8: bruto, field9: impropios,
       field10: parseFloat(ratio), field11: parseFloat(netos.toFixed(2)),
       field12: parseFloat(ajustados.toFixed(2)), field13: cat,
-      field14: true, field15: [evidence], field16: 'Submitted', field17: [evidence],
+      field14: true, field15: [processedEvidence], field16: 'Submitted', field17: [processedEvidence],
     });
 
     _updateStep('ws-1', 'done', `${deliveryId} submitted to Guardian`);

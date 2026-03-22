@@ -3,6 +3,24 @@
 
 const GuardianAPI = (() => {
   const STORAGE_KEY = 'eggologic_auth';
+  const FETCH_TIMEOUT_MS = 30000; // 30 seconds
+
+  /**
+   * Helper for fetch with timeout.
+   */
+  async function _fetch(url, options = {}) {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+    try {
+      const response = await fetch(url, { ...options, signal: controller.signal });
+      clearTimeout(id);
+      return response;
+    } catch (e) {
+      clearTimeout(id);
+      if (e.name === 'AbortError') throw new Error('Request timed out');
+      throw e;
+    }
+  }
 
   // --- Auth State (persisted in localStorage) ---
   function _loadAuth() {
@@ -20,7 +38,7 @@ const GuardianAPI = (() => {
   async function login(email, password) {
     const account = CONFIG.ACCOUNTS.find(a => a.email === email);
     try {
-      const res = await fetch(`${CONFIG.GUARDIAN_URL}/accounts/loginByEmail`, {
+      const res = await _fetch(`${CONFIG.GUARDIAN_URL}/accounts/loginByEmail`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -62,7 +80,7 @@ const GuardianAPI = (() => {
   }
 
   async function _getAccessToken(refreshToken) {
-    const res = await fetch(`${CONFIG.GUARDIAN_URL}/accounts/access-token`, {
+    const res = await _fetch(`${CONFIG.GUARDIAN_URL}/accounts/access-token`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ refreshToken }),
@@ -97,7 +115,7 @@ const GuardianAPI = (() => {
    */
   async function get(path) {
     const token = await getToken();
-    const res = await fetch(`${CONFIG.GUARDIAN_URL}${path}`, {
+    const res = await _fetch(`${CONFIG.GUARDIAN_URL}${path}`, {
       headers: { 'Authorization': `Bearer ${token}` },
     });
     if (res.status === 401) {
@@ -106,7 +124,7 @@ const GuardianAPI = (() => {
       auth.ts = 0;
       _saveAuth(auth);
       const newToken = await getToken();
-      const retry = await fetch(`${CONFIG.GUARDIAN_URL}${path}`, {
+      const retry = await _fetch(`${CONFIG.GUARDIAN_URL}${path}`, {
         headers: { 'Authorization': `Bearer ${newToken}` },
       });
       if (!retry.ok) throw new Error(`Guardian GET ${path}: ${retry.status}`);
@@ -185,7 +203,7 @@ const GuardianAPI = (() => {
    */
   async function post(path, body) {
     const token = await getToken();
-    const res = await fetch(`${CONFIG.GUARDIAN_URL}${path}`, {
+    const res = await _fetch(`${CONFIG.GUARDIAN_URL}${path}`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -198,7 +216,7 @@ const GuardianAPI = (() => {
       auth.ts = 0;
       _saveAuth(auth);
       const newToken = await getToken();
-      const retry = await fetch(`${CONFIG.GUARDIAN_URL}${path}`, {
+      const retry = await _fetch(`${CONFIG.GUARDIAN_URL}${path}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${newToken}`,
