@@ -1,16 +1,19 @@
-/* Eggologic — Dark/Light Theme Toggle */
+/* Eggologic — Dark/Light Theme */
+// Rushed this one up with Claude - there may be errors, comms might be ultra-corny at the CSS file - that kinda stuff. 
+// I personally love the OG page. 
+// I know it's an Industry standard nowadays to have both modes, but pls use the light one. Design system is intended in that way
 (function () {
   var html = document.documentElement;
   var key = 'eggologic-theme';
 
-  // Apply saved theme or system preference (before paint)
+  // Apply system preference (before paint)
   var saved = localStorage.getItem(key);
   if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     html.classList.remove('light');
     html.classList.add('dark');
   }
 
-  // Toggle function — called by the nav button
+  // Toggle function
   window.toggleTheme = function () {
     var isDark = html.classList.contains('dark');
     html.classList.remove(isDark ? 'dark' : 'light');
@@ -19,7 +22,7 @@
     updateToggleIcons();
   };
 
-  // Swap icon text in all toggle buttons on the page
+  // Swap icon in all toggle buttons on the page
   function updateToggleIcons() {
     var isDark = html.classList.contains('dark');
     document.querySelectorAll('.theme-toggle-icon').forEach(function (el) {
@@ -27,7 +30,7 @@
     });
   }
 
-  // Run after DOM is ready
+  // Run once DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', updateToggleIcons);
   } else {

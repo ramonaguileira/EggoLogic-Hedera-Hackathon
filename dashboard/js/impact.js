@@ -214,10 +214,10 @@ function renderWasteChart(bars) {
     <div class="w-full h-full flex items-end gap-3">
       ${bars.map((b, i) => {
         const pct = (b.kg / maxVal) * 100;
-        // Color bar by waste quality: A=green, B=yellow, C/rejected=red
-        const color = !b.approved ? 'bg-red-400/70'
+        // Color bar by waste quality: A=green, B=yellow, C/rejected=error (matches wallet sent palette)
+        const color = !b.approved ? 'bg-error/70'
           : b.category === 'B' ? 'bg-[#FBD54E]'
-          : b.category === 'C' ? 'bg-red-400/70'
+          : b.category === 'C' ? 'bg-error/70'
           : 'bg-primary';
         const catLabel = b.category ? ` Cat.${b.category}` : '';
         return `

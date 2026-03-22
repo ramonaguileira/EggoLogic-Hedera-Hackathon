@@ -1,6 +1,6 @@
 // EGGOLOGIC Dashboard
 // Loads: hero metrics (global, no login), balance + transactions (user-specific)
-//Ever heard of CAPS? fun guy.
+//Ever heard of CAPS? Fun guy - Smaller than what I thought he would be.
 /**
  * Numboor animation counting from 0 to target.
  * @param {string} elementId - DOM elementID to animate

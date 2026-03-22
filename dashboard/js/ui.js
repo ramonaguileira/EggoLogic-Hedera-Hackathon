@@ -1,10 +1,14 @@
-// EGGOLOGIC Dashboard — Vanilla is GOOD(Login modal, nav, loading states).
+// EGGOLOGIC Dashboard (Login modal, nav, loading states).
+// Not a design master - but I believe it's pretty. Lowkey proud.
+// VanillaJS is GÜD - never ever gave a problem to no one. Y'all just lazy and want to avoid putting in the work. 
+// Screw libraries - too much conflict with Guardian.
+
 
 const UI = (() => {
 
   /**
    * Inject HTML login into the page.
-   * Call once on DOMContentLoaded. My Vanilla JS professor would be SO proud for this :') 
+   * Call once on DOMContentLoaded. (My JS professor would be SO proud for this :') 
    */
   function initLoginModal() {
     const modal = document.createElement('div');

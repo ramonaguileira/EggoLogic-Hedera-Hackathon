@@ -1,10 +1,10 @@
 // Eggologic Dashboard — Guardian API Wrapper
-// Handles auth (login, token refresh) and policy data fetching.
-
+// Auth handler (login, token refresh) + policy data fetching.
+// Made with love. (and a LOT of patience)
 const GuardianAPI = (() => {
   const STORAGE_KEY = 'eggologic_auth';
 
-  // --- Auth State (persisted in localStorage) ---
+  // --- Auth State (localStorage) ---
   function _loadAuth() {
     try {
       return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
@@ -15,7 +15,7 @@ const GuardianAPI = (() => {
   }
 
   /**
-   * Login with email/password → stores refreshToken + accessToken + timestamp
+   * Login → stores refreshToken + accessToken + timestamp
    */
   async function login(email, password) {
     const account = CONFIG.ACCOUNTS.find(a => a.email === email);
@@ -30,7 +30,7 @@ const GuardianAPI = (() => {
       const refreshToken = data.login?.refreshToken || data.refreshToken;
       if (!refreshToken) throw new Error('No refreshToken in response');
 
-      // Immediately get access token
+      // part 2
       const accessToken = await _getAccessToken(refreshToken);
 
       const auth = {
@@ -45,8 +45,8 @@ const GuardianAPI = (() => {
       return auth;
     } catch (e) {
       console.warn('[Guardian] Login failed (CORS?), using offline mode:', e.message);
-      // Offline/demo mode — store auth without real tokens
-      // Hedera Mirror Node + cached Guardian data will still work
+      // Offline/demo — auth without real tokens
+      // Hedera Mirror Node + cached Guardian data will still works. This makes the API fetch visible even for non-users, something important)
       const auth = {
         email,
         refreshToken: 'offline-mode',
@@ -73,13 +73,13 @@ const GuardianAPI = (() => {
   }
 
   /**
-   * Returns a valid access token, refreshing if expired.
+   * Return valid access token - f5 if expired.
    */
   async function getToken() {
     const auth = _loadAuth();
     if (!auth.refreshToken) throw new Error('Not logged in');
 
-    // Check if token is still fresh
+    // Check if token is still fresh (like me, THECAPSMAN)
     if (auth.accessToken && (Date.now() - auth.ts) < CONFIG.TOKEN_TTL_MS) {
       return auth.accessToken;
     }
@@ -93,7 +93,7 @@ const GuardianAPI = (() => {
   }
 
   /**
-   * Generic authenticated GET to Guardian API.
+   * GET to Guardian API.
    */
   async function get(path) {
     const token = await getToken();
@@ -101,7 +101,7 @@ const GuardianAPI = (() => {
       headers: { 'Authorization': `Bearer ${token}` },
     });
     if (res.status === 401) {
-      // Token expired mid-flight — force refresh and retry once
+      // Token expired mid-flight?  Force refresh + retry
       const auth = _loadAuth();
       auth.ts = 0;
       _saveAuth(auth);
@@ -117,13 +117,12 @@ const GuardianAPI = (() => {
   }
 
   /**
-   * Fetch documents from a specific policy block.
-   * Tries local cache first (pre-fetched via fetch-guardian-cache.js),
-   * falls back to live Guardian API.
+   * Fetch docs from specific policy block.
+   * Tries local cache first, falls back to live Guardian API.
    */
   async function getBlockData(blockId) {
-    // Prefer live API when logged in (cache may be stale)
-    // pageSize=50 overrides Guardian's default of 10
+    // Live API when logged in (cache stale)
+    // pageSize=50 Implementation: overrides Guardian's default 10. Big headache here while making the dashboard since I had no clue about the 10 limit - the more you learn.
     if (isLoggedIn() && !_loadAuth().offline) {
       try {
         return await get(`/policies/${CONFIG.POLICY_ID}/blocks/${blockId}?pageSize=50`);
@@ -131,14 +130,14 @@ const GuardianAPI = (() => {
         console.warn('[Guardian] Live API failed, trying cache:', e.message);
       }
     }
-    // Fallback to local cache (pre-fetched data, avoids CORS issues)
+    // Fallback to local cache (pre-fetched data - avoids CORS issues)
     const cached = await _tryCache(blockId);
     if (cached) return cached;
     return get(`/policies/${CONFIG.POLICY_ID}/blocks/${blockId}?pageSize=50`);
   }
 
   /**
-   * Load pre-fetched Guardian data from data/guardian-cache.json.
+   * Load Guardian data from data/guardian-cache.json.
    */
   let _cachePromise = null;
   async function _tryCache(blockId) {
@@ -148,7 +147,7 @@ const GuardianAPI = (() => {
       }
       const cache = await _cachePromise;
       if (!cache || !cache.blocks) return null;
-      // Find block by ID — cache keys are names like VVB_DELIVERY
+      // Find block by ID
       const blockName = Object.keys(CONFIG.BLOCKS).find(k => CONFIG.BLOCKS[k] === blockId);
       if (blockName && cache.blocks[blockName]) {
         console.log(`[Guardian] Using cached data for ${blockName}`);
@@ -159,7 +158,7 @@ const GuardianAPI = (() => {
   }
 
   /**
-   * Check if user is currently logged in (has stored auth).
+   * Check if user is logged in.
    */
   function isLoggedIn() {
     const auth = _loadAuth();
@@ -167,21 +166,21 @@ const GuardianAPI = (() => {
   }
 
   /**
-   * Get current auth info without network calls.
+   * Get current auth info (no network calls).
    */
   function currentUser() {
     return _loadAuth();
   }
 
   /**
-   * Logout — clear stored auth.
+   * Logout.
    */
   function logout() {
     localStorage.removeItem(STORAGE_KEY);
   }
 
   /**
-   * Generic authenticated POST to Guardian API.
+   * Generic POST to Guardian API (Real post, tho).
    */
   async function post(path, body) {
     const token = await getToken();
@@ -214,7 +213,8 @@ const GuardianAPI = (() => {
   }
 
   /**
-   * Submit a waste delivery document to the Guardian policy.
+   * Waste delivery submission doc to the Guardian policy.
+   * Ta-daaah!!! *crowd celebrates*
    */
   async function submitDelivery(doc) {
     const auth = _loadAuth();

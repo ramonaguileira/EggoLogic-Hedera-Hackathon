@@ -1,14 +1,14 @@
 // Eggologic — Privy Web2 Login
-// Loaded via <script type="module"> in each HTML page
-// SDK served by esm.sh (resolves all deps - big headache)
+// Loaded via <script type="module"> in each HTML page because I can't automate c:
+// SDK served by esm.sh (resolves all deps)
 // Headless email OTP (send code → verify code)
-//That CAPS dude a fun one - y'all guys should meet him!
+//That CAPS dude...what a legend.
 
 let privyClient = null;
 let _pendingEmail = null;
 
 async function initPrivy() {
-  // Skip init if using placeholder creds
+  // Skip init if using placeholder credentials
   if (!CONFIG.PRIVY_APP_ID || CONFIG.PRIVY_APP_ID === 'YOUR_PRIVY_APP_ID') {
     console.info('[Privy] No App ID configured — Web2 login disabled');
     return;
