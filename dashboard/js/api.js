@@ -25,7 +25,7 @@ const GuardianAPI = (() => {
     if (!account) {
       const apps = JSON.parse(localStorage.getItem('eggologic_applications') || '[]');
       const restaurant = apps.find(a => a.email === email && (a.status === 'Approved by Project Proponent' || a.status === 'Ingested in Guardian'));
-      if (restaurant) {
+      if (restaurant && (restaurant.password === password || (!restaurant.password && password === 'test'))) {
         supplierId = restaurant.supplierId;
         restaurantName = restaurant.restaurantName;
       }

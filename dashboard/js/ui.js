@@ -91,6 +91,17 @@ const UI = (() => {
             <input id="reg-waste" type="number" min="0" required placeholder="ej. 50" class="w-full px-4 py-3 rounded-2xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#10381E]/20 bg-stone-50" />
           </div>
 
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+            <div>
+              <label class="text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-2 block">Contraseña *</label>
+              <input id="reg-password" type="password" required class="w-full px-4 py-3 rounded-2xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#10381E]/20 bg-stone-50" />
+            </div>
+            <div>
+              <label class="text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-2 block">Confirmar Contraseña *</label>
+              <input id="reg-confirm-password" type="password" required class="w-full px-4 py-3 rounded-2xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#10381E]/20 bg-stone-50" />
+            </div>
+          </div>
+
           <div class="flex items-start gap-3 mt-6 pt-4 border-t border-stone-100">
             <input type="checkbox" id="reg-terms" required class="mt-1 w-4 h-4 text-[#10381E] bg-gray-100 border-gray-300 rounded focus:ring-[#10381E]" />
             <label for="reg-terms" class="text-xs text-stone-500 leading-snug">

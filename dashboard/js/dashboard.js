@@ -580,6 +580,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.submitRegistration = function() {
   const btn = document.getElementById('reg-submit-btn');
+  const password = document.getElementById('reg-password').value;
+  const confirmPassword = document.getElementById('reg-confirm-password').value;
+  
+  if (password !== confirmPassword) {
+    UI.showToast('Las contraseñas no coinciden', 'error');
+    return;
+  }
+
   btn.disabled = true;
   btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">progress_activity</span> <span>Enviando...</span>';
 
@@ -592,6 +600,7 @@ window.submitRegistration = function() {
       phone: document.getElementById('reg-phone').value,
       address: document.getElementById('reg-address').value,
       waste: document.getElementById('reg-waste').value,
+      password: password,
       date: new Date().toISOString(),
       status: 'Waiting for approval'
     };

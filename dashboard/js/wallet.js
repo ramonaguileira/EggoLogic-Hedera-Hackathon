@@ -48,6 +48,30 @@ async function loadUserWallet() {
   UI.showSkeletonRows('tx-history', 4);
 
   try {
+    if (user.role === 'Supplier') {
+      const balances = JSON.parse(localStorage.getItem('eggologic_balances') || '{}');
+      const balance = balances[user.supplierId] || 0;
+      UI.setText('hero-balance', `${UI.fmt(balance)} $EGGO`);
+      
+      const heroHedera = document.getElementById('hero-hedera');
+      if (heroHedera) heroHedera.innerHTML = `<span class="bg-[#FBD54E]/20 text-[#10381E] px-2 py-0.5 rounded text-xs font-bold border border-[#FBD54E]/40 flex items-center w-max gap-1"><span class="material-symbols-outlined text-[14px]">lock</span> Custody Wallet (${user.supplierId})</span>`;
+
+      const localAct = JSON.parse(localStorage.getItem('eggologic_activity') || '[]');
+      const supplierActs = localAct.filter(a => a.supplierId === user.supplierId).map(act => ({
+        txId: act.id,
+        date: new Date(act.ts).toISOString(),
+        eggocoin: { amount: act.amount },
+        memo: `Waste Delivery ${act.id}`
+      }));
+      renderTxHistory(supplierActs);
+
+      UI.setText('cit-row1-label', 'Your Composted');
+      UI.setText('cit-row1-value', `${UI.fmt(balance)} $EGGO`);
+      UI.setText('cit-row2-label', 'Your CIT');
+      UI.setText('cit-row2-value', '0');
+      return;
+    }
+
     const [balance, txs, userCIT] = await Promise.all([
       HederaMirror.getEggocoinBalance(user.hedera),
       HederaMirror.getTransactions(user.hedera, 25),
