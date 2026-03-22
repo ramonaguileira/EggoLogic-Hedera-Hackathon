@@ -65,10 +65,18 @@ async function loadUserWallet() {
       }));
       renderTxHistory(supplierActs);
 
-      UI.setText('cit-row1-label', 'Your Composted');
-      UI.setText('cit-row1-value', `${UI.fmt(balance)} $EGGO`);
-      UI.setText('cit-row2-label', 'Your CIT');
-      UI.setText('cit-row2-value', '0');
+      const citPanel = document.getElementById('cit-panel');
+      const impactPanel = document.getElementById('impact-panel');
+      if (citPanel) citPanel.classList.add('hidden');
+      if (impactPanel) impactPanel.classList.remove('hidden');
+
+      const wasteKg = balance / 0.70;
+      const waterLiters = wasteKg * 8.9;
+      const co2Kg = wasteKg * 0.70;
+
+      UI.setText('impact-waste-qty', `${UI.fmt(wasteKg)} kg`);
+      UI.setText('impact-water-qty', `${UI.fmt(waterLiters)} L`);
+      UI.setText('impact-co2-qty', `${UI.fmt(co2Kg)} kg`);
       return;
     }
 
