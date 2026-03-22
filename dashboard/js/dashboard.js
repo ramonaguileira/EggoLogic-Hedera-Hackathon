@@ -235,6 +235,7 @@ function updateDeliveryCard() {
     _updateDeliveryId();
     document.getElementById('admin-section')?.classList.remove('hidden');
     if (typeof loadAdminApplications === 'function') loadAdminApplications();
+    if (typeof populateSupplierDropdown === 'function') populateSupplierDropdown();
   } else {
     cta.classList.remove('hidden');
     form.classList.add('hidden');
@@ -319,9 +320,13 @@ async function submitDeliveryForm() {
   const bruto = parseFloat(document.getElementById('delivery-kg-bruto').value) || 0;
   const impropios = parseFloat(document.getElementById('delivery-kg-impropios').value) || 0;
   const wasteType = document.getElementById('delivery-waste-type').value;
+  const supplierId = document.getElementById('delivery-supplier').value;
   const evidence = document.getElementById('delivery-evidence').value || 'https://evidence.eggologic.com/dashboard';
 
-  if (bruto <= 0) return;
+  if (bruto <= 0 || !supplierId) {
+    if (!supplierId) UI.showToast('Please select a supplier from the dropdown');
+    return;
+  }
 
   const netos = bruto - impropios;
   const ajustados = netos * 0.70;
@@ -362,7 +367,7 @@ async function submitDeliveryForm() {
     // Step 1: PP submits delivery
     await GuardianAPI.submitDelivery({
       field0: 'EWD-RB', field1: '0.3', field2: 'v0.3', field3: 'v0.3',
-      field4: deliveryId, field5: 'SUP-001', field6: new Date().toISOString(),
+      field4: deliveryId, field5: supplierId, field6: new Date().toISOString(),
       field7: wasteType, field8: bruto, field9: impropios,
       field10: parseFloat(ratio), field11: parseFloat(netos.toFixed(2)),
       field12: parseFloat(ajustados.toFixed(2)), field13: cat,
@@ -378,7 +383,12 @@ async function submitDeliveryForm() {
       await _autoApproveAsVVB(deliveryId);
       _updateStep('ws-2', 'done', 'VVB approved delivery');
       _updateStep('ws-3', 'done', `+${eggo} $EGGO minted on Hedera`);
-      UI.showToast(`${deliveryId} approved — +${eggo} $EGGO minted!`);
+
+      const balances = JSON.parse(localStorage.getItem('eggologic_balances') || '{}');
+      balances[supplierId] = (balances[supplierId] || 0) + eggo;
+      localStorage.setItem('eggologic_balances', JSON.stringify(balances));
+
+      UI.showToast(`${deliveryId} approved — +${eggo} $EGGO minted! (Balance updated for ${supplierId})`);
     } catch (vvbErr) {
       console.warn('Auto-approve failed (may need manual VVB approval):', vvbErr.message);
       _updateStep('ws-2', 'warn', 'VVB approval pending (manual step)');
@@ -542,6 +552,7 @@ window.loadAdminApplications = function() {
   const container = document.getElementById('admin-applications-list');
   if (!container) return;
   const apps = JSON.parse(localStorage.getItem('eggologic_applications') || '[]');
+  const balances = JSON.parse(localStorage.getItem('eggologic_balances') || '{}');
 
   if (apps.length === 0) {
     container.innerHTML = '<p class="text-stone-400 text-sm text-center py-12">No pending applications</p>';
@@ -565,14 +576,20 @@ window.loadAdminApplications = function() {
       statusHtml = '<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest leading-none flex items-center">Ingested in Guardian</span>';
     }
 
-    const copyData = `Name: ${app.restaurantName}\\nContact: ${app.contactName}\\nEmail: ${app.email}\\nPhone: ${app.phone}\\nAddress: ${app.address}\\nWaste: ${app.waste} kg`;
+    const supplierTag = app.supplierId ? `<span class="bg-stone-100 text-stone-600 px-2 py-0.5 rounded text-xs font-mono border border-stone-200">${app.supplierId}</span>` : '';
+    const balance = balances[app.supplierId] || 0;
+    const balanceHtml = app.supplierId ? `<span class="bg-[#FBD54E]/20 text-[#10381E] px-3 py-1 rounded-full text-xs font-bold font-mono ml-2 border border-[#FBD54E]/40 flex items-center gap-1 shadow-sm"><span class="material-symbols-outlined text-[14px]">token</span> ${balance} $EGGO</span>` : '';
+
+    const copyData = `Supplier ID: ${app.supplierId || 'PENDING'}\\nName: ${app.restaurantName}\\nContact: ${app.contactName}\\nEmail: ${app.email}\\nPhone: ${app.phone}\\nAddress: ${app.address}\\nWaste: ${app.waste} kg`;
 
     return `
       <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6 hover:border-primary/20 transition-colors">
         <div class="space-y-2 w-full md:w-auto">
           <div class="flex flex-wrap items-center gap-3">
             <h4 class="font-bold text-lg text-primary">${app.restaurantName}</h4>
+            ${supplierTag}
             ${statusHtml}
+            ${balanceHtml}
           </div>
           <p class="text-sm text-on-surface-variant flex flex-wrap gap-x-2 gap-y-1">
             <span class="font-mono text-xs text-stone-400">${app.id}</span>
@@ -603,10 +620,27 @@ window.updateAppStatus = function(id, newStatus) {
   let apps = JSON.parse(localStorage.getItem('eggologic_applications') || '[]');
   const app = apps.find(a => a.id === id);
   if (app) {
+    if (newStatus === 'Approved by Project Proponent' && !app.supplierId) {
+      const existing = apps.filter(a => a.supplierId).length;
+      app.supplierId = 'SUP-' + String(existing + 1).padStart(3, '0');
+    }
     app.status = newStatus;
     localStorage.setItem('eggologic_applications', JSON.stringify(apps));
     loadAdminApplications();
+    if (typeof populateSupplierDropdown === 'function') populateSupplierDropdown();
     UI.showToast(`Application ${id} updated to: ${newStatus}`);
   }
+}
+
+window.populateSupplierDropdown = function() {
+  const select = document.getElementById('delivery-supplier');
+  if (!select) return;
+  const apps = JSON.parse(localStorage.getItem('eggologic_applications') || '[]');
+  const approved = apps.filter(a => a.supplierId);
+  if (approved.length === 0) {
+    select.innerHTML = '<option value="" disabled selected>No approved suppliers yet</option>';
+    return;
+  }
+  select.innerHTML = approved.map(a => `<option value="${a.supplierId}">${a.restaurantName} (${a.supplierId})</option>`).join('');
 }
 
