@@ -16,8 +16,8 @@ The voluntary carbon market reached [**$2 billion in 2023**](https://www.ecosyst
 
 **Target Users**:
 - **Primary:** Restaurants in tourist zones (Maldonado, Punta del Este, Uruguay) generating 50–150 kg organic waste/week
-- **Secondary:** ESG-conscious companies seeking verified, auditable micro-scale carbon credits
-- **Tertiary:** Regenerative food consumers wanting traceable, BSF-fed eggs and certified compost
+- **Secondary:** Regenerative food consumers wanting traceable, BSF-fed eggs and certified compost 
+- **Tertiary:** ESG-conscious companies seeking verified, auditable micro-scale carbon credits
 
 **Current Solutions**: Municipal waste collection (no separation, no verification), paper-based audit trails, manual spreadsheets. Traditional carbon credit registries (Verra, Gold Standard) are inaccessible to operations under 1,000 tCO₂e/year.
 
