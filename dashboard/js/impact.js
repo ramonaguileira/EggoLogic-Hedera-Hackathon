@@ -18,6 +18,19 @@ async function fetchImpactData() {
     return GuardianAPI.getBlockData(CONFIG.BLOCKS.VVB_DELIVERY);
   }
 
+  // Caching the VVB token to avoid 3 slow requests on every page load
+  let vvbToken = sessionStorage.getItem('vvb_hack_token');
+  
+  if (vvbToken) {
+    try {
+      const dataRes = await fetch(
+        `${CONFIG.GUARDIAN_URL}/policies/${CONFIG.POLICY_ID}/blocks/${CONFIG.BLOCKS.VVB_DELIVERY}?pageSize=50`,
+        { headers: { 'Authorization': `Bearer ${vvbToken}` } }
+      );
+      if (dataRes.ok) return await dataRes.json();
+    } catch(e) {}
+  }
+
   // For the rest: login as VVB behind the scenes and fetch, hehehe
   const loginRes = await fetch(`${CONFIG.GUARDIAN_URL}/accounts/loginByEmail`, {
     method: 'POST',
@@ -34,14 +47,27 @@ async function fetchImpactData() {
     body: JSON.stringify({ refreshToken }),
   });
   if (!tokenRes.ok) throw new Error(`VVB access token failed: ${tokenRes.status}`);
-  const vvbToken = (await tokenRes.json()).accessToken;
+  vvbToken = (await tokenRes.json()).accessToken;
+  sessionStorage.setItem('vvb_hack_token', vvbToken);
 
-  const dataRes = await fetch(
-    `${CONFIG.GUARDIAN_URL}/policies/${CONFIG.POLICY_ID}/blocks/${CONFIG.BLOCKS.VVB_DELIVERY}?pageSize=50`,
-    { headers: { 'Authorization': `Bearer ${vvbToken}` } }
-  );
-  if (!dataRes.ok) throw new Error(`VVB block fetch failed: ${dataRes.status}`);
-  return dataRes.json();
+  try {
+    const dataRes = await fetch(
+      `${CONFIG.GUARDIAN_URL}/policies/${CONFIG.POLICY_ID}/blocks/${CONFIG.BLOCKS.VVB_DELIVERY}?pageSize=50`,
+      { headers: { 'Authorization': `Bearer ${vvbToken}` } }
+    );
+    if (!dataRes.ok) throw new Error(`VVB block fetch failed: ${dataRes.status}`);
+    return await dataRes.json();
+  } catch (e) {
+    console.warn('[Guardian] Live API failed (or CORS error). Falling back to cached data...', e);
+    const cacheRes = await fetch('data/guardian-cache.json');
+    if (cacheRes.ok) {
+      const cacheData = await cacheRes.json();
+      if (cacheData?.blocks?.VVB_DELIVERY) {
+        return cacheData.blocks.VVB_DELIVERY;
+      }
+    }
+    throw e;
+  }
 }
 
 async function loadImpact() {
@@ -105,13 +131,20 @@ async function loadImpact() {
       b.id = `ENT-${String(i + 1).padStart(3, '0')}`;
     });
 
-    // CO2 Avoidance (kg_ajustados × 0.70)
-    const co2Kg = totalKgAdj * 0.70;
-    UI.setText('co2-tonnes', UI.fmt(co2Kg, 1));
+    // Circular Impact NFT tracking
+    const nftCount = Math.floor(totalKg / 1000);
+    const progressKg = totalKg % 1000;
+
+    // Use progressKg for the ring graphic
+    UI.setText('co2-tonnes', UI.fmt(progressKg, 1));
+    const nftsMintedEl = document.getElementById('nfts-minted-count');
+    if(nftsMintedEl) {
+      nftsMintedEl.textContent = `${nftCount} CIT NFTs`;
+    }
 
     // Update ring chart proportion
     const circumference = 502; // 2 * PI * 80
-    const pct = Math.min(co2Kg / 1000, 1); // Proportion towards 1 tonne
+    const pct = progressKg / 1000; // Proportion towards 1,000 kg
     const offset = circumference * (1 - pct);
     const ring = document.getElementById('co2-ring');
     if (ring) ring.setAttribute('stroke-dashoffset', offset.toString());

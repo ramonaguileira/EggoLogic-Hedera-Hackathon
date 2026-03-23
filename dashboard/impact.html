@@ -101,8 +101,8 @@
   <!-- CO2 Avoidance Chart -->
   <div class="md:col-span-4 bg-white rounded-3xl p-10 shadow-sm border border-stone-200/50 flex flex-col justify-between">
     <div>
-      <h3 class="font-headline text-2xl text-primary mb-2">CO2 Avoidance</h3>
-      <p class="text-on-surface-variant text-sm mb-12">Measuring atmospheric relief in metric tonnes.</p>
+      <h3 class="font-headline text-2xl text-primary mb-2">Impact NFT Progress</h3>
+      <p class="text-on-surface-variant text-sm mb-12">Progress towards the next 1,000 kg block to mint a CIT NFT.</p>
     </div>
     <div class="relative flex items-center justify-center">
       <svg class="w-48 h-48 transform -rotate-90">
@@ -111,8 +111,12 @@
       </svg>
       <div class="absolute inset-0 flex flex-col items-center justify-center">
         <span id="co2-tonnes" class="text-4xl font-headline text-primary">—</span>
-        <span class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant">kg CO2</span>
+        <span class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant">kg / 1,000</span>
       </div>
+    </div>
+    <div class="mt-8 text-center bg-surface-container-low py-4 rounded-2xl border border-stone-100">
+      <p class="text-[10px] uppercase tracking-widest font-bold text-stone-500 mb-1">Total Minted</p>
+      <p id="nfts-minted-count" class="font-bold text-secondary text-lg">— CIT NFTs</p>
     </div>
     <div class="mt-12 space-y-4">
       <div class="flex justify-between items-center text-sm">
