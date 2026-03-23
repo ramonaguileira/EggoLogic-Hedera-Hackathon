@@ -122,6 +122,7 @@ Eggologic provides **auditable, on-chain carbon credits** that integrate into co
 ## Demo
 
 > **[Watch the Demo Video](https://youtu.be/hENzHwvPzm4)**
+> **[Watch the restaurant testimonial Video](https://youtu.be/tHKIL_SMcf4)**
 
 The demo shows the complete pipeline:
 
