@@ -568,8 +568,8 @@ All token mints and VC submissions are verifiable on Hedera testnet:
 
 | Name | Role | Links |
 |---|---|---|
-| Ramon Aguileira | Founder & Developer | [GitHub](https://github.com/c4p5) |
-| Santiago | Technical Advisor | — |
+| Ramon Aguileira | Founder & Developer | [GitHub](https://github.com/ramonaguileira) |
+| Santiago | Technical Advisor | [GitHub](https://github.com/c4p5) |
 
 ---
 
