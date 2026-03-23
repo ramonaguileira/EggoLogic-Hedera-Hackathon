@@ -25,6 +25,42 @@ The voluntary carbon market reached [**$2 billion in 2023**](https://www.ecosyst
 
 ---
 
+## 1b. Three Value Propositions
+
+Eggologic serves **three distinct stakeholder groups**, each with a clear value delivery:
+
+### For Restaurants — Zero Food Waste Certification
+
+| Problem | Solution | Token |
+|---|---|---|
+| No incentive to separate organic waste | EGGOCOIN rewards for clean deliveries | **EGGOCOIN** ($EGGO) |
+| No verifiable sustainability credential | On-chain Zero-Waste Certification (Bronze/Silver/Gold) | Certification VC |
+| Municipal disposal is expensive | Free waste collection + circular economy products | — |
+
+Restaurants earn EGGOCOIN for every approved delivery, building toward a blockchain-backed **Zero-Waste Certification** with measurable criteria: kg diverted, quality grades, delivery consistency. See [docs/zero-waste-certification.md](docs/zero-waste-certification.md).
+
+### For Consumers — Real Food Traceability
+
+| Problem | Solution | Token |
+|---|---|---|
+| No way to verify food origin claims | QR code → full chain on Hedera | **EGGTOKEN** (Phase 3) |
+| "Sustainable" labels are unauditable | Every product linked to Verifiable Credentials | Trust Chain VCs |
+| Consumers want transparency, not trust | Public verification on HashScan | Mirror Node |
+
+Every Eggologic product (eggs, compost) is linked to specific waste deliveries, BSF batches, and production records through Guardian's Trust Chain. Consumers can verify the complete journey from restaurant waste to product.
+
+### For Companies — ESG Compliance & Carbon Reporting
+
+| Problem | Solution | Token |
+|---|---|---|
+| No affordable micro-scale carbon credits | CIN NFTs at $0.20/month blockchain cost | **CIN NFT** |
+| Carbon offsets are opaque and unauditable | Full Trust Chain on Hedera + VVB verification | Impact VCs |
+| ESG reports lack credible third-party data | On-chain audit trail for GRI 305/306, TCFD, Scope 3 | Mirror Node |
+
+Companies purchase CIN NFTs (1 CIN = 1 tCO₂e avoided) for carbon offsetting, with full audit trail compatible with GRI, TCFD, and CDP reporting frameworks. See [docs/esg-integration-guide.md](docs/esg-integration-guide.md).
+
+---
+
 ## 2. Solution Overview
 
 **Eggologic** is a running circular economy hub in El Tesoro, Maldonado, Uruguay that transforms restaurant organic waste into Black Soldier Fly (BSF) larvae protein, which feeds laying hens producing eggs, while the remaining organic matter becomes compost. Every step — from waste reception to carbon credit issuance — is verified on **Hedera** using a custom **Guardian policy (EWD-RB v0.3)**.

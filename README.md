@@ -5,7 +5,8 @@
 <h1 align="center">Eggologic — Circular Economy Verified on Hedera</h1>
 
 <p align="center">
-  <strong>Restaurant Organic Waste → BSF Larvae → Eggs → Compost → Verified Carbon Impact</strong>
+  <strong>Restaurant Organic Waste → BSF Larvae → Eggs → Compost → Verified Carbon Impact</strong><br/>
+  <em>Helping restaurants achieve zero-waste certification · Giving consumers real food traceability · Enabling companies to meet ESG compliance</em>
 </p>
 
 <p align="center">
@@ -43,6 +44,55 @@ We built a blockchain verification layer on **Hedera** using **Guardian (MGS)** 
 4. **Full traceability** — every credential, approval, and mint is verifiable on-chain through Guardian's Trust Chain and Hedera Mirror Node
 
 This is **not a simulation**. Every data point maps to a physical operation happening today.
+
+---
+
+## Who Benefits
+
+### For Restaurants — Zero Food Waste Certification
+
+Eggologic helps restaurants **prove** their commitment to sustainability with verifiable, on-chain records:
+
+- **Track every kg** of organic waste diverted from landfill — each delivery becomes a Verifiable Credential on Hedera
+- **Earn EGGOCOIN rewards** for clean, properly separated waste (quality grading: Cat A ≤5% contamination)
+- **Build toward Zero-Waste Certification** — Bronze, Silver, and Gold levels based on kg diverted, delivery frequency, and waste quality ([certification criteria](docs/zero-waste-certification.md))
+- **Public sustainability profile** backed by immutable records — verifiable by customers, partners, and regulators on HashScan
+- **Save on disposal costs** — free waste collection replaces municipal fees
+
+> *"We don't just collect your waste — we turn it into eggs, compost, and a verified sustainability record on Hedera."*
+
+### For Consumers — Real Food Traceability
+
+Every Eggologic product carries its **full origin story**, verified on-chain:
+
+- **Scan QR → see the complete chain**: which restaurant delivered the waste → BSF larvae processing → egg production → your table
+- **Verifiable Credentials** on Hedera link every product to specific waste deliveries, batches, and production records
+- **Check it yourself** on [HashScan](https://hashscan.io/testnet/token/0.0.8287358) — no trust required, just math and cryptography
+- **Know your impact**: each egg you buy contributed to X kg of waste diverted from landfill and Y kg CO₂e avoided
+- **Future: EGGTOKEN** (Phase 3) — 1 token = 1 verified egg with full on-chain traceability metadata
+
+> *"The first egg you can verify on a blockchain — from restaurant waste to your breakfast."*
+
+### For Companies — ESG Compliance & Carbon Reporting
+
+Eggologic provides **auditable, on-chain carbon credits** that integrate into corporate ESG reporting:
+
+- **Purchase CIN NFTs** — 1 CIN = 1 tCO₂e avoided, backed by CDM AMS-III.F methodology with VVB verification
+- **Full audit trail on Hedera** for ESG reporting — compatible with GRI 305 (Emissions), GRI 306 (Waste), and TCFD Metrics & Targets ([ESG integration guide](docs/esg-integration-guide.md))
+- **Scope 3 documentation** — CIN NFTs provide verifiable proof of waste-generated emissions avoidance (Category 5: Waste in operations)
+- **Transparent pricing** based on verified impact data — not opaque offset markets
+- **Corporate sponsorship model** — sponsor X kg/month of waste diversion, receive quarterly CIN NFTs for ESG reporting
+- **Independent verification** — VVB (Validation & Verification Body) reviews every impact calculation before CIN minting
+
+> *"Micro-scale carbon credits you can actually audit — from restaurant waste to your ESG report, verified on Hedera."*
+
+### Token → Value Proposition Mapping
+
+| Token | Who Benefits | How |
+|---|---|---|
+| **EGGOCOIN** ($EGGO) | Restaurants | Incentive for clean waste delivery + progress toward Zero-Waste Certification |
+| **CIN NFT** | Companies | 1 tCO₂e avoided = auditable carbon credit for ESG compliance |
+| **EGGTOKEN** (Phase 3) | Consumers | 1 token = 1 verified egg with full traceability from waste to product |
 
 ---
 
@@ -558,6 +608,7 @@ This project is licensed under the MIT License — see [LICENSE](./LICENSE) for 
 ---
 
 <p align="center">
-  <strong>Turning waste into protein, eggs, compost, and verified carbon credits — one delivery at a time.</strong>
+  <strong>Turning waste into protein, eggs, compost, and verified carbon credits — one delivery at a time.</strong><br/>
+  <em>Zero-waste certification for restaurants · Traceable food for consumers · Auditable carbon credits for ESG compliance</em>
 </p>
 

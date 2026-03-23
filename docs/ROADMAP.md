@@ -17,6 +17,14 @@
 
 > **Goal:** Demonstrate that a real circular economy operation can be verified end-to-end on Hedera Guardian.
 
+### Value Propositions Addressed
+
+| Value Proposition | Phase 1 Delivery |
+|---|---|
+| **Restaurants → Zero-Waste Certification** | Delivery tracking + quality grading operational. Certification criteria defined ([details](zero-waste-certification.md)). |
+| **Consumers → Real Food Traceability** | Trust Chain links waste → BSF → egg. QR traceability designed for Phase 3. |
+| **Companies → ESG Compliance** | CIN NFT (1 = 1 tCO₂e) minted on testnet. ESG integration guide published ([details](esg-integration-guide.md)). |
+
 ### Completed
 
 - [x] Physical circular economy hub operating in El Tesoro, Maldonado, Uruguay
@@ -64,6 +72,14 @@
 
 > **Goal:** Add internationally recognized methodology, automate data capture, and migrate to mainnet.
 
+### Value Propositions Addressed
+
+| Value Proposition | Phase 2 Delivery |
+|---|---|
+| **Restaurants → Zero-Waste Certification** | Automated certification VC issuance (Bronze/Silver/Gold). Public restaurant profiles on dashboard. 10+ partners certified. |
+| **Consumers → Real Food Traceability** | QR codes on egg cartons linking to Hedera Trust Chain. Product origin visible on dashboard. |
+| **Companies → ESG Compliance** | Mainnet CIN NFTs with real market value. Corporate sponsorship model live. GRI/TCFD reporting templates. |
+
 ### Milestones
 
 - [ ] **CDM AMS-III.F Integration** — Import and adapt the United Nations' composting methodology into Guardian
@@ -92,6 +108,16 @@
   - 100 EGGOCOIN = 1 dozen eggs from Eggologic production
   - Compost credits for partner restaurants' gardens
   - Priority access to premium products
+- [ ] **Zero-Waste Certification Automation** — Automated Bronze/Silver/Gold issuance
+  - Guardian policy extension: Certification VC schema with level, criteria snapshot, timestamp
+  - Dashboard restaurant profile page showing certification progress
+  - Digital badge generation with QR link to on-chain proof
+  - Public directory of certified restaurants
+- [ ] **ESG Corporate Portal** — Tools for companies purchasing CIN
+  - Corporate dashboard showing CIN holdings, impact metrics, reporting data
+  - GRI 305/306 and TCFD report data export
+  - Scope 3 Category 5 documentation templates
+  - Corporate sponsorship onboarding flow
 - [ ] **Fix Technical Debt** from hackathon build (see below)
 
 ### Target Metrics — Phase 2
@@ -109,6 +135,14 @@
 ## Phase 3 — Replicate the Hub Model (2027)
 
 > **Goal:** Enable other organic waste processors to plug into the Eggologic protocol and generate verified impact credits.
+
+### Value Propositions Addressed
+
+| Value Proposition | Phase 3 Delivery |
+|---|---|
+| **Restaurants → Zero-Waste Certification** | Cross-hub certification. Multi-restaurant leaderboard. Integration with TRUE Zero Waste and local standards. |
+| **Consumers → Real Food Traceability** | EGGTOKEN launch (1 = 1 verified egg). QR → full chain from waste to product. Consumer-facing verification app. |
+| **Companies → ESG Compliance** | CIN marketplace for global buyers. Verra/Gold Standard methodology submission. Automated ESG report generation. |
 
 ### Milestones
 

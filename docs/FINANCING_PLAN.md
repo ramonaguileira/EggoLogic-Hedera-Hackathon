@@ -83,7 +83,7 @@ Direct utility:
 | Phase 3 | Secondary market between restaurants, 2% commission | $100–500/month |
 | Phase 4 | Governance — holders vote on benefit distribution | Network value |
 
-### 2.2 CIN — Circular Impact NFT
+### 2.2 CIN — Circular Impact NFT (ESG Compliance & Carbon Reporting)
 
 **Current status:** NFT on HTS (`0.0.8287362`), minted by Guardian after VVB approval of Impact Calculation.
 
@@ -95,6 +95,30 @@ Direct utility:
 | Corporate subscription | Sponsor X kg/month, quarterly CIN | $200–800/quarter | $200–800 |
 | Affinity program | Restaurants display "Powered by Eggologic" | Branding + loyalty | Indirect |
 | **Marketplace (Phase 3)** | CIN listed for global buyers | $200–500/CIN | $500–2,000 |
+
+#### ESG Framework Compatibility
+
+CIN NFTs are designed for integration into corporate ESG reporting:
+
+| Framework | Standard | CIN Application |
+|---|---|---|
+| **GRI** | GRI 305-5 (Reduction of GHG emissions) | 1 CIN = 1 tCO₂e avoided, with full Trust Chain proof |
+| **GRI** | GRI 306-4 (Waste diverted from disposal) | On-chain kg records per delivery, categorized by quality |
+| **TCFD** | Metrics & Targets | CIN quantifies emission avoidance for Scope 3 Cat 5 |
+| **CDP** | C6/C7 (Emissions Data & Breakdown) | Methodology-backed emission data with VVB verification |
+| **GHG Protocol** | Scope 3, Category 5 | Waste in operations — diverted from landfill to BSF bioconversion |
+| **SDGs** | SDG 2, 12, 13, 15 | Zero Hunger, Responsible Consumption, Climate Action, Life on Land |
+
+**Corporate use case example:** A hotel chain sponsoring 1,000 kg/month of waste diversion receives ~1 CIN/month, which they report as verified Scope 3 emission avoidance in their annual sustainability report. Full verification available on [HashScan](https://hashscan.io/testnet/token/0.0.8287362). See [ESG Integration Guide](esg-integration-guide.md) for detailed reporting templates.
+
+#### Registry Recognition Roadmap
+
+| Phase | Status |
+|---|---|
+| Phase 1 (current) | Testnet — CIN represents verified impact within Eggologic system |
+| Phase 2 (Q3-Q4 2026) | Mainnet — begin formal dialogue with Verra and Gold Standard |
+| Phase 3 (2027) | Submit EWD-RB for methodology review |
+| Phase 4 (2028+) | Carbon credit interoperability, Article 6 compliance |
 
 ### 2.3 EGGTOKEN — Production Tokenization (Phase 3)
 

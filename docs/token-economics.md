@@ -1,6 +1,18 @@
 # Eggologic — Token Economics
 
-## Two-Token Model
+## Token → Value Proposition Mapping
+
+Each token directly serves one of Eggologic's three stakeholder groups:
+
+| Token | Who Benefits | Value Delivered | How |
+|---|---|---|---|
+| **EGGOCOIN** ($EGGO) | Restaurants | Zero-Waste Certification | Rewards clean waste delivery. Accumulated deliveries build toward Bronze/Silver/Gold certification. ([details](zero-waste-certification.md)) |
+| **CIN NFT** | Companies | ESG Compliance & Carbon Reporting | 1 CIN = 1 tCO₂e avoided. Auditable on-chain carbon credit for GRI 305/306, TCFD, Scope 3. ([details](esg-integration-guide.md)) |
+| **EGGTOKEN** (Phase 3) | Consumers | Real Food Traceability | 1 token = 1 verified egg with full origin chain: restaurant waste → BSF → egg. QR scannable. |
+
+---
+
+## Two-Token Model (Current)
 
 Eggologic uses two Hedera Token Service (HTS) tokens with distinct purposes:
 
@@ -8,7 +20,7 @@ Eggologic uses two Hedera Token Service (HTS) tokens with distinct purposes:
 |---|---|---|
 | **Token ID** | 0.0.8287358 | 0.0.8287362 |
 | **Type** | Fungible (HTS) | Non-Fungible (HTS) |
-| **Purpose** | Supplier incentive | Environmental impact credit |
+| **Purpose** | Supplier incentive + certification progress | Environmental impact credit + ESG compliance |
 | **Equivalence** | 1 $EGGO ≈ 1 kg adjusted waste | 1 CIN = 1 tCO₂e avoided |
 | **Minted by** | Guardian policy | Guardian policy |
 | **Trigger** | VVB approves Waste Delivery | VVB approves Impact Calculation |
