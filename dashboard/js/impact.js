@@ -132,11 +132,17 @@ async function loadImpact() {
     });
 
     // Circular Impact NFT tracking
-    const nftCount = Math.floor(totalKg / 1000);
+    let nftCount = Math.floor(totalKg / 1000);
+    try {
+      nftCount = await HederaMirror.getCITSupply();
+    } catch (e) {
+      console.warn("Could not fetch actual CIT supply, falling back to math", e);
+    }
     const progressKg = totalKg % 1000;
+    const remainingToNext = 1000 - progressKg;
 
-    // Use progressKg for the ring graphic
-    UI.setText('co2-tonnes', UI.fmt(progressKg, 1));
+    // Use totalKg for the center text, but progress for the ring
+    UI.setText('co2-tonnes', UI.fmt(totalKg, 0));
     const nftsMintedEl = document.getElementById('nfts-minted-count');
     if(nftsMintedEl) {
       nftsMintedEl.textContent = `${nftCount} CIT NFTs`;
@@ -149,9 +155,9 @@ async function loadImpact() {
     const ring = document.getElementById('co2-ring');
     if (ring) ring.setAttribute('stroke-dashoffset', offset.toString());
 
-    // Methane / Supply chain split (estimated from waste categories)
-    UI.setText('methane-pct', '72%');
-    UI.setText('supply-pct', '28%');
+    // Verified Avoidance & Next Target (Replacing methane/supply logic)
+    UI.setText('methane-pct', `${UI.fmt(totalKg, 0)} kg total`);
+    UI.setText('supply-pct', `${UI.fmt(remainingToNext, 0)} kg to NFT #${nftCount + 1}`);
 
     // Update NFT's milestone with actual kg - fun little details
     const nftDetail = document.getElementById('ms-nft-detail');
