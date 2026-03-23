@@ -255,7 +255,7 @@ Carbon calculation (adapted from CDM AMS-III.F):
 
 ## Dashboard
 
-Live at: **[c4p5.github.io/EggoLogic-Hedera-Hackathon](https://c4p5.github.io/EggoLogic-Hedera-Hackathon/)**
+Live at: **[ramonaguileira.github.io/EggoLogic-Hedera-Hackathon](https://ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/)**
 
 4 screens, vanilla HTML/JS, Tailwind CSS. No framework, no build step.
 
@@ -340,7 +340,7 @@ BLOCKS: {
 ### 1. Clone
 
 ```bash
-git clone https://github.com/c4p5/EggoLogic-Hedera-Hackathon.git
+git clone https://github.com/ramonaguileira/EggoLogic-Hedera-Hackathon.git
 cd EggoLogic-Hedera-Hackathon
 ```
 
