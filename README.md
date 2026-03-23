@@ -127,6 +127,9 @@ Eggologic provides **auditable, on-chain carbon credits** that integrate into co
 
 > **[Watch the restaurant testimonial Video](https://youtu.be/tHKIL_SMcf4)**
 
+
+Live at: **[ramonaguileira.github.io/EggoLogic-Hedera-Hackathon](https://ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/)**
+
 The demo shows the complete pipeline:
 
 1. **Login** — Role-based access (Owner, Registry, Project Proponent, Operator, VVB)
