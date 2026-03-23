@@ -80,19 +80,18 @@ The Hedera SDK is excellent — clear API, predictable costs, fast testnet execu
 
 **Mainnet wallet addresses of all members (to receive Apex NFT)**:
 
-[TO BE FILLED — mainnet wallet address for Ramon Aguileira]
-
+ 
 ---
 
 **Discord Handles of all members**:
 
-[TO BE FILLED]
+Ramon.Eggologic / mf.caps
 
 ---
 
 **LinkedIn Profile URLs of all members**:
 
-[TO BE FILLED]
+https://www.linkedin.com/in/ramon-aguileira-b9a74997 / https://www.linkedin.com/in/sancapri/
 
 ---
 
