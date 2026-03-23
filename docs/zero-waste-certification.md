@@ -43,7 +43,7 @@ Restaurant displays digital badge + verifiable link to on-chain proof
 |---|---|
 | Consecutive months of participation | 3+ months |
 | Total kg diverted from landfill | 100+ kg (adjusted) |
-| Average quality grade | B or better (avg contamination ≤15%) |
+| Average quality grade | B or better (avg contamination ≤10%) |
 | Minimum delivery frequency | 2+ deliveries/month |
 
 **What you get:**
@@ -100,12 +100,11 @@ Restaurant displays digital badge + verifiable link to on-chain proof
 
 Every waste delivery is graded based on contamination ratio (kg_impropios / kg_brutos):
 
-| Grade | Contamination | Quality Factor | Certification Impact |
-|---|---|---|---|
-| **A** | ≤5% | 1.0 | Full credit toward certification |
-| **B** | 5–15% | 0.85 | Full credit toward certification |
-| **C** | 15–30% | 0.70 | Partial credit (counted at 50% for certification metrics) |
-| **D** | >30% | Rejected | Does not count toward certification |
+| Grade | Contamination | Certification Impact |
+|---|---|---|
+| **A** | ≤5% | Full credit toward certification |
+| **B** | 5–10% | Full credit toward certification |
+| **C** | >10% | Rejected — does not count toward certification |
 
 **Key formula:**
 ```

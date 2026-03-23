@@ -6,8 +6,17 @@
 // Also - Bins decentralizes at smol, individual-household scale!! (and I get to play with Arduino's, hehe)
 
 async function loadMarketplace() {
-  UI.setText('stat-restaurants', '3');    // Restaurants Joined
-  UI.setText('stat-compost', '724');      // Kilograms Composted
+  try {
+    const supply = await HederaMirror.getEggocoinSupply();
+    const wasteKg = Math.round(supply / 0.70);
+    UI.setText('stat-compost', UI.fmt(wasteKg));
+    const mintEvents = await HederaMirror.getMintEvents();
+    const uniqueAccounts = new Set(mintEvents.map(e => e.account)).size;
+    UI.setText('stat-restaurants', String(uniqueAccounts || 1));
+  } catch {
+    UI.setText('stat-restaurants', '1');
+    UI.setText('stat-compost', '—');
+  }
 }
 
 function onLogin() {

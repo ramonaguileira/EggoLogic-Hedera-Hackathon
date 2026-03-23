@@ -72,7 +72,7 @@ async function loadUserWallet() {
 
       const wasteKg = balance / 0.70;
       const waterLiters = wasteKg * 8.9;
-      const co2Kg = wasteKg * 0.70;
+      const co2Kg = balance;
 
       UI.setText('impact-waste-qty', `${UI.fmt(wasteKg)} kg`);
       UI.setText('impact-water-qty', `${UI.fmt(waterLiters)} L`);

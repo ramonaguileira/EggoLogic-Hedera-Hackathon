@@ -300,9 +300,11 @@ function updateDeliveryCard() {
 async function _updateDeliveryId() {
   try {
     const mintEvents = await HederaMirror.getMintEvents();
-    window._deliveryCount = mintEvents.length;
+    const serverCount = mintEvents.length;
+    const localCount = parseInt(localStorage.getItem('eggologic_delivery_count') || '0', 10);
+    window._deliveryCount = Math.max(serverCount, localCount);
   } catch {
-    // Fallback
+    window._deliveryCount = parseInt(localStorage.getItem('eggologic_delivery_count') || '0', 10);
   }
   const count = (window._deliveryCount || 0) + 1;
   const chip = document.getElementById('delivery-id-chip');
@@ -433,6 +435,7 @@ async function submitDeliveryForm() {
     _updateStep('ws-1', 'done', `${deliveryId} submitted to Guardian`);
     _updateStep('ws-2', 'active', 'VVB reviewing delivery...');
     window._deliveryCount = count;
+    localStorage.setItem('eggologic_delivery_count', String(count));
 
     // Step 2: Auto-approve as VVB. ABSOLUTE ALPHA MOVE FOR DEMO
     try {

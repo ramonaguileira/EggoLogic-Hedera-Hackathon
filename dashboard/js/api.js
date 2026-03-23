@@ -174,10 +174,14 @@ const GuardianAPI = (() => {
    * Load pre-fetched Guardian data from data/guardian-cache.json.
    */
   let _cachePromise = null;
+  let _cacheTimestamp = 0;
+  const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
   async function _tryCache(blockId) {
     try {
-      if (!_cachePromise) {
+      const now = Date.now();
+      if (!_cachePromise || (now - _cacheTimestamp) > CACHE_TTL_MS) {
         _cachePromise = fetch('data/guardian-cache.json').then(r => r.ok ? r.json() : null).catch(() => null);
+        _cacheTimestamp = now;
       }
       const cache = await _cachePromise;
       if (!cache || !cache.blocks) return null;

@@ -18,7 +18,7 @@ Eggologic is a real circular economy hub in Uruguay that solves three problems o
 
 Tech stack: Vanilla HTML/JS, Tailwind CSS, Guardian MGS v1.5.1, Hedera HTS, HCS, Mirror Node, Cloudflare Workers, GitHub Pages/Actions.
 
-Setup: Dashboard is LIVE at https://c4p5.github.io/EggoLogic-Hedera-Hackathon/ — no local setup required. Login credentials for demo accounts provided in README.
+Setup: Dashboard is LIVE at https://ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/ — no local setup required. Login credentials for demo accounts provided in README.
 
 ---
 
@@ -32,7 +32,7 @@ Setup: Dashboard is LIVE at https://c4p5.github.io/EggoLogic-Hedera-Hackathon/ �
 
 **Project Demo Video Link**: [YouTube link — TO BE RECORDED AND UPLOADED]
 
-**Project Demo Link**: https://c4p5.github.io/EggoLogic-Hedera-Hackathon/
+**Project Demo Link**: https://ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/
 
 ---
 

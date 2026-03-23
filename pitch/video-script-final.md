@@ -70,7 +70,7 @@
 
 ## LIVE DEMO (2:15 – 3:15)
 
-**[SCREEN: Live dashboard at c4p5.github.io/EggoLogic-Hedera-Hackathon/]**
+**[SCREEN: Live dashboard at ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/]**
 
 > "Let me show you the live dashboard."
 
@@ -122,14 +122,14 @@
 
 **[SCREEN: Logo + links]**
 - GitHub: github.com/ramonaguileira/EggoLogic-Hedera-Hackathon
-- Dashboard: c4p5.github.io/EggoLogic-Hedera-Hackathon/
+- Dashboard: ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/
 - Testnet: 0.0.7166777
 
 ---
 
 ## PRE-RECORDING CHECKLIST
 
-- [ ] Dashboard live and working at c4p5.github.io/EggoLogic-Hedera-Hackathon/
+- [ ] Dashboard live and working at ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/
 - [ ] Login credentials for each role (Owner, Registry, PP, Operator, VVB)
 - [ ] EGGOCOIN verified on HashScan (0.0.8287358)
 - [ ] CIN NFT verified on HashScan (0.0.8287362)
