@@ -22,7 +22,7 @@ Then read files ON DEMAND as needed (don't read everything upfront — saves con
 
 CONTEXT:
 - Eggologic circular economy platform on Hedera for Apex Hackathon (deadline March 22, 2026)
-- Dashboard DEPLOYED at https://ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/
+- Dashboard DEPLOYED at https://eggologic.vercel.app/
 - CORS proxy LIVE at https://eggologic-proxy.sargas.workers.dev
 - Architecture: static HTML + JS fetch + Tailwind CDN, no build tools
 - GitHub Pages deploys on push to main (~20s)

@@ -34,10 +34,10 @@ Eggologic serves **three distinct stakeholder groups**, each with a clear value 
 | Problem | Solution | Token |
 |---|---|---|
 | No incentive to separate organic waste | EGGOCOIN rewards for clean deliveries | **EGGOCOIN** ($EGGO) |
-| No verifiable sustainability credential | On-chain Zero-Waste Certification (Bronze/Silver/Gold) | Certification VC |
+| No verifiable sustainability credential | On-chain SCS Environmental Certification (Bronze/Silver/Gold) | Certification VC |
 | Municipal disposal is expensive | Free waste collection + circular economy products | — |
 
-Restaurants earn EGGOCOIN for every approved delivery, building toward a blockchain-backed **Zero-Waste Certification** with measurable criteria: kg diverted, quality grades, delivery consistency. See [docs/zero-waste-certification.md](docs/zero-waste-certification.md).
+Restaurants earn EGGOCOIN for every approved delivery, building toward a blockchain-backed **SCS Environmental Certification** with measurable criteria: kg diverted, quality grades, delivery consistency. See [docs/architecture.md](docs/architecture.md).
 
 ### For Consumers — Real Food Traceability
 
@@ -129,7 +129,7 @@ The system creates a closed-loop incentive: restaurants deliver organic waste �
     (Cloudflare Worker)        (Public REST API — no auth)
          │                        │
     Guardian API               /api/v1/tokens/{id}/balances
-    (MGS v1.5.1)               /api/v1/transactions
+    (MGS v3.5.1)               /api/v1/transactions
     JWT auth                   /api/v1/tokens/{id}/nfts
          │                        │
     ┌────▼────────────────────────▼────┐
@@ -306,7 +306,7 @@ No project on Hedera (or any blockchain) verifies **waste-to-BSF circular econom
 | **Physical operation** | BSF hub in El Tesoro processes 300–600 kg/week | ✅ Running |
 | **Restaurant partnership** | 1 active partner delivering 3–5 times/week, consistently Cat A (≤5% contamination) | ✅ Active |
 | **On-chain tokens** | EGGOCOIN mints and CIN NFTs verifiable on HashScan | ✅ Minted |
-| **Live dashboard** | 4 screens deployed at ramonaguileira.github.io/EggoLogic-Hedera-Hackathon | ✅ Live |
+| **Live dashboard** | 4 screens deployed at eggologic.vercel.app | ✅ Live |
 | **Guardian policy** | 8 schemas published, 5 roles registered, VCs created | ✅ Published |
 
 ### Feedback Sources

@@ -18,7 +18,7 @@
 
 | Segment | Who | Need | What Eggologic Delivers | Token |
 |---------|-----|------|------------------------|-------|
-| **Restaurants** | Restaurants in tourist zones (Maldonado, Punta del Este, Uruguay) | Affordable waste collection + sustainability credentials | **Zero-Waste Certification** — Bronze/Silver/Gold levels based on kg diverted, quality grades, delivery consistency. On-chain credential for marketing and compliance. Free waste collection + EGGOCOIN rewards. ([details](zero-waste-certification.md)) | EGGOCOIN ($EGGO) |
+| **Restaurants** | Restaurants in tourist zones (Maldonado, Punta del Este, Uruguay) | Affordable waste collection + sustainability credentials | **SCS Environmental Certification** — Bronze/Silver/Gold levels based on kg diverted, quality grades, delivery consistency. On-chain credential for marketing and compliance. Free waste collection + EGGOCOIN rewards. ([details](architecture.md)) | EGGOCOIN ($EGGO) |
 | **Companies** | ESG-conscious companies and carbon offset buyers | Verified, auditable micro-scale carbon credits for ESG reporting | **Auditable carbon credits** — CIN NFTs (1 = 1 tCO₂e avoided) with full Trust Chain. Compatible with GRI 305/306, TCFD, CDP, Scope 3 Cat 5. VVB-verified, publicly auditable on HashScan. ([details](esg-integration-guide.md)) | CIN NFT |
 | **Consumers** | Regenerative food consumers | Traceable, BSF-fed eggs and certified compost | **Real food traceability** — QR code on each product links to the complete chain on Hedera: which restaurant's waste → BSF batch → egg/compost. Verify on HashScan. Phase 3: EGGTOKEN (1 = 1 verified egg). | EGGTOKEN (future) |
 
@@ -30,7 +30,7 @@
 
 **Every kilogram of organic waste diverted from landfill is verified on Hedera — from restaurant doorstep to carbon credit — for $0.20/month.**
 
-- **For Restaurants:** Zero-Waste Certification (Bronze/Silver/Gold) backed by immutable delivery records + EGGOCOIN rewards
+- **For Restaurants:** SCS Environmental Certification (Bronze/Silver/Gold) backed by immutable delivery records + EGGOCOIN rewards
 - **For Consumers:** Full-chain traceability — scan QR, see the complete journey from restaurant waste to your egg, verified on Hedera
 - **For Companies:** Auditable carbon credits (CIN NFTs) with VVB verification, compatible with GRI, TCFD, and Scope 3 reporting
 - Real operation (not a prototype) — 300–600 kg/week processed today

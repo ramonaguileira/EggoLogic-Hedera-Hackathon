@@ -14,11 +14,11 @@
 
 **Project Description** (100 words):
 
-Eggologic is a real circular economy hub in Uruguay that solves three problems on Hedera: (1) **Restaurants** earn EGGOCOIN rewards and build toward blockchain-verified Zero-Waste Certification (Bronze/Silver/Gold levels); (2) **Consumers** get real food traceability — every egg links to specific waste deliveries via Guardian Trust Chain; (3) **Companies** purchase CIN NFTs (1 = 1 tCO₂e avoided) for ESG compliance, compatible with GRI 305/306, TCFD, and Scope 3 reporting. Guardian MRV policy (EWD-RB v0.3) with 8 schemas, 5 roles, VVB verification. Zero-middleware: static dashboard → Guardian + Mirror Node. $0.20/month blockchain cost.
+Eggologic is a real circular economy hub in Uruguay that solves three problems on Hedera: (1) **Restaurants** earn EGGOCOIN rewards and build toward blockchain-verified SCS Environmental Certification (Bronze/Silver/Gold levels); (2) **Consumers** get real food traceability — every egg links to specific waste deliveries via Guardian Trust Chain; (3) **Companies** purchase CIN NFTs (1 = 1 tCO₂e avoided) for ESG compliance, compatible with GRI 305/306, TCFD, and Scope 3 reporting. Guardian MRV policy (EWD-RB v0.3) with 8 schemas, 5 roles, VVB verification. Zero-middleware: static dashboard → Guardian + Mirror Node. $0.20/month blockchain cost.
 
-Tech stack: Vanilla HTML/JS, Tailwind CSS, Guardian MGS v1.5.1, Hedera HTS, HCS, Mirror Node, Cloudflare Workers, GitHub Pages/Actions.
+Tech stack: Vanilla HTML/JS, Tailwind CSS, Guardian MGS v3.5.1, Hedera HTS, HCS, Mirror Node, Cloudflare Workers, GitHub Pages/Actions.
 
-Setup: Dashboard is LIVE at https://ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/ — no local setup required. Login credentials for demo accounts provided in README.
+Setup: Dashboard is LIVE at https://eggologic.vercel.app/ — no local setup required. Login credentials for demo accounts provided in README.
 
 ---
 
@@ -32,7 +32,7 @@ Setup: Dashboard is LIVE at https://ramonaguileira.github.io/EggoLogic-Hedera-Ha
 
 **Project Demo Video Link**: [YouTube link — TO BE RECORDED AND UPLOADED]
 
-**Project Demo Link**: https://ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/
+**Project Demo Link**: https://eggologic.vercel.app/
 
 ---
 
@@ -50,7 +50,7 @@ Setup: Dashboard is LIVE at https://ramonaguileira.github.io/EggoLogic-Hedera-Ha
 
 **What are your main goals or objectives for participating in this hackathon?**
 
-My main goal is to bring blockchain verification to a real-world circular economy operation that already exists, serving three distinct audiences. Eggologic has been running in Uruguay since 2025, processing 300-600 kg of organic waste weekly. The hackathon gave me the opportunity to build a verification layer that: helps **restaurants** earn Zero-Waste Certification with on-chain credentials, gives **consumers** real food traceability through Guardian Trust Chains, and enables **companies** to purchase auditable carbon credits (CIN NFTs) for ESG compliance. I want to demonstrate that blockchain can serve real environmental impact at negligible cost ($0.20/month). Long-term, I aim to create a Hub-in-a-Box franchise model that any organic waste operation worldwide can adopt, bringing thousands of new users to the Hedera ecosystem through the waste management, agriculture, and corporate ESG sectors.
+My main goal is to bring blockchain verification to a real-world circular economy operation that already exists, serving three distinct audiences. Eggologic has been running in Uruguay since 2025, processing 300-600 kg of organic waste weekly. The hackathon gave me the opportunity to build a verification layer that: helps **restaurants** earn SCS Environmental Certification with on-chain credentials, gives **consumers** real food traceability through Guardian Trust Chains, and enables **companies** to purchase auditable carbon credits (CIN NFTs) for ESG compliance. I want to demonstrate that blockchain can serve real environmental impact at negligible cost ($0.20/month). Long-term, I aim to create a Hub-in-a-Box franchise model that any organic waste operation worldwide can adopt, bringing thousands of new users to the Hedera ecosystem through the waste management, agriculture, and corporate ESG sectors.
 
 ---
 

@@ -6,7 +6,7 @@ Each token directly serves one of Eggologic's three stakeholder groups:
 
 | Token | Who Benefits | Value Delivered | How |
 |---|---|---|---|
-| **EGGOCOIN** ($EGGO) | Restaurants | Zero-Waste Certification | Rewards clean waste delivery. Accumulated deliveries build toward Bronze/Silver/Gold certification. ([details](zero-waste-certification.md)) |
+| **EGGOCOIN** ($EGGO) | Restaurants | SCS Environmental Certification | Rewards clean waste delivery. Accumulated deliveries build toward Bronze/Silver/Gold certification. ([details](architecture.md)) |
 | **CIN NFT** | Companies | ESG Compliance & Carbon Reporting | 1 CIN = 1 tCO₂e avoided. Auditable on-chain carbon credit for GRI 305/306, TCFD, Scope 3. ([details](esg-integration-guide.md)) |
 | **EGGTOKEN** (Phase 3) | Consumers | Real Food Traceability | 1 token = 1 verified egg with full origin chain: restaurant waste → BSF → egg. QR scannable. |
 

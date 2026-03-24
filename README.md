@@ -280,7 +280,7 @@ Carbon calculation (adapted from CDM AMS-III.F):
 ## Dashboard
 
 Live at: **[eggologic.vercel.app](https://eggologic.vercel.app)**
-Repo : **[ramonaguileira.github.io/EggoLogic-Hedera-Hackathon](https://github.com/ramonaguileira/EggoLogic-Hedera-Hackathon)**
+Repo : **[github.com/ramonaguileira](https://github.com/ramonaguileira/EggoLogic-Hedera-Hackathon)**
 
 4 screens, vanilla HTML/JS, Tailwind CSS. No framework, no build step.
 

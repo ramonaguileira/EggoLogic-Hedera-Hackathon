@@ -16,7 +16,7 @@
 >
 > I'm Ramon, from Uruguay, and this is Eggologic — a REAL, operating circular economy hub that turns restaurant waste into protein, eggs, compost, and verified carbon credits on Hedera. For twenty cents a month.
 >
-> We solve three problems: we help restaurants earn blockchain-verified Zero-Waste Certification. We give consumers real food traceability — scan a QR, see the full chain. And we enable companies to meet ESG compliance with auditable carbon credits on Hedera."
+> We solve three problems: we help restaurants earn blockchain-verified SCS Environmental Certification. We give consumers real food traceability — scan a QR, see the full chain. And we enable companies to meet ESG compliance with auditable carbon credits on Hedera."
 
 ---
 
@@ -70,7 +70,7 @@
 
 ## LIVE DEMO (2:15 – 3:15)
 
-**[SCREEN: Live dashboard at ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/]**
+**[SCREEN: Live dashboard at eggologic.vercel.app/]**
 
 > "Let me show you the live dashboard."
 
@@ -116,20 +116,20 @@
 
 > "Eggologic is the first waste-to-BSF circular economy verified on Hedera Guardian. It's running today in Uruguay. The Guardian policy is published. The tokens are live. The dashboard is deployed.
 >
-> Restaurants get Zero-Waste Certification. Consumers get real food traceability. Companies get auditable carbon credits for ESG reporting. All verified on Hedera, for twenty cents a month.
+> Restaurants get SCS Environmental Certification. Consumers get real food traceability. Companies get auditable carbon credits for ESG reporting. All verified on Hedera, for twenty cents a month.
 >
 > Thank you — and let's build the circular economy on Hedera."
 
 **[SCREEN: Logo + links]**
 - GitHub: github.com/ramonaguileira/EggoLogic-Hedera-Hackathon
-- Dashboard: ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/
+- Dashboard: eggologic.vercel.app/
 - Testnet: 0.0.7166777
 
 ---
 
 ## PRE-RECORDING CHECKLIST
 
-- [ ] Dashboard live and working at ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/
+- [ ] Dashboard live and working at eggologic.vercel.app/
 - [ ] Login credentials for each role (Owner, Registry, PP, Operator, VVB)
 - [ ] EGGOCOIN verified on HashScan (0.0.8287358)
 - [ ] CIN NFT verified on HashScan (0.0.8287362)

@@ -21,7 +21,7 @@
 
 | Value Proposition | Phase 1 Delivery |
 |---|---|
-| **Restaurants → Zero-Waste Certification** | Delivery tracking + quality grading operational. Certification criteria defined ([details](zero-waste-certification.md)). |
+| **Restaurants → SCS Environmental Certification** | Delivery tracking + quality grading operational. Certification criteria defined ([details](architecture.md)). |
 | **Consumers → Real Food Traceability** | Trust Chain links waste → BSF → egg. QR traceability designed for Phase 3. |
 | **Companies → ESG Compliance** | CIN NFT (1 = 1 tCO₂e) minted on testnet. ESG integration guide published ([details](esg-integration-guide.md)). |
 
@@ -31,7 +31,7 @@
 - [x] Processing 300–600 kg of organic waste per week from partner restaurants
 - [x] BSF larvae bioconversion → protein feed → laying hens → eggs + compost
 - [x] First restaurant partner onboarded with real waste deliveries
-- [x] Custom Guardian policy **EWD-RB v0.3** published on Guardian MGS (v1.5.1)
+- [x] Custom Guardian policy **EWD-RB v0.3** published on Guardian MGS (v3.5.1)
 - [x] **8 schemas** covering the full operational cycle:
   - `Supplier Registration` · `Waste Delivery` · `Waste Batch` · `Production Output`
   - `Impact Calculation` · `VVB Assessment Record` · `External Validation Record` · `Issuance Record`
@@ -41,7 +41,7 @@
 - [x] Dashboard (vanilla HTML/JS + Tailwind) connected directly to Guardian API + Hedera Mirror Node
 - [x] Zero-middleware architecture — static frontend on GitHub Pages, no servers
 - [x] VVB manual approval triggers token minting via Guardian policy engine
-- [x] Live dashboard: [ramonaguileira.github.io/EggoLogic-Hedera-Hackathon](https://ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/)
+- [x] Live dashboard: [eggologic.vercel.app](https://eggologic.vercel.app/)
 - [x] Hackathon submission: Hedera Hello Future Apex 2026 (Sustainability Track, Hiero Bounty)
 
 ### Key Metrics — Phase 1
@@ -76,7 +76,7 @@
 
 | Value Proposition | Phase 2 Delivery |
 |---|---|
-| **Restaurants → Zero-Waste Certification** | Automated certification VC issuance (Bronze/Silver/Gold). Public restaurant profiles on dashboard. 10+ partners certified. |
+| **Restaurants → SCS Environmental Certification** | Automated certification VC issuance (Bronze/Silver/Gold). Public restaurant profiles on dashboard. 10+ partners certified. |
 | **Consumers → Real Food Traceability** | QR codes on egg cartons linking to Hedera Trust Chain. Product origin visible on dashboard. |
 | **Companies → ESG Compliance** | Mainnet CIN NFTs with real market value. Corporate sponsorship model live. GRI/TCFD reporting templates. |
 
@@ -108,7 +108,7 @@
   - 100 EGGOCOIN = 1 dozen eggs from Eggologic production
   - Compost credits for partner restaurants' gardens
   - Priority access to premium products
-- [ ] **Zero-Waste Certification Automation** — Automated Bronze/Silver/Gold issuance
+- [ ] **SCS Environmental Certification Automation** — Automated Bronze/Silver/Gold issuance
   - Guardian policy extension: Certification VC schema with level, criteria snapshot, timestamp
   - Dashboard restaurant profile page showing certification progress
   - Digital badge generation with QR link to on-chain proof
@@ -140,7 +140,7 @@
 
 | Value Proposition | Phase 3 Delivery |
 |---|---|
-| **Restaurants → Zero-Waste Certification** | Cross-hub certification. Multi-restaurant leaderboard. Integration with TRUE Zero Waste and local standards. |
+| **Restaurants → SCS Environmental Certification** | Cross-hub certification. Multi-restaurant leaderboard. Integration with TRUE Zero Waste and local standards. |
 | **Consumers → Real Food Traceability** | EGGTOKEN launch (1 = 1 verified egg). QR → full chain from waste to product. Consumer-facing verification app. |
 | **Companies → ESG Compliance** | CIN marketplace for global buyers. Verra/Gold Standard methodology submission. Automated ESG report generation. |
 
