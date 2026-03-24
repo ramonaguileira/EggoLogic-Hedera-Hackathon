@@ -29,7 +29,7 @@
 
 Every year, [**1.3 billion tonnes**](https://www.fao.org/platform-food-loss-waste/en/) of food are wasted globally (FAO, 2023). Latin America alone generates [~160 million tonnes annually](https://www.fao.org/platform-food-loss-waste/en/). In Uruguay, most restaurant organic waste ends up in landfills, where it decomposes anaerobically and produces **methane** — a greenhouse gas [**80× more potent**](https://www.ipcc.ch/report/ar6/wg1/) than CO₂ over 20 years (IPCC AR6, 2021).
 
-The voluntary carbon market reached [**$2 billion in 2023**](https://www.ecosystemmarketplace.com/publications/state-of-the-voluntary-carbon-market-2024/) (Ecosystem Marketplace), but **small-scale operators are excluded** because traditional MRV audits cost $10,000+ per verification cycle. To make things worse, opaque data from credit issuers, green-washing from big corps, and unreliable offsets create a massive trust gap from the public; driving attention away from even begin to try to solve this. We are yet to see an affordable, auditable, and transparent system that verifies organic waste being actually diverted from landfills and converted into productive outputs.
+The voluntary carbon market reached [**$2 billion in 2023**](https://www.ecosystemmarketplace.com/publications/state-of-the-voluntary-carbon-market-2024/) (Ecosystem Marketplace), but **small-scale operators are excluded** because traditional MRV audits cost $10,000+ per verification cycle. To make things worse, opaque data from credit issuers, green-washing from big corps, and unreliable offests create a massive trust gap from the public; driving attention away from even begin to try to solve this. We are yet to see an affordable, auditable, and transparent system that verifies organic waste being actually diverted from landfills and converted into productive outputs.
 
 
 
@@ -67,10 +67,10 @@ Eggologic helps restaurants **prove** their commitment to sustainability with ve
 
 Every Eggologic product carries its **full origin story**, verified on-chain:
 
-- **Future integration (Phase 3): QR codes on products will link to** the complete chain: which restaurant delivered the waste → BSF larvae processing → egg production → your table. We are exploring future collaboration with past Hello Future hackathon winners **VERITAS** for such matter.
+- **Future integration (Phase 3)**: QR codes on every EGGOLOGIC product will link to the complete chain: which restaurant delivered the waste → BSF larvae processing → egg production → your table. We are exploring future collaboration with past Hello Future hackathon winners **VERITAS** for such matter.
 - **Verifiable Credentials** on Hedera link every product to specific waste deliveries, batches, and production records
 - **Check it yourself** on [HashScan](https://hashscan.io/testnet/token/0.0.8287358) — no trust required, just math and cryptography
-- **Know your impact**: each egg you buy contributed to ~0.5 kg of waste diverted from landfill and ~0.35 kg CO₂e avoided
+- **Know your impact**: each egg you buy contributed to X kg of waste diverted from landfill and Y kg CO₂e avoided
 
 > *"The first egg you can verify on a blockchain — from restaurant waste to your breakfast."*
 
@@ -83,7 +83,7 @@ Eggologic provides **auditable, on-chain Carbon Impact Tokens (CIN NFTs)** that 
 - **Scope 3 documentation** — CIN NFTs provide verifiable proof of waste-generated emissions avoidance (Category 5: Waste in operations)
 - **Transparent pricing** based on verified impact data — not opaque offset markets
 
-> *"Micro-scale Carbon Impact Tokens you can actually audit — from restaurant waste to your ESG report, verified on Hedera."*
+> *"Micro-scale carbon reduction credits you can actually audit". From restaurant waste to your ESG report, built and verified on Hedera.*
 
 ### Token → Value Proposition Mapping
 
@@ -132,7 +132,7 @@ Eggologic provides **auditable, on-chain Carbon Impact Tokens (CIN NFTs)** that 
 
 ## Demo
 
-> **[Watch the Pitch & Demo](https://youtu.be/hENzHwvPzm4)**
+> **[Watch the Pitch & Demo](https://www.youtube.com/watch?v=tHKIL_SMcf4)**
 
 The demo shows the complete pipeline:
 
@@ -265,7 +265,7 @@ Carbon calculation (adapted from CDM AMS-III.F):
   When accumulated total ≥ 1,000 kg adjusted → eligible for 1 CIN
 ```
 
-**Purpose**: Auditable, on-chain Carbon Impact Tokens. Each CIN links back to specific Waste Delivery VCs through Guardian's Trust Chain — full provenance from restaurant to carbon credit.
+**Purpose**: Auditable, on-chain carbon reduction credits. Each CIN links back to specific Waste Delivery VCs through Guardian's Trust Chain — full provenance from restaurant to carbon credit.
 
 ### Token Verification
 
@@ -358,7 +358,7 @@ BLOCKS: {
 
 ### Prerequisites
 
-- A relatively modern browser (Safari, Chrome, Firefox, Edge). Either PC or phone works (Site is responsive).
+- A relatively modern browser (Safari, Chrome, Firefox, Edge). Either PC or phone works (site is responsive).
 - That's it. No Node.js, no Docker, no build step.
 
 ### Local Install
@@ -368,7 +368,7 @@ git clone https://github.com/c4p5/EggoLogic-Hedera-Hackathon.git
 cd EggoLogic-Hedera-Hackathon
 ```
 
-### 2. Open Dashboard
+### Open Dashboard
 
 ```bash
 # Option A: Open directly
@@ -378,24 +378,32 @@ open dashboard/index.html
 npx serve dashboard
 ```
 
-### 3. Login
+### Login
 
 Select any role from the login dropdown. Use the registered emails + password for that account (hardcoded for the hackathon demo). The dashboard authenticates directly against Guardian MGS.
 
-### 4. Submit a Delivery (as Project_Proponent)
+### Submit a Delivery (as Project_Proponent)
 
 1. Login as Project_Proponent
 2. Fill: kg bruto, kg impropios, waste type
 3. Live preview shows: kg netos, kg ajustados, estimated $EGGO
 4. Submit → VC created in Guardian → waits for VVB approval
 
-### 5. Approve (as VVB)
+### VVB Approval
 
-1. Login as VVB in Guardian UI (`guardianservice.app`)
-2. Review pending Waste Delivery
-3. Approve → EGGOCOIN minted automatically to Project_Proponent
+In production, VVB approval is a **manual, human-in-the-loop process** — an independent 
+validator reviews each delivery before tokens are minted, preserving the credibility of the 
+verification chain.
 
-### 6. Verify on HashScan
+For the hackathon demo, we automated this step to enable **live, end-to-end demonstrations** 
+without requiring a second operator. The policy architecture remains unchanged — switching 
+back to manual approval requires zero code changes, only a role permission toggle in Guardian.
+
+1. Project_Proponent submits delivery → VC created in Guardian
+2. VVB auto-approves → EGGOCOIN minted to Project_Proponent
+3. Verify on [HashScan](https://hashscan.io/testnet/token/0.0.8287358)
+
+### Verify on HashScan
 
 - [EGGOCOIN Token](https://hashscan.io/testnet/token/0.0.8287358)
 - [CIN NFT Collection](https://hashscan.io/testnet/token/0.0.8287362)
@@ -457,7 +465,7 @@ Eggologic currently operates in **El Tesoro, Maldonado, Uruguay**, processing **
 | Compost | ~70 kg | Production Output VC |
 | CO₂ avoided | ~210-420 kg CO₂e | Impact Calculation VC → CIN NFT |
 
-Every output is linked back to specific waste deliveries through Guardian's Trust Chain — from restaurant doorstep to Carbon Impact Token.
+Every output is linked back to specific waste deliveries through Guardian's Trust Chain — from restaurant doorstep to Carbon aavoidance credits.
 
 ---
 
@@ -490,7 +498,7 @@ VVB approval, impact calculation, EGGOCOIN mint, token transfer, fee settlements
 
 CIN NFT mints add ~0.02 HBAR per mint (~1/month at current volume).
 
-Guardian MGS handles all infrastructure. No servers to maintain. Even at **100X our current volume**, The entire 
+Guardian MGS handles all infrastructure. No servers to maintain. Even at **100X our current volume**, the entire 
 MRV verification layer would cost less than a dollar a month.
 
 ---
