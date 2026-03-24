@@ -624,5 +624,5 @@ This project is licensed under the MIT License — see [LICENSE](./LICENSE) for 
 ---
 
 <p align="center">
-  <strong>Turning waste into protein, eggs, compost, and verified carbon impact tokens — one delivery at a time.</strong>
+  <strong>Turning waste into protein, eggs, compost, and verified carbon diversion certificates — one delivery at a time.</strong>
 </p>
