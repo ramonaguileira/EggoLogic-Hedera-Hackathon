@@ -44,7 +44,7 @@ We built a blockchain verification layer on **Hedera** using the **Guardian Soft
 3. **Issues Circular Impact NFTs (CIN)** — 1 NFT = 1 tCO₂e avoided — minted when VVB approves the accumulative calculation that the methodology threshold requires for a carbon diversion credit
 4. **Complete traceability for auditing** — every credential, approval, and mint is immutable and 100% verifiable on-chain through Guardian's Trust Chain and Hedera Mirror Node
 
-This is **NOT a simulation**. Currently verified on Hedera testnet, with mainnet deployment planned for Phase 2. Every data point here maps to a **real physical operation** happening today.
+This is **NOT a simulation**. Currently verified on Hedera testnet, with mainnet deployment planned for Phase 2. While the tokenomics and structural workflow map directly to our **real physical operation** today, some delivery volumes on the testnet have been simulated to demonstrate the platform's scalable capacity.
 
 ---
 
@@ -67,7 +67,7 @@ Eggologic helps restaurants **prove** their commitment to sustainability with ve
 
 Every Eggologic product carries its **full origin story**, verified on-chain:
 
-- **Future integration (Phase 3): QR codes on products will link to** the complete chain: which restaurant delivered the waste → BSF larvae processing → egg production → your table
+- **Future integration (Phase 3): QR codes on products will link to** the complete chain: which restaurant delivered the waste → BSF larvae processing → egg production → your table. We are exploring future collaboration with past Hello Future hackathon winners **VERITAS** for such matter.
 - **Verifiable Credentials** on Hedera link every product to specific waste deliveries, batches, and production records
 - **Check it yourself** on [HashScan](https://hashscan.io/testnet/token/0.0.8287358) — no trust required, just math and cryptography
 - **Know your impact**: each egg you buy contributed to X kg of waste diverted from landfill and Y kg CO₂e avoided
