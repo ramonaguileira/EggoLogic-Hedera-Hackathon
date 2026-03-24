@@ -57,7 +57,7 @@ Eggologic helps restaurants **prove** their commitment to sustainability with ve
 - **Track every kg** of organic waste diverted from landfill — each delivery becomes a Verifiable Credential on Hedera
 - **Earn EGGOCOIN rewards** for clean, properly separated waste (quality grading: Cat A ≤5% contamination)
 - **Certification Partnership** — We generate the auditable data required for restaurants to attain accredited Environmental Certifications through our partners like **SCS Global Services**.
-- **Future Framework** — Developing a proprietary, blockchain-verified Zero-Waste Certification (Bronze/Silver/Gold) based on their immutable delivery records.
+- **Future Framework** — Developing a proprietary, blockchain-verified Zero-Waste Certification based on their immutable delivery records.
 - **Public sustainability profile** backed by immutable records — verifiable by customers, partners, and regulators on HashScan
 - **Save on disposal costs** — free waste collection replaces municipal fees
 
