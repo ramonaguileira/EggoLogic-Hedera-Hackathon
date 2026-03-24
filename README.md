@@ -29,13 +29,13 @@
 
 Every year, [**1.3 billion tonnes**](https://www.fao.org/platform-food-loss-waste/en/) of food are wasted globally (FAO, 2023). Latin America alone generates [~160 million tonnes annually](https://www.fao.org/platform-food-loss-waste/en/). In Uruguay, most restaurant organic waste ends up in landfills, where it decomposes anaerobically and produces **methane** — a greenhouse gas [**80× more potent**](https://www.ipcc.ch/report/ar6/wg1/) than CO₂ over 20 years (IPCC AR6, 2021).
 
-The voluntary carbon market reached [**$2 billion in 2023**](https://www.ecosystemmarketplace.com/publications/state-of-the-voluntary-carbon-market-2024/) (Ecosystem Marketplace), but **small-scale operators are excluded** because traditional MRV audits cost $10,000+ per verification cycle. To make things worse, opaque data from credit issuers, green-washing from big corps, and unreliable offests create a massive trust gap from the public; driving attention away from even begin to try to solve this. We are yet to see an affordable, auditable, and transparent system that verifies organic waste being actually diverted from landfills and converted into productive outputs.
+The voluntary carbon market reached [**$2 billion in 2023**](https://www.ecosystemmarketplace.com/publications/state-of-the-voluntary-carbon-market-2024/) (Ecosystem Marketplace), but **small-scale operators are excluded** because traditional MRV audits cost $10,000+ per verification cycle. To make things worse, opaque data from credit issuers, green-washing from big corps, and unreliable offsets create a massive trust gap from the public; driving attention away from even begin to try to solve this. We are yet to see an affordable, auditable, and transparent system that verifies organic waste being actually diverted from landfills and converted into productive outputs.
 
 
 
 ## The Solution
 
-**Eggologic** operates as a running circular economy hub in El Tesoro, Maldonado, Uruguay that transforms restaurants organic waste into Black Soldier Fly (BSF) larvae protein, which then feeds laying hens that produce eggs, while the remaining organic matter becomes high-quality compost. Both Poultry and larvaes accelerate the composting process considerably.
+**Eggologic** operates as a running circular economy hub in El Tesoro, Maldonado, Uruguay that transforms restaurant's organic waste into Black Soldier Fly (BSF) larvae protein, which then feeds laying hens that produce eggs, while the remaining organic matter becomes high-quality compost. Both Poultry and larvae accelerate the composting process considerably.
 
 We built a blockchain verification layer on **Hedera** using the **Guardian Software (MGS)** that:
 
@@ -44,7 +44,7 @@ We built a blockchain verification layer on **Hedera** using the **Guardian Soft
 3. **Issues Circular Impact NFTs (CIN)** — 1 NFT = 1 tCO₂e avoided — minted when VVB approves the accumulative calculation that the methodology threshold requires for a carbon diversion credit
 4. **Complete traceability for auditing** — every credential, approval, and mint is immutable and 100% verifiable on-chain through Guardian's Trust Chain and Hedera Mirror Node
 
-This is *NOT a simulation*. Currently verified on Hedera testnet, with mainnet deployment planned for Phase 2. Every data pointed in production will map to a **real physical operation** happening today.
+This is *NOT a simulation*. Currently verified on Hedera testnet, with mainnet deployment planned for Phase 2. Every data point in production will map to a **real physical operation** happening today.
 
 ---
 
@@ -70,7 +70,7 @@ Every Eggologic product carries its **full origin story**, verified on-chain:
 - **Future integration (Phase 3): QR codes on products will link to** the complete chain: which restaurant delivered the waste → BSF larvae processing → egg production → your table. We are exploring future collaboration with past Hello Future hackathon winners **VERITAS** for such matter.
 - **Verifiable Credentials** on Hedera link every product to specific waste deliveries, batches, and production records
 - **Check it yourself** on [HashScan](https://hashscan.io/testnet/token/0.0.8287358) — no trust required, just math and cryptography
-- **Know your impact**: each egg you buy contributed to X kg of waste diverted from landfill and Y kg CO₂e avoided
+- **Know your impact**: each egg you buy contributed to ~0.5 kg of waste diverted from landfill and ~0.35 kg CO₂e avoided
 
 > *"The first egg you can verify on a blockchain — from restaurant waste to your breakfast."*
 
@@ -83,7 +83,7 @@ Eggologic provides **auditable, on-chain Carbon Impact Tokens (CIN NFTs)** that 
 - **Scope 3 documentation** — CIN NFTs provide verifiable proof of waste-generated emissions avoidance (Category 5: Waste in operations)
 - **Transparent pricing** based on verified impact data — not opaque offset markets
 
-> *"Micro-scale carbon credits you can actually audit — from restaurant waste to your ESG report, verified on Hedera."*
+> *"Micro-scale Carbon Impact Tokens you can actually audit — from restaurant waste to your ESG report, verified on Hedera."*
 
 ### Token → Value Proposition Mapping
 
@@ -265,7 +265,7 @@ Carbon calculation (adapted from CDM AMS-III.F):
   When accumulated total ≥ 1,000 kg adjusted → eligible for 1 CIN
 ```
 
-**Purpose**: Auditable, on-chain carbon credits. Each CIN links back to specific Waste Delivery VCs through Guardian's Trust Chain — full provenance from restaurant to carbon credit.
+**Purpose**: Auditable, on-chain Carbon Impact Tokens. Each CIN links back to specific Waste Delivery VCs through Guardian's Trust Chain — full provenance from restaurant to carbon credit.
 
 ### Token Verification
 
@@ -457,7 +457,7 @@ Eggologic currently operates in **El Tesoro, Maldonado, Uruguay**, processing **
 | Compost | ~70 kg | Production Output VC |
 | CO₂ avoided | ~210-420 kg CO₂e | Impact Calculation VC → CIN NFT |
 
-Every output is linked back to specific waste deliveries through Guardian's Trust Chain — from restaurant doorstep to carbon credit.
+Every output is linked back to specific waste deliveries through Guardian's Trust Chain — from restaurant doorstep to Carbon Impact Token.
 
 ---
 
