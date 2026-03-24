@@ -1,12 +1,11 @@
 <p align="center">
-  <img src="docs/images/eggologic-banner.png" alt="Eggologic" width="600"/>
+  ![Header](docs/WhatsApp Image 2026-03-20 at 7.13.50 AM.jpeg)
 </p>
 
 <h1 align="center">Eggologic — Circular Economy Verified on Hedera</h1>
 
 <p align="center">
-  <strong>Restaurant Organic Waste → BSF Larvae → Eggs → Compost → Verified Carbon Impact</strong><br/>
-  <em>Helping restaurants achieve zero-waste certification · Giving consumers real food traceability · Enabling companies to meet ESG compliance</em>
+  <strong>Restaurant Organic Waste → BSF Larvae → Eggs → Compost → Verified Carbon Impact</strong>
 </p>
 
 <p align="center">
@@ -17,10 +16,10 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Hedera-Testnet-blueviolet" alt="Hedera Testnet"/>
-  <img src="https://img.shields.io/badge/Guardian-MGS%20v1.5.1-green" alt="Guardian MGS"/>
+  <img src="https://img.shields.io/badge/Built in-Hedera-blueviolet" alt="Built in Hedera"/>
+  <img src="https://img.shields.io/badge/Guardian-MGS%20v3.5.1-green" alt="Guardian MGS"/>
   <img src="https://img.shields.io/badge/Policy-EWD--RB%20v0.3-blue" alt="EWD-RB"/>
-  <img src="https://img.shields.io/badge/HTS-EGGOCOIN%20%2B%20CIN-orange" alt="HTS Tokens"/>
+  <img src="https://img.shields.io/badge/Stack-JS%20%2B%20TailWind-orange" alt="Tech stack"/>
   <img src="https://img.shields.io/badge/Location-Uruguay%20🇺🇾-blue" alt="Uruguay"/>
 </p>
 
@@ -30,32 +29,34 @@
 
 Every year, [**1.3 billion tonnes**](https://www.fao.org/platform-food-loss-waste/en/) of food are wasted globally (FAO, 2023). Latin America alone generates [~160 million tonnes annually](https://www.fao.org/platform-food-loss-waste/en/). In Uruguay, most restaurant organic waste ends up in landfills, where it decomposes anaerobically and produces **methane** — a greenhouse gas [**80× more potent**](https://www.ipcc.ch/report/ar6/wg1/) than CO₂ over 20 years (IPCC AR6, 2021).
 
-The voluntary carbon market reached [**$2 billion in 2023**](https://www.ecosystemmarketplace.com/publications/state-of-the-voluntary-carbon-market-2024/) (Ecosystem Marketplace), but **small-scale operators are excluded** because traditional MRV audits cost $10,000+ per verification cycle. No transparent, affordable, auditable system exists to verify that organic waste was actually diverted from landfills and converted into productive outputs.
+The voluntary carbon market reached [**$2 billion in 2023**](https://www.ecosystemmarketplace.com/publications/state-of-the-voluntary-carbon-market-2024/) (Ecosystem Marketplace), but **small-scale operators are excluded** because traditional MRV audits cost $10,000+ per verification cycle. To make things worse, opaque data from credit issuers, green-washing from big corps, and unreliable offests create a massive trust gap from the public; driving attention away from even begin to try to solve this. We are yet to see an affordable, auditable, and transparent system that verifies organic waste being actually diverted from landfills and converted into productive outputs.
+
+
 
 ## The Solution
 
-**Eggologic** is a running circular economy hub in El Tesoro, Maldonado, Uruguay that transforms restaurant organic waste into Black Soldier Fly (BSF) larvae protein, which feeds laying hens that produce eggs, while the remaining organic matter becomes compost.
+**Eggologic** operates as a running circular economy hub in El Tesoro, Maldonado, Uruguay that transforms restaurants organic waste into Black Soldier Fly (BSF) larvae protein, which then feeds laying hens that produce eggs, while the remaining organic matter becomes high-quality compost. Both Poultry and larvaes accelerate the composting process considerably.
 
-We built a blockchain verification layer on **Hedera** using **Guardian (MGS)** that:
+We built a blockchain verification layer on **Hedera** using the **Guardian Software (MGS)** that:
 
-1. **Tracks every delivery** — each kilogram of organic waste is recorded as a Verifiable Credential through the EWD-RB methodology policy
-2. **Rewards suppliers** with **EGGOCOIN** ($EGGO) — fungible HTS tokens minted automatically when a VVB approves a waste delivery
-3. **Issues Circular Impact NFTs** (CIN) — 1 NFT = 1 tCO₂e avoided — minted when VVB approves an impact calculation that crosses the methodology threshold
-4. **Full traceability** — every credential, approval, and mint is verifiable on-chain through Guardian's Trust Chain and Hedera Mirror Node
+1. **Tracks every movement** — each kilogram of organic waste, BSF composting metrics, egg production, and compost output is recorded as a Verifiable Credential through our EWD-RB methodology policy (Adapted from CDM AMS III.F methodology).
+2. **Rewards suppliers with the EGGOCOIN ($EGGO)** — fungible HTS tokens minted automatically when a VVB approves a waste delivery. These tokens aim to work with a barter-like approach for users to exchange benefits from our operations — incentivizing frequency and fidelity.
+3. **Issues Circular Impact NFTs (CIN)** — 1 NFT = 1 tCO₂e avoided — minted when VVB approves the accumulative calculation that the methodology threshold requires for a carbon diversion credit
+4. **Complete traceability for auditing** — every credential, approval, and mint is immutable and 100% verifiable on-chain through Guardian's Trust Chain and Hedera Mirror Node
 
-This is **not a simulation**. Every data point maps to a physical operation happening today.
+This is **NOT a simulation**. Once the project deploys in mainnet, every data point there maps to a **real physical operation** happening today.
 
 ---
 
 ## Who Benefits
 
-### For Restaurants — Zero Food Waste Certification
+### For Restaurants
 
 Eggologic helps restaurants **prove** their commitment to sustainability with verifiable, on-chain records:
 
 - **Track every kg** of organic waste diverted from landfill — each delivery becomes a Verifiable Credential on Hedera
 - **Earn EGGOCOIN rewards** for clean, properly separated waste (quality grading: Cat A ≤5% contamination)
-- **Build toward Zero-Waste Certification** — Bronze, Silver, and Gold levels based on kg diverted, delivery frequency, and waste quality ([certification criteria](docs/zero-waste-certification.md))
+- **Certification Partnership** — We generate the auditable data required for restaurants to attain accredited Environmental Certifications through our partners like **SCS Global Services**.
 - **Public sustainability profile** backed by immutable records — verifiable by customers, partners, and regulators on HashScan
 - **Save on disposal costs** — free waste collection replaces municipal fees
 
@@ -69,7 +70,6 @@ Every Eggologic product carries its **full origin story**, verified on-chain:
 - **Verifiable Credentials** on Hedera link every product to specific waste deliveries, batches, and production records
 - **Check it yourself** on [HashScan](https://hashscan.io/testnet/token/0.0.8287358) — no trust required, just math and cryptography
 - **Know your impact**: each egg you buy contributed to X kg of waste diverted from landfill and Y kg CO₂e avoided
-- **Future: EGGTOKEN** (Phase 3) — 1 token = 1 verified egg with full on-chain traceability metadata
 
 > *"The first egg you can verify on a blockchain — from restaurant waste to your breakfast."*
 
@@ -78,11 +78,9 @@ Every Eggologic product carries its **full origin story**, verified on-chain:
 Eggologic provides **auditable, on-chain carbon credits** that integrate into corporate ESG reporting:
 
 - **Purchase CIN NFTs** — 1 CIN = 1 tCO₂e avoided, backed by CDM AMS-III.F methodology with VVB verification
-- **Full audit trail on Hedera** for ESG reporting — compatible with GRI 305 (Emissions), GRI 306 (Waste), and TCFD Metrics & Targets ([ESG integration guide](docs/esg-integration-guide.md))
+- **Full audit trail on Hedera** for ESG reporting — compatible with GRI 305 (Emissions), GRI 306 (Waste), and TCFD Metrics & Targets
 - **Scope 3 documentation** — CIN NFTs provide verifiable proof of waste-generated emissions avoidance (Category 5: Waste in operations)
 - **Transparent pricing** based on verified impact data — not opaque offset markets
-- **Corporate sponsorship model** — sponsor X kg/month of waste diversion, receive quarterly CIN NFTs for ESG reporting
-- **Independent verification** — VVB (Validation & Verification Body) reviews every impact calculation before CIN minting
 
 > *"Micro-scale carbon credits you can actually audit — from restaurant waste to your ESG report, verified on Hedera."*
 
@@ -90,13 +88,13 @@ Eggologic provides **auditable, on-chain carbon credits** that integrate into co
 
 | Token | Who Benefits | How |
 |---|---|---|
-| **EGGOCOIN** ($EGGO) | Restaurants | Incentive for clean waste delivery + progress toward Zero-Waste Certification |
+| **EGGOCOIN** ($EGGO) | Restaurants | Incentive for clean waste delivery + immutable data for SCS Environmental Certification |
 | **CIN NFT** | Companies | 1 tCO₂e avoided = auditable carbon credit for ESG compliance |
-| **EGGTOKEN** (Phase 3) | Consumers | 1 token = 1 verified egg with full traceability from waste to product |
 
 ---
 
 <a id="track"></a>
+
 
 ## Hackathon Track & Bounty
 
@@ -106,53 +104,52 @@ Eggologic provides **auditable, on-chain carbon credits** that integrate into co
 | **Bounty** | Hiero — Native use of HTS + HCS via Guardian MGS |
 | **Hackathon** | Hedera Hello Future: Apex 2026 |
 
+---
+
 ### Why This Qualifies
 
 - **Real operation** running in El Tesoro, Maldonado, Uruguay — 300-600 kg/week processed
 - **Digitized methodology** (EWD-RB) published as a Guardian policy with 8 schemas
-- **Affordable Scalability** — The cost of running a fully verifiable, tokenized circular economy across 100 different restaurants (making 2 deliveries/week) with our policy would be ~$0.58 USD/month. This unit cost is fixed and linear — 1,000 restaurants across 10 cities would cost less than a Whopper. No other blockchain offers this cost predictability at scale.
+- **Affordable Scalability** — The cost of running a fully verifiable, tokenized circular economy across 100 different restaurants (making 2 deliveries/week) with our policy would be **~$0.58 USD/month** . This unit cost is fixed and linear — **1,000 restaurants** across 10 cities would cost **less than a Whopper**. No other blockchain offers this cost predictability at scale. 
 - **Two-token model**: EGGOCOIN (supplier incentive) + CIN (environmental impact NFT)
 - **VVB manual validation** — not automated, maintaining credibility and auditability
 - **70% conservative factor** on carbon calculations — deliberately under-counting
-- **Zero middleware** — dashboard connects directly to Guardian API + Hedera Mirror Node, ensuring even more transparency and credibility
+- **Zero middleware** — dashboard connects directly to Guardian API + Hedera Mirror Node, ensuring even more transparency and credibility.
 
+---
+
+<a id="architecture"></a>
+
+## System Overview
+
+```
+![Architecture](docs/chartflow.png)
+
+
+```
 ---
 
 <a id="demo"></a>
 
 ## Demo
 
-> **[Watch the Demo Video](https://youtu.be/hENzHwvPzm4)**
-
-
-
-> **[Watch the restaurant testimonial Video](https://youtu.be/tHKIL_SMcf4)**
-
-
-Live at: **[ramonaguileira.github.io/EggoLogic-Hedera-Hackathon](https://ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/)**
+> **[Watch the Demo Video](https://youtu.be/PLACEHOLDER)**
 
 The demo shows the complete pipeline:
 
-1. **Login** — Role-based access (Owner, Registry, Project Proponent, Operator, VVB)
-2. **Submit Waste Delivery** — Project Proponent fills the form → VC created in Guardian
-3. **VVB Reviews** — VVB sees pending delivery → approves → **EGGOCOIN auto-minted** via policy
-4. **Impact Dashboard** — Real-time CO₂ avoidance metrics from Guardian + Mirror Node
-5. **Wallet** — User sees $EGGO balance, transaction history, CIN NFTs — all from Hedera
-6. **Marketplace** — Redeem EGGOCOIN for composting equipment, restaurant deals, regenerative products
+1. **PRS** — Quick Intro Explaining the problem, the reaction and the solution provided
+2. **Login** — Role-based access (Owner, Registry, Project Proponent, Operator, VVB) and their permissions granted in the dashboard.
+3. **Submit Waste Delivery** — Project Proponent fills the form → VC created in Guardian
+4. **VVB Reviews** — VVB sees pending delivery → approves → **EGGOCOIN auto-minted** via policy
+5. **Impact Dashboard** — Real-time CO₂ avoidance metrics from Guardian + Mirror Node
+6. **Wallet** — User sees on-chain $EGGO balance, Tx's history, CIN NFTs — all from Hedera
+7. **Marketplace** — Redeem $EGGO for composting equipment, restaurant deals, regenerative products
 
 ---
 
-<a id="architecture"></a>
-
-## Architecture
-
-<p align="center">
-  <img src="./docs/architecture-diagram.jpg" alt="EggoLogic Architecture" width="850">
-</p>
-
 ### Key Design Decision: No Middleware
 
-The dashboard connects **directly** to two public APIs:
+The dashboard connects **directly** onto two public API's and nothing more, ensuring veracity of the operations:
 
 | Layer | API | Auth | Purpose |
 |---|---|---|---|
@@ -176,7 +173,7 @@ Guardian's policy engine handles **all business logic**: VC creation, approval w
 | **Policy Hash** | `69bc4638e755119d0774dd03` |
 | **Tag** | `Tag_1773946388068` |
 | **Instance Topic** | `0.0.8294148` |
-| **Guardian Version** | 1.5.1 (MGS) |
+| **Guardian Version** | 3.5.1 (MGS) |
 | **Creator DID** | `did:hedera:testnet:Gt2DaoWQqV1NA5P6X4EqoTh9PcrZCv5qAUytYnCGrUJy_0.0.8187554` |
 
 ### Roles
@@ -255,7 +252,7 @@ Category thresholds (contamination ratio = kg_impropios / kg_brutos):
   Cat C: >10%   → rejected (not submitted)
 ```
 
-**Purpose**: Incentivize restaurants to deliver clean, separated organic waste. Redeemable in the marketplace for composting equipment, partner restaurant deals, and regenerative products.
+**Purpose**: Incentivize restaurants to deliver clean, separated organic waste. Redeemable in the marketplace for EGGOLOGIC sub-products, such as composting equipment, partner restaurant deals, and regenerative products.
 
 ### Circular Impact NFT (CIN) — `0.0.8287362`
 
@@ -282,7 +279,8 @@ Carbon calculation (adapted from CDM AMS-III.F):
 
 ## Dashboard
 
-Live at: **[ramonaguileira.github.io/EggoLogic-Hedera-Hackathon](https://ramonaguileira.github.io/EggoLogic-Hedera-Hackathon/)**
+Live at: **[eggologic.vercel.app](https://eggologic.vercel.app)**
+Repo : **[ramonaguileira.github.io/EggoLogic-Hedera-Hackathon](https://github.com/ramonaguileira/EggoLogic-Hedera-Hackathon)**
 
 4 screens, vanilla HTML/JS, Tailwind CSS. No framework, no build step.
 
@@ -291,7 +289,7 @@ Live at: **[ramonaguileira.github.io/EggoLogic-Hedera-Hackathon](https://ramonag
 | **Dashboard** | `index.html` | Hero metrics (waste, CO₂, eggs) | Balance, transactions, delivery form |
 | **Impact Report** | `impact.html` | Aggregate score, CO₂ chart, milestones | — |
 | **Wallet** | `wallet.html` | Total supply, all holders, CIN mint log | Personal balance, tx history, user CIN |
-| **Marketplace** | `marketplace.html` | Redeem catalog, H₂O stats | — |
+| **Marketplace** | `marketplace.html` | Redeem catalog, Current project stats | — |
 
 ### Data Sources
 
@@ -361,13 +359,13 @@ BLOCKS: {
 
 ### Prerequisites
 
-- A modern browser (Chrome, Firefox, Edge)
+- A relatively modern browser (Safari, Chrome, Firefox, Edge). Either PC or phone works (Site is responsive).
 - That's it. No Node.js, no Docker, no build step.
 
-### 1. Clone
+### Local Install
 
 ```bash
-git clone https://github.com/ramonaguileira/EggoLogic-Hedera-Hackathon.git
+git clone https://github.com/c4p5/EggoLogic-Hedera-Hackathon.git
 cd EggoLogic-Hedera-Hackathon
 ```
 
@@ -383,7 +381,7 @@ npx serve dashboard
 
 ### 3. Login
 
-Select any role from the login dropdown. Use the registered email + password for that account. The dashboard authenticates directly against Guardian MGS.
+Select any role from the login dropdown. Use the registered emails + password for that account (hardcoded for the hackathon demo). The dashboard authenticates directly against Guardian MGS.
 
 ### 4. Submit a Delivery (as Project_Proponent)
 
@@ -481,7 +479,8 @@ The methodology is **digitized as a Guardian policy** — every parameter, thres
 
 ## Cost Analysis
 
-Base unit: **1 approved delivery = 8 Hedera transactions** (VC submissions, VVB approval, impact calculation, EGGOCOIN mint, token transfer, fee settlements).
+**Base unit:** 1 approved delivery = 8 Hedera transactions (VC submissions, 
+VVB approval, impact calculation, EGGOCOIN mint, token transfer, fee settlements).
 
 | Scale | Deliveries/month | Hedera Txs | HBAR cost | USD (@ $0.09/HBAR) |
 |---|---|---|---|---|
@@ -492,7 +491,8 @@ Base unit: **1 approved delivery = 8 Hedera transactions** (VC submissions, VVB 
 
 CIN NFT mints add ~0.02 HBAR per mint (~1/month at current volume).
 
-Guardian MGS handles all infrastructure. No servers to maintain. Even at 100× our current volume, the entire MRV verification layer would cost less than a dollar a month.
+Guardian MGS handles all infrastructure. No servers to maintain. Even at **100X our current volume**, The entire 
+MRV verification layer would cost less than a dollar a month.
 
 ---
 
@@ -504,8 +504,8 @@ Guardian MGS handles all infrastructure. No servers to maintain. Even at 100× o
 |---|---|
 | Hedera accounts created | **5** (OWNER, Registry, Project_Proponent, Operator, VVB) |
 | HTS tokens deployed | **2** (EGGOCOIN fungible + CIN NFT) |
-| HCS topics active | **3** — Guardian auto-publishes all VCs and policy events to HCS topics, creating an immutable audit trail. Every delivery, approval, and token mint is fully traceable on-chain via the policy topic `0.0.8291451`. |
-| Monthly transactions | **~64** per restaurant (24 HCS messages + 8 Mints + 32 Transfers) on a 2×/week waste registry regime |
+| HCS topics: Guardian auto-publishes all VC's and policy events to HCS topics, creating an immutable audit trail. Every delivery, approval, and token mint is fully traceable on-chain via the policy topic 0.0.8291451.
+| Monthly transactions | ~64 per restaurant (on a 2 times per week waste registry regime) = 24 HCS messages + 8 Mints + 32 Trasfers) |
 | Monthly active accounts | 3–5 |
 
 > **Custody model (Phase 1–2):** Eggologic custodies EGGOCOIN balances on behalf of restaurant partners. Restaurants do not need their own Hedera wallet — they interact through the dashboard and redeem $EGGO for physical products (eggs, compost). Self-custody wallets are planned for Phase 3 when partners are onboarded to HashPack wallets and designated PP's.
@@ -522,7 +522,7 @@ Guardian MGS handles all infrastructure. No servers to maintain. Even at 100× o
 | CIN NFTs/year | **~29** | **~145+** |
 | Verified transactions/year | **~7,680** | **~38,400+** |
 
-> **Network contribution:** Every transaction at Eggologic represents a real-world economic event (waste delivered, quality verified, tokens minted, products redeemed). Unlike speculative DeFi volume, each on-chain action maps to physical material moving through a circular economy. At 100 restaurants, that's **76,800 verified real-world transactions per year** from a single city alone. LATAM has 160 million tonnes of annual food waste and zero blockchain-based MRVs in the sector.
+> **Network contribution:** Every transaction at EGGOLOGIC represents a real-world economic event (waste delivered, quality verified, tokens minted, products redeemed). Unlike speculative DeFi volume, each on-chain action maps to physical material moving through a circular economy. At 100 restaurants, that's 76,800 verified real-world transactions per year only from a single city. LATAM alone has 160 million tonnes of annual food waste and **zero** blockchain-based MRV's in the sector.
 
 ### New Audience Exposure
 
@@ -536,11 +536,11 @@ Eggologic brings Hedera into **three sectors with no current Web3 presence**:
 
 | Requirement | Hedera Advantage |
 |---|---|
-| Sub-cent transactions | $0.001 per token mint, $0.0008 per HCS message |
+| USD Sub-cent transactions | $0.001 per token mint, $0.0008 per HCS message |
 | Guardian MRV integration | Native policy engine — no smart contract development needed |
 | Carbon-negative network | Hedera purchases carbon offsets quarterly, aligning with our sustainability mission |
 | Regulatory readiness | HTS tokens are native assets with built-in compliance (KYC, freeze, clawback keys) |
-| Finality speed | 3–5 second finality — each delivery verified before the truck leaves |
+| Finality speed | 3~5 second finality — each delivery verified before the truck leaves |
 
 ---
 
@@ -548,7 +548,9 @@ Eggologic brings Hedera into **three sectors with no current Web3 presence**:
 
 ### Restaurant Partnerships
 
-Eggologic operates with a **real restaurant partner in Maldonado, Uruguay** that delivers organic waste 3–5 times per week. This is not a test scenario — it is a running commercial relationship:
+Eggologic already operates with a **real restaurant partner in Maldonado, Uruguay** that delivers organic waste 3–5 times per week. This is not a test scenario — it is a running commercial relationship:
+
+> **[Watch the interview with Jay, Main chef from our partner](https://www.youtube.com/watch?v=tHKIL_SMcf4)**
 
 - **Weekly waste volume**: 300–600 kg of restaurant kitchen organic waste (vegetable scraps, fruit peels, coffee grounds, eggshells)
 - **Delivery frequency**: 3–5 deliveries/week, each recorded as a Verifiable Credential on Hedera
@@ -581,7 +583,7 @@ All token mints and VC submissions are verifiable on Hedera testnet:
 |---|---|---|
 | Phase 1 (current) | 1 active partner | ✅ Operating |
 | Phase 2 (Q2-Q4 2026) | 10–20 in Maldonado/Punta del Este | Conversations initiated with 3 restaurants |
-| Phase 3 (2027) | 50+ across 3-5 hubs in different cities across Uruguay | Hub-to-go replication model designed in beta phase |
+| Phase 3 (2027) | 50+ across 3-5 hubs in different cities across Uruguay | Hub-to-go replication model designed in beta phase|
 
 ---
 
@@ -592,8 +594,9 @@ All token mints and VC submissions are verifiable on Hedera testnet:
 - **[Hedera Guardian (MGS)](https://guardian.io)** — Managed Guardian Service for MRV policy engine
 - **[Hedera Mirror Node](https://docs.hedera.com/hedera/sdks-and-apis/rest-api)** — Public API for balances, transactions, NFTs
 - **[CDM AMS-III.F](https://cdm.unfccc.int/methodologies/DB/GNFWB3Y818MFBDH1SVXBLI8TQGGPK2)** — UN composting methodology (inspiration)
-- **Tailwind CSS** — Dashboard styling (CDN, no build)
-- **Vanilla JavaScript** — Zero dependencies, zero framework
+- **[Tailwind CSS](https://tailwindcss.com)** — Dashboard styling (CDN, no build)
+- **[Vanilla JavaScript](https://es.wikipedia.org/wiki/JavaScript)** — Zero dependencies, zero framework
+- **Love 💚** 
 
 ---
 
@@ -601,8 +604,8 @@ All token mints and VC submissions are verifiable on Hedera testnet:
 
 | Name | Role | Links |
 |---|---|---|
-| Ramon Aguileira | Founder & Developer | [LinkedIn](https://www.linkedin.com/in/ramon-aguileira-b9a74997) |
-| Santiago Caprioli | Co-Founder & Tech Lead | [GitHub](https://github.com/C4P5) |
+| Ramon Aguileira | Founder & Developer | [LinkedIn](https://www.linkedin.com/in/ramon-aguileira-b9a74997/) |
+| Santiago Caprioli | Co-Founder & Tech Lead | [GitHub](https://github.com/c4p5) |
 
 ---
 
@@ -622,7 +625,5 @@ This project is licensed under the MIT License — see [LICENSE](./LICENSE) for 
 ---
 
 <p align="center">
-  <strong>Turning waste into protein, eggs, compost, and verified carbon credits — one delivery at a time.</strong><br/>
-  <em>Zero-waste certification for restaurants · Traceable food for consumers · Auditable carbon credits for ESG compliance</em>
+  <strong>Turning waste into protein, eggs, compost, and verified carbon credits — one delivery at a time.</strong>
 </p>
-
