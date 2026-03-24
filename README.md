@@ -132,7 +132,7 @@ Eggologic provides **auditable, on-chain Carbon Impact Tokens (CIN NFTs)** that 
 
 ## Demo
 
-> **[Watch the Pitch & Demo](https://www.youtube.com/watch?v=tHKIL_SMcf4)**
+> **[Watch the Pitch & Demo](https://youtu.be/hENzHwvPzm4)**
 
 The demo shows the complete pipeline:
 
