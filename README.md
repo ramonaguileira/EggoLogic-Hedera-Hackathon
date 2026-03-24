@@ -123,11 +123,9 @@ Eggologic provides **auditable, on-chain carbon credits** that integrate into co
 
 ## System Overview
 
-```
-![Architecture](docs/chartflow.png)
-
-
-```
+<p align="center">
+  <img src="docs/architecture-diagram.jpg" alt="Architecture Diagram" width="800"/>
+</p>
 ---
 
 <a id="demo"></a>
