@@ -110,10 +110,11 @@ Eggologic provides **auditable, on-chain carbon credits** that integrate into co
 
 - **Real operation** running in El Tesoro, Maldonado, Uruguay — 300-600 kg/week processed
 - **Digitized methodology** (EWD-RB) published as a Guardian policy with 8 schemas
+- **Affordable Scalability** — The cost of running a fully verifiable, tokenized circular economy across 100 different restaurants (making 2 deliveries/week) with our policy would be ~$0.58 USD/month. This unit cost is fixed and linear — 1,000 restaurants across 10 cities would cost less than a Whopper. No other blockchain offers this cost predictability at scale.
 - **Two-token model**: EGGOCOIN (supplier incentive) + CIN (environmental impact NFT)
-- **VVB manual validation** — not automated, maintaining credibility and auditability (automated for the hackathon)
+- **VVB manual validation** — not automated, maintaining credibility and auditability
 - **70% conservative factor** on carbon calculations — deliberately under-counting
-- **Zero middleware** — dashboard connects directly to Guardian API + Hedera Mirror Node
+- **Zero middleware** — dashboard connects directly to Guardian API + Hedera Mirror Node, ensuring even more transparency and credibility
 
 ---
 
@@ -480,15 +481,18 @@ The methodology is **digitized as a Guardian policy** — every parameter, thres
 
 ## Cost Analysis
 
-| Operation | Unit Cost | Monthly Vol. | Monthly Cost |
-|---|---|---|---|
-| Guardian VC issuance | ~$0.001 | ~24 deliveries | $0.024 |
-| EGGOCOIN minting (via policy) | ~$0.001 | ~24 | $0.024 |
-| CIN NFT minting (via policy) | ~$0.02 | ~2-4 | $0.04-0.08 |
-| HCS messages (policy topic) | ~$0.0008 | ~100 | $0.08 |
-| **Total** | | | **~$0.17-$0.21/month** |
+Base unit: **1 approved delivery = 8 Hedera transactions** (VC submissions, VVB approval, impact calculation, EGGOCOIN mint, token transfer, fee settlements).
 
-Even at **10× current volume**, monthly costs stay under $3. Guardian MGS handles infrastructure. No servers to maintain.
+| Scale | Deliveries/month | Hedera Txs | HBAR cost | USD (@ $0.09/HBAR) |
+|---|---|---|---|---|
+| Current (1 restaurant, 2/week) | 8 | 64 | 0.064 | ~$0.006 |
+| 10 restaurants | 80 | 640 | 0.64 | ~$0.058 |
+| 50 restaurants | 400 | 3,200 | 3.2 | ~$0.29 |
+| 100 restaurants | 800 | 6,400 | 6.4 | ~$0.58 |
+
+CIN NFT mints add ~0.02 HBAR per mint (~1/month at current volume).
+
+Guardian MGS handles all infrastructure. No servers to maintain. Even at 100× our current volume, the entire MRV verification layer would cost less than a dollar a month.
 
 ---
 
@@ -500,22 +504,25 @@ Even at **10× current volume**, monthly costs stay under $3. Guardian MGS handl
 |---|---|
 | Hedera accounts created | **5** (OWNER, Registry, Project_Proponent, Operator, VVB) |
 | HTS tokens deployed | **2** (EGGOCOIN fungible + CIN NFT) |
-| HCS topics active | **3** (policy, instance, sync) |
-| Monthly transactions | ~148 (24 mints + 24 VC submissions + ~100 HCS messages) |
+| HCS topics active | **3** — Guardian auto-publishes all VCs and policy events to HCS topics, creating an immutable audit trail. Every delivery, approval, and token mint is fully traceable on-chain via the policy topic `0.0.8291451`. |
+| Monthly transactions | **~64** per restaurant (24 HCS messages + 8 Mints + 32 Transfers) on a 2×/week waste registry regime |
 | Monthly active accounts | 3–5 |
 
-> **Custody model (Phase 1–2):** Eggologic custodies EGGOCOIN balances on behalf of restaurant partners. Restaurants do not need their own Hedera wallet — they interact through the dashboard and redeem $EGGO for physical products (eggs, compost). Self-custody wallets are planned for Phase 3 when partners are onboarded to HashPack or equivalent.
+> **Custody model (Phase 1–2):** Eggologic custodies EGGOCOIN balances on behalf of restaurant partners. Restaurants do not need their own Hedera wallet — they interact through the dashboard and redeem $EGGO for physical products (eggs, compost). Self-custody wallets are planned for Phase 3 when partners are onboarded to HashPack wallets and designated PP's.
 
 ### Projected Impact at Scale
 
 | Metric | Phase 2 (10 restaurants, custodial) | Phase 3 (50+ restaurants, self-custody) |
 |---|---|---|
-| New Hedera accounts | **+5–8** (new operators, VVBs, hub roles) | **200+** (50+ supplier wallets, multi-hub operators, VVBs) |
-| Monthly HTS mints | **~240** (10× deliveries + impact calcs) | **~2,400+** (50× deliveries across hubs) |
-| Monthly HCS messages | **~1,000** | **~10,000+** |
-| Monthly active accounts | **8–12** (operational roles; suppliers use dashboard) | **100–200+** (suppliers with own wallets) |
-| CIN NFTs/year | **~24** (24 tCO₂e avoided) | **~240+** (240+ tCO₂e avoided) |
-| TPS contribution | ~0.001 sustained | **~0.01+ sustained** |
+| New Hedera accounts | **+5–8** (new operators, VVBs, hub roles) | **50+** (supplier wallets + multi-hub operators, VVBs) |
+| Monthly Hedera transactions | **~640** (80 deliveries × 8 txs) | **~3,200+** (400+ deliveries × 8 txs) |
+| Monthly HCS messages | **~240** | **~1,200+** |
+| Monthly HTS mints | **~80** | **~400+** |
+| Monthly active accounts | **8–12** (operational roles; suppliers use dashboard) | **55–65+** (suppliers with own wallets + operators) |
+| CIN NFTs/year | **~29** | **~145+** |
+| Verified transactions/year | **~7,680** | **~38,400+** |
+
+> **Network contribution:** Every transaction at Eggologic represents a real-world economic event (waste delivered, quality verified, tokens minted, products redeemed). Unlike speculative DeFi volume, each on-chain action maps to physical material moving through a circular economy. At 100 restaurants, that's **76,800 verified real-world transactions per year** from a single city alone. LATAM has 160 million tonnes of annual food waste and zero blockchain-based MRVs in the sector.
 
 ### New Audience Exposure
 
@@ -539,14 +546,14 @@ Eggologic brings Hedera into **three sectors with no current Web3 presence**:
 
 ## Market Validation
 
-### Restaurant Partnership
+### Restaurant Partnerships
 
 Eggologic operates with a **real restaurant partner in Maldonado, Uruguay** that delivers organic waste 3–5 times per week. This is not a test scenario — it is a running commercial relationship:
 
 - **Weekly waste volume**: 300–600 kg of restaurant kitchen organic waste (vegetable scraps, fruit peels, coffee grounds, eggshells)
 - **Delivery frequency**: 3–5 deliveries/week, each recorded as a Verifiable Credential on Hedera
 - **Partner motivation**: Free waste collection (saves municipal disposal costs) + EGGOCOIN rewards redeemable for eggs and compost (Eggologic custodies $EGGO balances on behalf of partners in Phase 1–2)
-- **Contamination rate**: Consistently Category A (≤5% improper waste) — partner trained on separation protocol
+- **Contamination rate**: Consistently Category A (≤5% improper waste) — partner workers are trained on separation protocols
 
 ### Physical Operation Evidence
 
@@ -573,8 +580,8 @@ All token mints and VC submissions are verifiable on Hedera testnet:
 | Phase | Restaurants | Status |
 |---|---|---|
 | Phase 1 (current) | 1 active partner | ✅ Operating |
-| Phase 2 (Q3-Q4 2026) | 10–15 in Maldonado/Punta del Este | Conversations initiated with 3 restaurants |
-| Phase 3 (2027) | 50+ across 3-5 hubs in Uruguay | Hub-in-a-Box replication model designed |
+| Phase 2 (Q2-Q4 2026) | 10–20 in Maldonado/Punta del Este | Conversations initiated with 3 restaurants |
+| Phase 3 (2027) | 50+ across 3-5 hubs in different cities across Uruguay | Hub-to-go replication model designed in beta phase |
 
 ---
 
@@ -594,8 +601,8 @@ All token mints and VC submissions are verifiable on Hedera testnet:
 
 | Name | Role | Links |
 |---|---|---|
-| Ramon Aguileira | Founder & Developer | [GitHub](https://github.com/ramonaguileira) |
-| Santiago | Technical Advisor | [GitHub](https://github.com/ramonaguileira) |
+| Ramon Aguileira | Founder & Developer | [LinkedIn](https://www.linkedin.com/in/ramon-aguileira-b9a74997) |
+| Santiago Caprioli | Co-Founder & Tech Lead | [GitHub](https://github.com/C4P5) |
 
 ---
 

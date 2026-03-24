@@ -273,15 +273,18 @@ GET https://testnet.mirrornode.hedera.com/api/v1/transactions?account.id={treasu
 
 ## Cost Per Token Operation
 
-| Operation | Hedera Cost | Frequency | Monthly Cost |
-|---|---|---|---|
-| EGGOCOIN mint (via Guardian) | ~$0.001 | ~24/month | $0.024 |
-| CIN NFT mint (via Guardian) | ~$0.02 | ~2-4/month | $0.04-0.08 |
-| VC creation (HCS message) | ~$0.0008 | ~30/month | $0.024 |
-| Token association (one-time) | ~$0.05 | Per new supplier | One-time |
-| **Total token operations** | | | **~$0.09-$0.13/month** |
+Base unit: **1 approved delivery = 8 Hedera transactions** (VC submissions, VVB approval, impact calculation, EGGOCOIN mint, token transfer, fee settlements).
 
-At **10× volume** (240 deliveries/month, 20+ CIN mints), token operation costs stay under $1.50/month.
+| Scale | Deliveries/month | Hedera Txs | HBAR cost | USD (@ $0.09/HBAR) |
+|---|---|---|---|---|
+| Current (1 restaurant, 2/week) | 8 | 64 | 0.064 | ~$0.006 |
+| 10 restaurants | 80 | 640 | 0.64 | ~$0.058 |
+| 50 restaurants | 400 | 3,200 | 3.2 | ~$0.29 |
+| 100 restaurants | 800 | 6,400 | 6.4 | ~$0.58 |
+
+CIN NFT mints add ~0.02 HBAR per mint. Token association is ~$0.05 one-time per new supplier.
+
+Even at 100× current volume, the entire MRV verification layer costs less than a dollar a month.
 
 ---
 

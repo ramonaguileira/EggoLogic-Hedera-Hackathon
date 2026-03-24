@@ -3,7 +3,7 @@
 > **Hackathon:** Hedera Hello Future: Apex 2026
 > **Track:** Sustainability — Guardian-powered MRV for climate and circular economy
 > **Bounty:** Hiero — Native use of HTS + HCS via Guardian MGS
-> **Team:** Ramon Aguileira (Founder & Developer), Santiago (Technical Advisor)
+> **Team:** Ramon Aguileira (Founder & Developer), Santiago Caprioli (Co-Founder & Tech Lead)
 > **Status:** Live operation + deployed dashboard
 
 ---
@@ -159,25 +159,25 @@ The dashboard connects directly to two APIs — Guardian MGS (JWT auth, via CORS
 **Phase 1–2 account growth** comes from operational roles (new operators, VVBs, hub admins), not individual restaurant wallets:
 - **Current:** 5 accounts (OWNER, Registry, Project_Proponent, Operator, VVB)
 - **Phase 2 (10 restaurants, custodial):** +5–8 new accounts (additional operators, VVBs, hub roles)
-- **Phase 3 (50+ restaurants, self-custody):** 200+ accounts (each restaurant gets own wallet + multi-hub operators + independent VVBs)
+- **Phase 3 (50+ restaurants, self-custody):** 50+ accounts (supplier wallets + multi-hub operators, VVBs)
 
 ### Active Accounts
 
 Each waste delivery triggers activity across 2–3 operational accounts (Project_Proponent submits, VVB approves, OWNER monitors). Restaurant partners interact via dashboard (no wallet needed in Phase 1–2):
 - **Current MAA:** 3–5 accounts
 - **Phase 2:** 8–12 monthly active accounts (operational roles; restaurants use dashboard without wallet)
-- **Phase 3:** 100–200+ monthly active accounts (suppliers with self-custody wallets)
+- **Phase 3:** 55–65+ monthly active accounts (suppliers with own wallets + operators)
 
 ### Transactions Per Second (TPS)
 
-Each delivery generates: 1 VC submission (HCS) + 1 VVB approval (HCS) + 1 token mint (HTS) = ~3 transactions. Transaction volume scales with deliveries, independent of the custody model.
+Each approved delivery generates **8 Hedera transactions** (VC submissions, VVB approval, impact calculation, EGGOCOIN mint, token transfer, fee settlements). Transaction volume scales linearly with deliveries, independent of the custody model.
 
-| Scale | Deliveries/month | Transactions/month | Sustained TPS |
-|-------|-------------------|-------------------|---------------|
-| Phase 1 (current) | ~24 | ~148 | ~0.001 |
-| Phase 2 (10 restaurants, custodial) | ~240 | ~1,000 | ~0.001 |
-| Phase 3 (50+ restaurants, self-custody) | ~2,400 | ~10,000+ | ~0.01 |
-| Phase 4 (regional network) | ~24,000 | ~100,000+ | ~0.04 |
+| Scale | Deliveries/month | Hedera Txs/month | USD (@ $0.09/HBAR) |
+|-------|-------------------|-------------------|---------------------|
+| Phase 1 (1 restaurant, 2/week) | 8 | 64 | ~$0.006 |
+| Phase 2 (10 restaurants, custodial) | 80 | 640 | ~$0.058 |
+| Phase 3 (50+ restaurants, self-custody) | 400 | 3,200 | ~$0.29 |
+| Phase 4 (100 restaurants, regional) | 800 | 6,400 | ~$0.58 |
 
 ### Audience Exposure
 
@@ -273,7 +273,7 @@ No project on Hedera (or any blockchain) verifies **waste-to-BSF circular econom
 | Member | Role | Key Responsibilities |
 |--------|------|---------------------|
 | Ramon Aguileira | Founder & Developer | BSF hub operations, Guardian policy design, dashboard development, blockchain integration |
-| Santiago | Technical Advisor | Architecture review, methodology validation |
+| Santiago Caprioli | Co-Founder & Tech Lead | Architecture review, methodology validation, calculation audit |
 
 ### Design Decisions
 
@@ -289,8 +289,8 @@ No project on Hedera (or any blockchain) verifies **waste-to-BSF circular econom
 
 ### Post-Hackathon Roadmap
 
-- **Phase 2 (Q3–Q4 2026):** CDM AMS-III.F formal integration, IoT sensors (digital scales, temperature probes), mainnet migration, 10+ restaurant partners, EGGOCOIN redemption system
-- **Phase 3 (2027):** Hub-in-a-Box replication kit, multi-hub architecture, regional LatAm expansion, CIN marketplace, third-party API
+- **Phase 2 (Q2–Q4 2026):** CDM AMS-III.F formal integration, IoT sensors (digital scales, temperature probes), mainnet migration, 10–20 restaurant partners, EGGOCOIN redemption system
+- **Phase 3 (2027):** Hub-to-go replication kit, multi-hub architecture, regional LatAm expansion, CIN marketplace, third-party API
 - **Phase 4 (2028+):** Open protocol specification, decentralized VVB network with staking, DAO governance, carbon credit interoperability (Verra/Gold Standard bridges)
 
 > **Full Roadmap:** See [docs/ROADMAP.md](docs/ROADMAP.md)
@@ -339,7 +339,7 @@ No project on Hedera (or any blockchain) verifies **waste-to-BSF circular econom
 
 - **TAM:** Latin America organic waste management — ~160M tonnes/year (FAO), worth ~$12B in disposal costs
 - **SAM:** Uruguay restaurant organic waste — ~50,000 tonnes/year, ~2,000 restaurants in tourist zones
-- **Initial Target:** 10–15 restaurants in Maldonado/Punta del Este department (3-month collection radius from El Tesoro hub)
+- **Initial Target:** 10–20 restaurants in Maldonado/Punta del Este department (3-month collection radius from El Tesoro hub)
 
 ### Distribution Channels
 
@@ -379,7 +379,7 @@ No project on Hedera (or any blockchain) verifies **waste-to-BSF circular econom
 | Voluntary carbon market | $2B (2023) | Ecosystem Marketplace |
 | Regenerative ag. market | $36.6B by 2032 | Precedence Research |
 | Conservative factor | 0.70 (deliberately under-counting) | CDM AMS-III.F adaptation |
-| Hedera accounts created | 5 (growing to 200+ at scale) | Mirror Node |
+| Hedera accounts created | 5 (growing to 50+ at scale) | Mirror Node |
 
 ---
 
@@ -405,7 +405,7 @@ No project on Hedera (or any blockchain) verifies **waste-to-BSF circular econom
 | **Execution** | 4/5 | 20% | 5.60 | Working MVP with 4 screens, clean architecture (8 modules, zero deps), extensive docs (25k+ lines), roadmap, design decisions documented. | Add automated tests, document team collaboration process. |
 | **Integration** | 4/5 | 15% | 4.20 | HTS (fungible + NFT) + HCS (3 topics) + Mirror Node (7+ endpoints) + Guardian MGS. Creative: policy-as-smart-contract. | Add ecosystem partner integration (HashPack wallet connect, HashScan deep links). |
 | **Validation** | 2/5 | 15% | 2.10 | 1 restaurant partner actively delivering waste. Physical operation validated. No documented digital platform feedback cycles. | Get restaurant partner to test dashboard, document feedback. Onboard 2-3 more restaurants. |
-| **Success** | 3/5 | 20% | 4.20 | Creates 5 Hedera accounts, generates real txs, exposes Hedera to 3 new sectors. Impact projections documented. Testnet only. | Quantify projected TPS at each phase. Emphasize $0.20/mo cost story as Hedera advantage. |
+| **Success** | 3/5 | 20% | 4.20 | Creates 5 Hedera accounts, generates real txs, exposes Hedera to 3 new sectors. Impact projections documented. Testnet only. | Emphasize $0.58/mo for 100 restaurants cost story as Hedera advantage. |
 | **Pitch** | 4/5 | 10% | 2.80 | Excellent README (591 lines), pitch script (ES/EN), demo recording guide. Market data cited. Hedera is core. | Record and polish demo video. Add 1-2 more cited market statistics. |
 | **Total** | **26/35** | | **25.20** | | |
 
