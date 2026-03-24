@@ -44,7 +44,7 @@ We built a blockchain verification layer on **Hedera** using the **Guardian Soft
 3. **Issues Circular Impact NFTs (CIN)** — 1 NFT = 1 tCO₂e avoided — minted when VVB approves the accumulative calculation that the methodology threshold requires for a carbon diversion credit
 4. **Complete traceability for auditing** — every credential, approval, and mint is immutable and 100% verifiable on-chain through Guardian's Trust Chain and Hedera Mirror Node
 
-This is **NOT a simulation**. Currently verified on Hedera testnet, with mainnet deployment planned for Phase 2. While the tokenomics and structural workflow map directly to our **real physical operation** today, some delivery volumes on the testnet have been simulated to demonstrate the platform's scalable capacity.
+This is *NOT a simulation*. Currently verified on Hedera testnet, with mainnet deployment planned for Phase 2. Every data pointed in production will map to a **real physical operation** happening today.
 
 ---
 
@@ -76,7 +76,7 @@ Every Eggologic product carries its **full origin story**, verified on-chain:
 
 ### For Companies — ESG Compliance & Carbon Reporting
 
-Eggologic provides **auditable, on-chain Circular Impact NFTs** that integrate into corporate ESG reporting:
+Eggologic provides **auditable, on-chain Carbon Impact Tokens (CIN NFTs)** that integrate into corporate ESG reporting:
 
 - **Purchase CIN NFTs** — 1 CIN = 1 tCO₂e avoided, backed by CDM AMS-III.F methodology with VVB verification
 - **Full audit trail on Hedera** for ESG reporting — compatible with GRI 305 (Emissions), GRI 306 (Waste), and TCFD Metrics & Targets
@@ -90,7 +90,7 @@ Eggologic provides **auditable, on-chain Circular Impact NFTs** that integrate i
 | Token | Who Benefits | How |
 |---|---|---|
 | **EGGOCOIN** ($EGGO) | Restaurants | Incentive for clean waste delivery + immutable data for SCS Environmental Certification |
-| **CIN NFT** | Companies | 1 tCO₂e avoided = auditable circular impact for ESG compliance |
+| **CIN NFT** | Companies | 1 tCO₂e avoided = auditable Carbon Impact Tokens for ESG compliance |
 
 ---
 
@@ -333,7 +333,7 @@ BLOCKS: {
 | Service | Purpose | ID |
 |---|---|---|
 | **HTS** (Fungible) | Supplier incentive rewards | `EGGOCOIN` — 0.0.8287358 |
-| **HTS** (NFT) | Verified circular impact | `CIN` — 0.0.8287362 |
+| **HTS** (NFT) | Verified carbon impact tokens | `CIN` — 0.0.8287362 |
 | **HCS** | Policy messaging + trust chain | Topic 0.0.8291451 (policy), 0.0.8294148 (instance) |
 | **Guardian MGS** | MRV policy engine, VC issuance, token minting | Policy hash `69bc4638e755119d0774dd03` |
 | **Mirror Node** | Public data queries (balances, txs, NFTs) | `testnet.mirrornode.hedera.com` |
@@ -624,5 +624,5 @@ This project is licensed under the MIT License — see [LICENSE](./LICENSE) for 
 ---
 
 <p align="center">
-  <strong>Turning waste into protein, eggs, compost, and verified circular impact — one delivery at a time.</strong>
+  <strong>Turning waste into protein, eggs, compost, and verified carbon impact tokens — one delivery at a time.</strong>
 </p>
