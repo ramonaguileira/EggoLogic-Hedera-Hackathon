@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EWD-RB Waste Delivery",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "methodology_id": {"type":"string","const":"EWD-RB"},
+    "methodology_version": {"type":"string","const":"0.3"},
+    "schema_version": {"type":"string","const":"0.3.0"},
+    "delivery_id": {"$ref":"#/$defs/uuid"},
+    "supplier_id": {"$ref":"#/$defs/uuid"},
+    "capture_timestamp": {"type":"string","format":"date-time"},
+    "waste_stream": {"type":"string","enum":["food_waste_mixed","pre_consumer","post_consumer","coffee_grounds","other_organic"]},
+    "kg_bruto": {"type":"number","minimum":0,"maximum":5000,"description":"Unidad: kg"},
+    "kg_impropios": {"type":"number","minimum":0,"maximum":5000,"description":"Unidad: kg"},
+    "impropios_ratio": {"type":"number","minimum":0,"maximum":1,"description":"Auto Calculate"},
+    "kg_netos": {"type":"number","minimum":0,"maximum":5000,"description":"Auto Calculate (kg)"},
+    "kg_ajustados": {"type":"number","minimum":0,"maximum":5000,"description":"Auto Calculate (kg)"},
+    "acceptance_category": {"type":"string","enum":["A","B","R"],"description":"Auto Calculate según umbrales"},
+    "supplier_confirmed": {"type":"boolean"},
+    "supplier_confirmation_evidence": {"$ref":"#/$defs/evidenceRefs"},
+    "delivery_status": {"type":"string","enum":["Draft","Submitted","Supplier_Confirmed","Validated","Under_VVB_Review","VVB_Approved","Rejected","Batched","Included_In_IssuanceLot","Issued","Superseded","Invalidated"]},
+    "evidence_capture": {"$ref":"#/$defs/evidenceRefs"}
+  },
+  "required": ["methodology_id","methodology_version","schema_version","delivery_id","supplier_id","capture_timestamp","kg_bruto","kg_impropios","supplier_confirmed","delivery_status","evidence_capture"],
+  "$comment": "Reconstructed from the user-provided EWD-RB v0.3 methodology source on 2026-09-06. Not an authoritative export of the currently published Guardian schema. Common $defs were embedded to make this file standalone.",
+  "$defs": {
+    "uuid": {"type":"string","pattern":"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"},
+    "evidenceRefs": {"type":"array","items":{"type":"string","format":"uri"},"minItems":1},
+    "geoLocation": {"type":"object","description":"Estructura compatible con el patrón de GeographicLocation descrito en el handbook (longitude, latitude, geoJsonOrKml, file).","properties":{"longitude":{"type":"string","description":"Longitud"},"latitude":{"type":"string","description":"Latitud"},"geoJsonOrKml":{"type":"string","description":"GeoJSON/KML (opcional)"},"geographicLocationFile":{"type":"string","format":"uri","description":"Referencia a archivo de ubicación (opcional)"}},"required":["longitude","latitude"]}
+  }
+}

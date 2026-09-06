@@ -1,4 +1,4 @@
-// EGGOLOGIC Dashboard — Mirror Node Queries
+// EGGOLOGIC Dashboard — Mirror Node queries
 
 const HederaMirror = (() => {
 
@@ -8,10 +8,7 @@ const HederaMirror = (() => {
     return res.json();
   }
 
-  /**
-   * Get $EGGO balance for accs
-   * Returns balance as a number, or 0 if brokeasf.
-   */
+  /** Get $EGGO balance for an account. */
   async function getEggocoinBalance(accountId) {
     const data = await _get(`/api/v1/tokens/${CONFIG.EGGOCOIN_TOKEN}/balances?account.id=${accountId}`);
     if (data.balances && data.balances.length > 0) {
@@ -20,16 +17,12 @@ const HederaMirror = (() => {
     return 0;
   }
 
-  /**
-   * Token info (name, symbol, total supply, decimals).
-   */
+  /** Token info (name, symbol, total supply, decimals). */
   async function getTokenInfo(tokenId) {
     return _get(`/api/v1/tokens/${tokenId}`);
   }
 
-  /**
-   * Get $EGGO TS.
-   */
+  /** Get total $EGGO supply. */
   async function getEggocoinSupply() {
     const info = await getTokenInfo(CONFIG.EGGOCOIN_TOKEN);
     return {
@@ -41,10 +34,7 @@ const HederaMirror = (() => {
     };
   }
 
-  /**
-   * Get $EGGO tx's for acc.
-   * Follows pagination to collect all $EGGO txs. This puzzled me more that what I'm willing to disclose.
-   */
+  /** Get $EGGO transactions for an account, following Mirror Node pagination. */
   async function getTransactions(accountId, targetCount = 50) {
     let allTxs = [];
     let nextPath = `/api/v1/transactions?account.id=${accountId}&transactiontype=CRYPTOTRANSFER&limit=100&order=desc`;
@@ -54,7 +44,6 @@ const HederaMirror = (() => {
       if (!data.transactions) break;
 
       data.transactions.forEach(tx => {
-        // Find $EGGO transfers for THIS account (correct sign: + received, - sent)
         const eggTransfer = (tx.token_transfers || []).find(
           t => t.token_id === CONFIG.EGGOCOIN_TOKEN && t.account === accountId
         );
@@ -73,49 +62,38 @@ const HederaMirror = (() => {
         }
       });
 
-      // Follow pagination if more results needed
       nextPath = (allTxs.length < targetCount && data.links?.next) ? data.links.next : null;
     }
 
     return allTxs.slice(0, targetCount);
   }
 
-  /**
-   * Get balance (all holders).
-   */
+  /** Get all $EGGO holders and balances. */
   async function getAllBalances() {
     const data = await _get(`/api/v1/tokens/${CONFIG.EGGOCOIN_TOKEN}/balances`);
     return data.balances || [];
   }
 
-  /**
-   * Get NFT's for account.
-   */
+  /** Get CIN NFTs held by an account. */
   async function getNFTs(accountId) {
     const data = await _get(`/api/v1/tokens/${CONFIG.NFT_TOKEN}/nfts?account.id=${accountId}`);
     return data.nfts || [];
   }
 
-  /**
-   * Get CIT NFT(Circular Impact NFT) total supply.
-   */
-  async function getCITSupply() {
+  /** Get Circular Impact NFT (CIN) total supply. */
+  async function getCINSupply() {
     const info = await getTokenInfo(CONFIG.NFT_TOKEN);
     return parseInt(info.total_supply, 10);
   }
 
-  /**
-   * Get CIT NFT count for a specific account.
-   */
-  async function getUserCIT(accountId) {
+  /** Get CIN NFT count for a specific account. */
+  async function getUserCIN(accountId) {
     const nfts = await getNFTs(accountId);
     return nfts.length;
   }
 
-  /**
-   * Get all minted CIT NFTs (serial, holder, timestamp).
-   */
-  async function getAllCITNfts() {
+  /** Get all minted CIN NFTs (serial, holder, timestamp). */
+  async function getAllCINNfts() {
     const data = await _get(`/api/v1/tokens/${CONFIG.NFT_TOKEN}/nfts?order=desc&limit=25`);
     return (data.nfts || []).map(nft => ({
       serial: nft.serial_number,
@@ -124,16 +102,13 @@ const HederaMirror = (() => {
     }));
   }
 
-  /**
-   * Get all minting events for $EGGO (treasury transfers).
-   */
+  /** Get all minting events for $EGGO (treasury transfers). */
   async function getMintEvents() {
     const info = await getTokenInfo(CONFIG.EGGOCOIN_TOKEN);
     const treasuryId = info.treasury_account_id;
     const data = await _get(
       `/api/v1/transactions?account.id=${treasuryId}&transactiontype=TOKENMINT&limit=100&order=desc`
     );
-    // Filter to only $EGGO mints (treasury minted other tokens from different policies since we screwed up a gazillion times while buidlng the policy)
     return (data.transactions || []).filter(tx => tx.entity_id === CONFIG.EGGOCOIN_TOKEN);
   }
 
@@ -145,8 +120,8 @@ const HederaMirror = (() => {
     getAllBalances,
     getNFTs,
     getMintEvents,
-    getCITSupply,
-    getUserCIT,
-    getAllCITNfts,
+    getCINSupply,
+    getUserCIN,
+    getAllCINNfts,
   };
 })();

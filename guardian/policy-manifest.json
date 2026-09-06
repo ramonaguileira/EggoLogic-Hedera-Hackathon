@@ -1,0 +1,105 @@
+{
+  "name": "EWD-RB",
+  "policyVersion": "0.3.0",
+  "status": "published",
+  "network": "hedera-testnet",
+  "guardian": {
+    "mgsVersion": "3.5.1",
+    "guardianPolicyId": "69bc4638e755119d0774dd03",
+    "policyTopicId": "0.0.8291451",
+    "instanceTopicId": "0.0.8294148",
+    "tag": "Tag_1773946388068"
+  },
+  "tokens": {
+    "EGGOCOIN": "0.0.8287358",
+    "CIN": "0.0.8287362"
+  },
+  "schemaExportStatus": "reconstructed-from-project-artifacts",
+  "authoritativePublishedExportAvailable": false,
+  "schemaIndex": "schemas/schema-index.json",
+  "schemaProvenance": {
+    "methodologySource": "EWD-RB v0.3 methodology supplied by project owner",
+    "crossCheck": "historical Guardian Dry Run policy export plus Guardian-format draft schema exports supplied by project owner",
+    "limitation": "No current Standard Registry access is available; repository schemas are reconstructed standalone contracts and are not asserted to be byte-for-byte exports of the published Guardian schemas.",
+    "reconstructionDate": "2026-09-06"
+  },
+  "schemas": [
+    {
+      "name": "EWD-RB Supplier Registration",
+      "ref": "#85f16b9d-f3f8-4763-9522-8977957ccb6f&1.0.0",
+      "uuid": "85f16b9d-f3f8-4763-9522-8977957ccb6f",
+      "version": "1.0.0",
+      "submittedBy": "Project_Proponent",
+      "approvalBy": "Registry",
+      "repositorySchemaFile": "schemas/supplier-registration.schema.json"
+    },
+    {
+      "name": "EWD-RB Waste Delivery",
+      "ref": "#8f0b83a5-da18-47ac-a849-e2f46d3ae9b6&1.0.0",
+      "uuid": "8f0b83a5-da18-47ac-a849-e2f46d3ae9b6",
+      "version": "1.0.0",
+      "submittedBy": "Project_Proponent",
+      "approvalBy": "VVB",
+      "trigger": "EGGOCOIN mint from field12",
+      "repositorySchemaFile": "schemas/waste-delivery.schema.json",
+      "observedInRepositoryVCs": true
+    },
+    {
+      "name": "EWD-RB Waste Batch",
+      "ref": "#5414b8bf-f06c-4129-bdf1-033f76090714&1.0.0",
+      "uuid": "5414b8bf-f06c-4129-bdf1-033f76090714",
+      "version": "1.0.0",
+      "submittedBy": "Operator",
+      "approvalBy": null,
+      "repositorySchemaFile": "schemas/waste-batch.schema.json"
+    },
+    {
+      "name": "EWD-RB Production Output",
+      "ref": "#379210b0-4291-4b40-abb6-45c3d221ba03&1.0.0",
+      "uuid": "379210b0-4291-4b40-abb6-45c3d221ba03",
+      "version": "1.0.0",
+      "submittedBy": "Operator",
+      "approvalBy": null,
+      "repositorySchemaFile": "schemas/production-output.schema.json"
+    },
+    {
+      "name": "EWD-RB Impact Calculation",
+      "ref": "#35dd5b7f-5f1c-46f0-809e-26a0e3fd6198&1.0.0",
+      "uuid": "35dd5b7f-5f1c-46f0-809e-26a0e3fd6198",
+      "version": "1.0.0",
+      "submittedBy": "OWNER",
+      "approvalBy": "VVB",
+      "trigger": "CIN NFT mint from field10",
+      "repositorySchemaFile": "schemas/impact-calculation.schema.json",
+      "observedInRepositoryVCs": true
+    },
+    {
+      "name": "EWD-RB VVB Assessment Record",
+      "ref": "#9a08c91d-9414-4d94-8d0b-cf0e20905777&1.0.0",
+      "uuid": "9a08c91d-9414-4d94-8d0b-cf0e20905777",
+      "version": "1.0.0",
+      "submittedBy": "VVB",
+      "approvalBy": null,
+      "repositorySchemaFile": "schemas/vvb-assessment-record.schema.json",
+      "sourceCorrection": "required keys aligned to assessment_id/assessed_at/assessment_evidence"
+    },
+    {
+      "name": "EWD-RB External Validation Record",
+      "ref": "#912044fe-8201-4227-bc4a-5c001aa59a6c&1.0.0",
+      "uuid": "912044fe-8201-4227-bc4a-5c001aa59a6c",
+      "version": "1.0.0",
+      "submittedBy": "VVB",
+      "approvalBy": null,
+      "repositorySchemaFile": "schemas/external-validation-record.schema.json"
+    },
+    {
+      "name": "EWD-RB Issuance Record",
+      "ref": "#70fca042-7578-4607-92d3-171a903bfb88&1.0.0",
+      "uuid": "70fca042-7578-4607-92d3-171a903bfb88",
+      "version": "1.0.0",
+      "submittedBy": "System",
+      "approvalBy": null,
+      "repositorySchemaFile": "schemas/issuance-record.schema.json"
+    }
+  ]
+}
