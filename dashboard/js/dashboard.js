@@ -1,11 +1,10 @@
 // EGGOLOGIC Dashboard
 // Loads: hero metrics (global, no login), balance + transactions (user-specific)
-//Ever heard of CAPS? fun guy.
 /**
- * Numboor animation counting from 0 to target.
- * @param {string} elementId - DOM elementID to animate
+ * Number animation counting from 0 to target.
+ * @param {string} elementId - DOM element ID to animate
  * @param {number} target - Final value
- * @param {string} suffix - Text appended wnumber (e.g. 't', 'kg')
+ * @param {string} suffix - Text appended to number (e.g. 't', 'kg')
  * @param {number} decimals - Decimals (0 for integers, 1 for '1.8t')
  * @param {number} duration - Animation duration in ms (default 1100)
  */
@@ -18,7 +17,6 @@ function countUp(elementId, target, suffix = '', decimals = 0, duration = 1100) 
   function frame(now) {
     const elapsed = now - start;
     const progress = Math.min(elapsed / duration, 1);
-    // Ease-out: 1 - (1 - p)^3
     const eased = 1 - Math.pow(1 - progress, 3);
     const current = eased * target;
     const formatted = decimals > 0 ? current.toFixed(decimals) : UI.fmt(Math.round(current));
@@ -34,13 +32,12 @@ function countUp(elementId, target, suffix = '', decimals = 0, duration = 1100) 
 
 /**
  * Load global metrics to ALL visitors.
- * Sources: Cache(local JSON) + Hedera Mirror Node (public API).
+ * Sources: cache (local JSON) + Hedera Mirror Node (public API).
  */
 async function loadGlobalMetrics() {
   ['metric-waste', 'metric-co2', 'metric-eggs'].forEach(id => UI.showLoading(id));
 
   try {
-    // Live EGGOCOIN supply from Mirror Node
     const supplyData = await HederaMirror.getEggocoinSupply();
     const totalEggo = supplyData.totalSupply;
 
@@ -53,7 +50,6 @@ async function loadGlobalMetrics() {
       countUp('metric-waste', wasteKg, 'kg', 0);
     }
 
-    // CO2 avoided = kg_ajustados (1 $EGGO = 1 kg CO2 avoided per EWD-RB)
     const co2Kg = totalEggo;
     if (co2Kg >= 1000) {
       countUp('metric-co2', co2Kg / 1000, 't', 1);
@@ -62,7 +58,6 @@ async function loadGlobalMetrics() {
     }
 
     countUp('metric-eggs', 936, '', 0);
-
   } catch (e) {
     console.error('Mirror Node error, using fallback:', e);
     countUp('metric-waste', 1.8, 't', 1);
@@ -81,8 +76,8 @@ async function loadGlobalMetrics() {
 }
 
 /**
- * Load user-specific data
- * login (requires a specific Hedera account ID, duhh).
+ * Load user-specific data.
+ * Login requires a Guardian-authenticated user and the mapped Hedera account ID.
  */
 async function loadUserData() {
   if (!GuardianAPI.isLoggedIn()) return;
@@ -99,7 +94,6 @@ async function loadUserData() {
       UI.setText('wallet-balance', `${UI.fmt(balance)} $EGGO`);
       const hederaEl = document.getElementById('wallet-hedera-id');
       if (hederaEl) hederaEl.textContent = user.supplierId;
-      // No wallet widget for suppliers (custodied)
       const widget = document.getElementById('wallet-widget-container');
       if (widget) widget.innerHTML = '<div class="text-stone-400 text-xs italic py-8 text-center bg-stone-50 rounded-2xl border border-stone-100">Tokens are custodied by EggoLogic for maximizing impact.</div>';
     } else {
@@ -117,15 +111,13 @@ async function loadUserData() {
 }
 
 /**
- * Extract VC documents (various formats).
+ * Extract VC documents from Guardian block response formats.
  */
 function extractDocuments(blockData) {
   if (!blockData) return [];
-  // Either { data: [...] } or { documents: [...] } or array directly
   if (Array.isArray(blockData)) return blockData;
   if (blockData.data && Array.isArray(blockData.data)) return blockData.data;
   if (blockData.documents && Array.isArray(blockData.documents)) return blockData.documents;
-  // Doc wrapper
   if (blockData.document) return [blockData];
   return [];
 }
@@ -185,11 +177,10 @@ async function loadRecentActivity(accountId) {
   const list = document.getElementById('recent-activity');
   if (!list) return;
 
-  // Supplier Role: Load from local activity tracking (Web2)
   if (user && user.role === 'Supplier') {
     const local = JSON.parse(localStorage.getItem('eggologic_activity') || '[]');
     const supplierActs = local.filter(a => a.supplierId === user.supplierId);
-    
+
     if (supplierActs.length === 0) {
       list.innerHTML = '<div class="text-stone-400 text-xs italic py-12 text-center bg-stone-50 rounded-2xl border border-stone-100/50">No recent deliveries found.</div>';
       return;
@@ -215,7 +206,6 @@ async function loadRecentActivity(accountId) {
     return;
   }
 
-  // Other Roles (Project Proponent, etc): Load from Mirror Node
   if (!accountId) {
     list.innerHTML = '<p class="text-stone-400 text-sm text-center py-12">Sign in to view transaction history.</p>';
     return;
@@ -280,7 +270,6 @@ function updateDeliveryCard() {
   if (isPP) {
     cta.classList.add('hidden');
     form.classList.remove('hidden');
-    // Set delivery ID chip from mint events (more reliable than cache. Like, REALLY)
     _updateDeliveryId();
     document.getElementById('admin-section')?.classList.remove('hidden');
     if (typeof loadAdminApplications === 'function') loadAdminApplications();
@@ -312,7 +301,7 @@ async function _updateDeliveryId() {
 }
 
 /**
- * Live preview
+ * Live delivery preview.
  */
 function updateDeliveryPreview() {
   const bruto = parseFloat(document.getElementById('delivery-kg-bruto')?.value) || 0;
@@ -368,7 +357,7 @@ function updateDeliveryPreview() {
 }
 
 /**
- * Guardian API Submit + VVB approval auto-trigger.
+ * Submit a Waste Delivery to Guardian. VVB approval remains a separate role-controlled step.
  */
 async function submitDeliveryForm() {
   const btn = document.getElementById('delivery-submit-btn');
@@ -394,7 +383,6 @@ async function submitDeliveryForm() {
 
   btn.disabled = true;
 
-  // Workflow stepper in preview area
   const stepperHTML = `
     <div id="workflow-stepper" class="space-y-3">
       <div id="ws-1" class="flex items-center gap-3">
@@ -421,8 +409,7 @@ async function submitDeliveryForm() {
 
   try {
     console.log(`[Guardian Submit] Sending delivery ${deliveryId} for supplier ${supplierId}`);
-    
-    // Step 1: PP submits delivery
+
     await GuardianAPI.submitDelivery({
       field0: 'EWD-RB', field1: '0.3', field2: 'v0.3', field3: 'v0.3',
       field4: deliveryId, field5: supplierId, field6: new Date().toISOString(),
@@ -433,40 +420,12 @@ async function submitDeliveryForm() {
     });
 
     _updateStep('ws-1', 'done', `${deliveryId} submitted to Guardian`);
-    _updateStep('ws-2', 'active', 'VVB reviewing delivery...');
+    _updateStep('ws-2', 'warn', 'VVB approval pending (manual step)');
+    _updateStep('ws-3', 'waiting', 'Mint pending VVB approval');
     window._deliveryCount = count;
     localStorage.setItem('eggologic_delivery_count', String(count));
+    UI.showToast(`${deliveryId} submitted. VVB approval is required before minting.`);
 
-    // Step 2: Auto-approve as VVB. ABSOLUTE ALPHA MOVE FOR DEMO
-    try {
-      await _autoApproveAsVVB(deliveryId);
-      _updateStep('ws-2', 'done', 'VVB approved delivery');
-      _updateStep('ws-3', 'done', `+${eggo} $EGGO minted on Hedera`);
-
-      const balances = JSON.parse(localStorage.getItem('eggologic_balances') || '{}');
-      balances[supplierId] = (balances[supplierId] || 0) + eggo;
-      localStorage.setItem('eggologic_balances', JSON.stringify(balances));
-
-      // Save local activity for demo/supplier login
-      const localActivity = JSON.parse(localStorage.getItem('eggologic_activity') || '[]');
-      localActivity.unshift({
-        id: deliveryId,
-        supplierId,
-        amount: eggo,
-        wasteType,
-        ts: Date.now()
-      });
-      localStorage.setItem('eggologic_activity', JSON.stringify(localActivity.slice(0, 20)));
-
-      UI.showToast(`${deliveryId} approved — +${eggo} $EGGO minted! (Balance updated for ${supplierId})`);
-    } catch (vvbErr) {
-      console.warn('Auto-approve failed (may need manual VVB approval):', vvbErr.message);
-      _updateStep('ws-2', 'warn', 'VVB approval pending (manual step)');
-      _updateStep('ws-3', 'waiting', 'Mint pending VVB approval');
-      UI.showToast(`${deliveryId} submitted! VVB approval needed for minting.`);
-    }
-
-    // Reset form
     document.getElementById('delivery-kg-bruto').value = '';
     document.getElementById('delivery-kg-impropios').value = '';
     document.getElementById('delivery-evidence').value = '';
@@ -475,7 +434,7 @@ async function submitDeliveryForm() {
     btn.disabled = true;
     btn.textContent = 'Enter weight to submit';
 
-    // Refresh metrics after delay (let Guardian process, big boi sometimes slow)
+    // Refresh metrics after a short Guardian indexing delay.
     setTimeout(() => { loadGlobalMetrics(); if (GuardianAPI.isLoggedIn()) loadUserData(); }, 3000);
   } catch (e) {
     console.error('Delivery submission error:', e);
@@ -486,7 +445,7 @@ async function submitDeliveryForm() {
   }
 }
 
-/** Update workflow stepper step's vstate. */
+/** Update workflow stepper state. */
 function _updateStep(id, state, text) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -507,58 +466,24 @@ function _updateStep(id, state, text) {
 }
 
 /**
- * Auto-approve a delivery as VVB (Backdoor).
- * Logs as VVB, fetches pending deliveries, approves the matching one. Genius
+ * Remove password fields left by older demo builds from locally stored applications.
+ * Registration applications are contact records only; authentication belongs to Guardian.
  */
-async function _autoApproveAsVVB(deliveryId) {
-  // Login as VVB (separate session, current user won't know)
-  const loginRes = await fetch(`${CONFIG.GUARDIAN_URL}/accounts/loginByEmail`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: 'eggologic-vvb@outlook.com', password: 'test' }),
-  });
-  if (!loginRes.ok) throw new Error(`VVB login failed: ${loginRes.status}`);
-  const loginData = await loginRes.json();
-  const refreshToken = loginData.login?.refreshToken || loginData.refreshToken;
-
-  const tokenRes = await fetch(`${CONFIG.GUARDIAN_URL}/accounts/access-token`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ refreshToken }),
-  });
-  if (!tokenRes.ok) throw new Error(`VVB access token failed: ${tokenRes.status}`);
-  const vvbToken = (await tokenRes.json()).accessToken;
-
-  // Indexing delay
-  await new Promise(r => setTimeout(r, 4000));
-
-  // Fetch VVB delivery docs
-  const docsRes = await fetch(`${CONFIG.GUARDIAN_URL}/policies/${CONFIG.POLICY_ID}/blocks/${CONFIG.BLOCKS.VVB_DELIVERY}`, {
-    headers: { 'Authorization': `Bearer ${vvbToken}` },
-  });
-  if (!docsRes.ok) throw new Error(`VVB docs fetch failed: ${docsRes.status}`);
-  const docsData = await docsRes.json();
-
-  // Find document matching our delivery ID
-  const allDocs = docsData.data || docsData.documents || (Array.isArray(docsData) ? docsData : []);
-  const target = allDocs.find(d => {
-    const cs = d.document?.credentialSubject;
-    const subj = Array.isArray(cs) ? cs[0] : cs;
-    return subj?.field4 === deliveryId && d.option?.status === 'Waiting for approval';
-  });
-
-  if (!target) throw new Error(`Delivery ${deliveryId} not found in VVB queue (may need intermediate steps)`);
-
-  // Approve: POST doc with Button_0 tag
-  const approveRes = await fetch(`${CONFIG.GUARDIAN_URL}/policies/${CONFIG.POLICY_ID}/blocks/${CONFIG.BLOCKS.VVB_DELIVERY_APPROVE}`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${vvbToken}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ tag: 'Button_0', document: target }),
-  });
-  if (!approveRes.ok) throw new Error(`VVB approval failed: ${approveRes.status}`);
+function sanitizeStoredApplications() {
+  try {
+    const apps = JSON.parse(localStorage.getItem('eggologic_applications') || '[]');
+    if (!Array.isArray(apps)) return;
+    let changed = false;
+    const sanitized = apps.map(app => {
+      if (!app || typeof app !== 'object' || !Object.prototype.hasOwnProperty.call(app, 'password')) return app;
+      const { password, ...rest } = app;
+      changed = true;
+      return rest;
+    });
+    if (changed) localStorage.setItem('eggologic_applications', JSON.stringify(sanitized));
+  } catch (e) {
+    console.warn('Could not sanitize stored applications:', e);
+  }
 }
 
 // Called by UI after successful login
@@ -569,10 +494,10 @@ function onLogin() {
 
 // Always load global metrics; load user data if already logged in
 document.addEventListener('DOMContentLoaded', () => {
+  sanitizeStoredApplications();
   loadGlobalMetrics();
   updateDeliveryCard();
 
-  // Live preview listeners
   const brutoInput = document.getElementById('delivery-kg-bruto');
   const impropiosInput = document.getElementById('delivery-kg-impropios');
   if (brutoInput) brutoInput.addEventListener('input', updateDeliveryPreview);
@@ -585,14 +510,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.submitRegistration = function() {
   const btn = document.getElementById('reg-submit-btn');
-  const password = document.getElementById('reg-password').value;
-  const confirmPassword = document.getElementById('reg-confirm-password').value;
-  
-  if (password !== confirmPassword) {
-    UI.showToast('Las contraseñas no coinciden', 'error');
-    return;
-  }
-
   btn.disabled = true;
   btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">progress_activity</span> <span>Enviando...</span>';
 
@@ -605,7 +522,6 @@ window.submitRegistration = function() {
       phone: document.getElementById('reg-phone').value,
       address: document.getElementById('reg-address').value,
       waste: document.getElementById('reg-waste').value,
-      password: password,
       date: new Date().toISOString(),
       status: 'Waiting for approval'
     };
@@ -616,11 +532,10 @@ window.submitRegistration = function() {
 
     UI.closeRegistration();
     UI.showToast('Solicitud enviada. Nos pondremos en contacto.');
-    
+
     btn.disabled = false;
     btn.innerHTML = '<span>Enviar Solicitud</span><span class="material-symbols-outlined text-sm">send</span>';
-    
-    // Refresh admin list if PP is currently logged in
+
     if (GuardianAPI.isLoggedIn() && GuardianAPI.currentUser().role === 'Project_Proponent') {
       loadAdminApplications();
     }
@@ -641,7 +556,7 @@ window.loadAdminApplications = function() {
   container.innerHTML = apps.map(app => {
     const isWaiting = app.status === 'Waiting for approval';
     const isApproved = app.status === 'Approved by Project Proponent';
-    
+
     let statusHtml = '';
     let actionHtml = '';
 
@@ -659,7 +574,7 @@ window.loadAdminApplications = function() {
     const balance = balances[app.supplierId] || 0;
     const balanceHtml = app.supplierId ? `<span class="bg-[#FBD54E]/20 text-[#10381E] px-3 py-1 rounded-full text-xs font-bold font-mono ml-2 border border-[#FBD54E]/40 flex items-center gap-1 shadow-sm"><span class="material-symbols-outlined text-[14px]">token</span> ${balance} $EGGO</span>` : '';
 
-    const copyData = `Supplier ID: ${app.supplierId || 'PENDING'}\\nName: ${app.restaurantName}\\nContact: ${app.contactName}\\nEmail: ${app.email}\\nPhone: ${app.phone}\\nAddress: ${app.address}\\nWaste: ${app.waste} kg`;
+    const copyData = `Supplier ID: ${app.supplierId || 'PENDING'}\nName: ${app.restaurantName}\nContact: ${app.contactName}\nEmail: ${app.email}\nPhone: ${app.phone}\nAddress: ${app.address}\nWaste: ${app.waste} kg`;
 
     return `
       <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6 hover:border-primary/20 transition-colors">
@@ -722,4 +637,3 @@ window.populateSupplierDropdown = function() {
   }
   select.innerHTML = approved.map(a => `<option value="${a.supplierId}">${a.restaurantName} (${a.supplierId})</option>`).join('');
 }
-

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Eggologic EWD-RB v0.3 Guardian Schema Index",
+  "description": "Repository index of the eight published Guardian schema identities used by EWD-RB v0.3 and the reconstructed standalone JSON schemas stored in this repository.",
+  "policy": {
+    "name": "EWD-RB",
+    "version": "0.3.0",
+    "guardianPolicyId": "69bc4638e755119d0774dd03",
+    "policyTopicId": "0.0.8291451",
+    "instanceTopicId": "0.0.8294148"
+  },
+  "authoritativeExportAvailable": false,
+  "repositorySchemaStatus": "reconstructed-from-project-artifacts",
+  "provenance": {
+    "methodologySource": "user-provided EWD-RB v0.3 methodology containing eight JSON Schema blocks",
+    "crossCheck": "user-provided historical Guardian Dry Run policy export and Guardian-format draft schema exports",
+    "limitation": "The current published Guardian policy cannot be accessed, so these files must not be represented as byte-for-byte authoritative exports of the published schemas.",
+    "reconstructionDate": "2026-09-06"
+  },
+  "schemas": [
+    {"name":"EWD-RB Supplier Registration","uuid":"85f16b9d-f3f8-4763-9522-8977957ccb6f","version":"1.0.0","ref":"#85f16b9d-f3f8-4763-9522-8977957ccb6f&1.0.0","repositorySchemaFile":"supplier-registration.schema.json"},
+    {"name":"EWD-RB Waste Delivery","uuid":"8f0b83a5-da18-47ac-a849-e2f46d3ae9b6","version":"1.0.0","ref":"#8f0b83a5-da18-47ac-a849-e2f46d3ae9b6&1.0.0","repositorySchemaFile":"waste-delivery.schema.json","observedInRepositoryVCs":true},
+    {"name":"EWD-RB Waste Batch","uuid":"5414b8bf-f06c-4129-bdf1-033f76090714","version":"1.0.0","ref":"#5414b8bf-f06c-4129-bdf1-033f76090714&1.0.0","repositorySchemaFile":"waste-batch.schema.json"},
+    {"name":"EWD-RB Production Output","uuid":"379210b0-4291-4b40-abb6-45c3d221ba03","version":"1.0.0","ref":"#379210b0-4291-4b40-abb6-45c3d221ba03&1.0.0","repositorySchemaFile":"production-output.schema.json"},
+    {"name":"EWD-RB Impact Calculation","uuid":"35dd5b7f-5f1c-46f0-809e-26a0e3fd6198","version":"1.0.0","ref":"#35dd5b7f-5f1c-46f0-809e-26a0e3fd6198&1.0.0","repositorySchemaFile":"impact-calculation.schema.json","observedInRepositoryVCs":true},
+    {"name":"EWD-RB VVB Assessment Record","uuid":"9a08c91d-9414-4d94-8d0b-cf0e20905777","version":"1.0.0","ref":"#9a08c91d-9414-4d94-8d0b-cf0e20905777&1.0.0","repositorySchemaFile":"vvb-assessment-record.schema.json","sourceCorrection":"required keys aligned with declared assessment properties"},
+    {"name":"EWD-RB External Validation Record","uuid":"912044fe-8201-4227-bc4a-5c001aa59a6c","version":"1.0.0","ref":"#912044fe-8201-4227-bc4a-5c001aa59a6c&1.0.0","repositorySchemaFile":"external-validation-record.schema.json"},
+    {"name":"EWD-RB Issuance Record","uuid":"70fca042-7578-4607-92d3-171a903bfb88","version":"1.0.0","ref":"#70fca042-7578-4607-92d3-171a903bfb88&1.0.0","repositorySchemaFile":"issuance-record.schema.json"}
+  ]
+}

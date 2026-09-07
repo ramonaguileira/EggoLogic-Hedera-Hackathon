@@ -1,17 +1,17 @@
 {
   "name": "eggologic-hedera",
   "version": "1.0.0",
-  "description": "Circular economy verified on Hedera — Organic Waste → BSF → Eggs → Compost → Verified Carbon Credits",
+  "description": "Circular bioeconomy traceability on Hedera — Organic Waste → BSF → Regenerative Outputs → Verified Circular Impact",
   "private": true,
   "scripts": {
     "dashboard:dev": "cd dashboard && npx serve .",
-    "test": "jest tests/api.test.js tests/hedera.test.js tests/ui.test.js"
+    "test": "jest tests/*.test.js"
   },
   "keywords": [
     "hedera",
     "guardian",
     "circular-economy",
-    "carbon-credits",
+    "circular-impact",
     "sustainability",
     "HTS",
     "HCS",

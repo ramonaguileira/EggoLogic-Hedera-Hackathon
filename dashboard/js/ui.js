@@ -1,11 +1,8 @@
-// EGGOLOGIC Dashboard — Vanilla is GOOD(Login modal, nav, loading states).
+// EGGOLOGIC Dashboard — login modal, navigation and loading states.
 
 const UI = (() => {
 
-  /**
-   * Inject HTML login into the page.
-   * Call once on DOMContentLoaded. My Vanilla JS professor would be SO proud for this :') 
-   */
+  /** Inject login HTML into the page. */
   function initLoginModal() {
     const modal = document.createElement('div');
     modal.id = 'login-modal';
@@ -25,17 +22,17 @@ const UI = (() => {
         <div class="space-y-4">
           <div>
             <label class="text-xs font-bold text-stone-500 uppercase tracking-wider mb-1 block">Email</label>
-            <input id="login-email" type="email" placeholder="you@email.com" class="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#10381E]/20 bg-stone-50" />
+            <input id="login-email" type="email" autocomplete="username" placeholder="you@email.com" class="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#10381E]/20 bg-stone-50" />
           </div>
           <div>
             <label class="text-xs font-bold text-stone-500 uppercase tracking-wider mb-1 block">Password</label>
-            <input id="login-password" type="password" value="test" class="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#10381E]/20 bg-stone-50" />
+            <input id="login-password" type="password" autocomplete="current-password" class="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#10381E]/20 bg-stone-50" />
           </div>
           <button id="login-submit" onclick="UI.doLogin()" class="w-full py-3 bg-[#10381E] text-white rounded-full font-bold text-sm hover:opacity-90 transition-opacity mt-4">
             Sign In
           </button>
         </div>
-        <p class="text-[10px] text-stone-400 text-center mt-6 italic">Project Proponents should use their Guardian email. Registered Restaurants use their application email.</p>
+        <p class="text-[10px] text-stone-400 text-center mt-6 italic">Use the credentials provisioned for your Guardian role.</p>
       </div>
     `;
     document.body.appendChild(modal);
@@ -57,7 +54,7 @@ const UI = (() => {
           <h2 class="text-2xl font-bold text-[#10381E]">Quiero Ser Parte</h2>
         </div>
         <p class="text-sm text-stone-500 mb-8 border-b border-stone-100 pb-4">Únete a EGGOLOGIC. Completa este formulario para registrar tu restaurante y sumarte a la economía circular real.</p>
-        
+
         <form id="registration-form" onsubmit="event.preventDefault(); window.submitRegistration();" class="space-y-5">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
@@ -69,7 +66,7 @@ const UI = (() => {
               <input id="reg-contact-name" type="text" required class="w-full px-4 py-3 rounded-2xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#10381E]/20 bg-stone-50" />
             </div>
           </div>
-          
+
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
               <label class="text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-2 block">Correo Electrónico *</label>
@@ -82,33 +79,24 @@ const UI = (() => {
           </div>
 
           <div>
-            <label class="text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-2 block">Dirección Físico *</label>
+            <label class="text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-2 block">Dirección Física *</label>
             <input id="reg-address" type="text" required class="w-full px-4 py-3 rounded-2xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#10381E]/20 bg-stone-50" />
           </div>
-          
+
           <div>
             <label class="text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-2 block">Desperdicio Orgánico Semanal Estimado (kg) *</label>
             <input id="reg-waste" type="number" min="0" required placeholder="ej. 50" class="w-full px-4 py-3 rounded-2xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#10381E]/20 bg-stone-50" />
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
-            <div>
-              <label class="text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-2 block">Contraseña *</label>
-              <input id="reg-password" type="password" required class="w-full px-4 py-3 rounded-2xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#10381E]/20 bg-stone-50" />
-            </div>
-            <div>
-              <label class="text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-2 block">Confirmar Contraseña *</label>
-              <input id="reg-confirm-password" type="password" required class="w-full px-4 py-3 rounded-2xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#10381E]/20 bg-stone-50" />
-            </div>
-          </div>
-
           <div class="flex items-start gap-3 mt-6 pt-4 border-t border-stone-100">
             <input type="checkbox" id="reg-terms" required class="mt-1 w-4 h-4 text-[#10381E] bg-gray-100 border-gray-300 rounded focus:ring-[#10381E]" />
             <label for="reg-terms" class="text-xs text-stone-500 leading-snug">
-              Acepto los términos y condiciones de la plataforma y consiento el tratamiento de mis datos personales en cumplimiento estricto con la <a href="https://www.impo.com.uy/bases/leyes/18331-2008" target="_blank" class="font-bold text-[#10381E] hover:underline">Ley No. 18.331 de Protección de Datos Personales</a> de la República Oriental del Uruguay y su decreto reglamentario.
+              Acepto los términos y condiciones de la plataforma y consiento el tratamiento de mis datos personales en cumplimiento estricto con la <a href="https://www.impo.com.uy/bases/leyes/18331-2008" target="_blank" rel="noopener" class="font-bold text-[#10381E] hover:underline">Ley No. 18.331 de Protección de Datos Personales</a> de la República Oriental del Uruguay y su decreto reglamentario.
             </label>
           </div>
-          
+
+          <p class="text-[11px] text-stone-400">Este formulario registra una solicitud de incorporación. No crea credenciales de acceso ni almacena contraseñas en el navegador.</p>
+
           <button type="submit" id="reg-submit-btn" class="w-full py-4 mt-6 bg-[#10381E] text-white rounded-full font-bold text-sm hover:opacity-90 transition-opacity flex justify-center items-center gap-2 shadow-lg">
             <span>Enviar Solicitud</span>
             <span class="material-symbols-outlined text-sm">send</span>
@@ -137,7 +125,7 @@ const UI = (() => {
   }
 
   async function doLogin() {
-    const email = document.getElementById('login-email').value;
+    const email = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
     const errorEl = document.getElementById('login-error');
     const btn = document.getElementById('login-submit');
@@ -148,11 +136,11 @@ const UI = (() => {
 
     try {
       await GuardianAPI.login(email, password);
+      document.getElementById('login-password').value = '';
       closeLogin();
       updateAuthUI();
       const user = GuardianAPI.currentUser();
       showToast(`Signed in as ${user.role || 'User'}`);
-      // Data load Triggoor
       if (typeof onLogin === 'function') onLogin();
     } catch (e) {
       errorEl.textContent = e.message;
@@ -163,9 +151,7 @@ const UI = (() => {
     }
   }
 
-  /**
-   * Nav bar update auth button for login state.
-   */
+  /** Update nav auth button for login state. */
   function updateAuthUI() {
     const authBtn = document.getElementById('auth-btn');
     if (!authBtn) return;
@@ -192,9 +178,6 @@ const UI = (() => {
     }
   }
 
-  /**
-   * Set text (with optional formatting).
-   */
   function setText(id, value) {
     const el = document.getElementById(id);
     if (el) {
@@ -203,39 +186,27 @@ const UI = (() => {
     }
   }
 
-  /**
-   * innerHTML by ID.
-   */
   function setHTML(id, html) {
     const el = document.getElementById(id);
     if (el) el.innerHTML = html;
   }
 
-  /**
-   * Show a skeleton loading state inside elements.
-   * Chad shimmer animation instead of virgin "···".
-   */
+  /** Show a shimmer loading state inside an element. */
   function showLoading(id) {
     const el = document.getElementById(id);
     if (el) {
       el.dataset.original = el.textContent;
-      // Light skeleton for elements inside dark stuff
       const isDark = el.closest('.hero-curved-bg, .glass-card, [class*="bg-primary"], [class*="bg-\\[\\#10381E"]');
       const cls = isDark ? 'skeleton-light' : 'skeleton';
       el.innerHTML = `<span class="${cls}" style="display:inline-block;min-width:4rem;height:1em;">&nbsp;</span>`;
     }
   }
 
-  /**
-   * Format for numbers with separatoors.
-   */
   function fmt(n, decimals = 0) {
     return Number(n).toLocaleString('en-US', { maximumFractionDigits: decimals });
   }
 
-  /**
-   * Timestamp to relative time (e.g., "2 hours ago, 1 day ago, 6 FULL YEARS OF MY LIFE ON YOUR TRAIL").
-   */
+  /** Convert a timestamp to relative time. */
   function timeAgo(date) {
     const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
     if (seconds < 60) return 'just now';
@@ -244,28 +215,22 @@ const UI = (() => {
     return `${Math.floor(seconds / 86400)} days ago`;
   }
 
-  /**
-   * Mobile hamburger injection
-   */
+  /** Mobile hamburger injection. */
   function initMobileMenu() {
-    // Find desktop nav links
     const nav = document.querySelector('nav');
     if (!nav) return;
 
-    // Hamburger button (4 smol screens)
     const hamburger = document.createElement('button');
     hamburger.id = 'hamburger-btn';
     hamburger.className = 'md:hidden text-white p-2';
     hamburger.innerHTML = '<span class="material-symbols-outlined text-2xl">menu</span>';
     hamburger.setAttribute('aria-label', 'Open menu');
 
-    // Insert hamburger BEFORE auth button (!)
     const authBtn = document.getElementById('auth-btn');
     if (authBtn && authBtn.parentElement) {
       authBtn.parentElement.insertBefore(hamburger, authBtn);
     }
 
-    // Overlay + panel
     const overlay = document.createElement('div');
     overlay.className = 'mobile-menu-overlay';
     overlay.id = 'mobile-overlay';
@@ -274,7 +239,6 @@ const UI = (() => {
     panel.className = 'mobile-menu-panel';
     panel.id = 'mobile-panel';
 
-    // Get current for active state
     const currentPage = location.pathname.split('/').pop() || 'index.html';
 
     panel.innerHTML = `
@@ -301,7 +265,6 @@ const UI = (() => {
     document.body.appendChild(overlay);
     document.body.appendChild(panel);
 
-    // Toggle handlers
     hamburger.addEventListener('click', () => {
       overlay.classList.add('open');
       panel.classList.add('open');
@@ -314,9 +277,6 @@ const UI = (() => {
     document.getElementById('mobile-close').addEventListener('click', closeMenu);
   }
 
-  /**
-   * Page load: login modal + auth state + nav links + mobile menu.
-   */
   function init() {
     initLoginModal();
     initRegistrationModal();
@@ -324,9 +284,6 @@ const UI = (() => {
     updateAuthUI();
   }
 
-  /**
-   * Show skeleton rows in container (for transaction lists, holder lists, etc.).
-   */
   function showSkeletonRows(id, count = 3) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -347,9 +304,6 @@ const UI = (() => {
     `).join('');
   }
 
-  /**
-   * Show toast of shame - would've been nice tho...definitely shipping this wen mainnet prod
-   */
   function showToast(message) {
     let toast = document.getElementById('app-toast');
     if (!toast) {
@@ -368,5 +322,4 @@ const UI = (() => {
   return { init, initLoginModal, openLogin, closeLogin, openRegistration, closeRegistration, doLogin, updateAuthUI, setText, setHTML, showLoading, showSkeletonRows, showToast, fmt, timeAgo };
 })();
 
-// Auto-init on DOM ready
 document.addEventListener('DOMContentLoaded', () => UI.init());

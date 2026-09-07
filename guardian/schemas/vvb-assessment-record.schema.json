@@ -1,0 +1,27 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"EWD-RB VVB Assessment Record",
+  "type":"object",
+  "additionalProperties":false,
+  "properties":{
+    "methodology_id":{"type":"string","const":"EWD-RB"},
+    "methodology_version":{"type":"string","const":"0.3"},
+    "schema_version":{"type":"string","const":"0.3.0"},
+    "assessment_id":{"$ref":"#/$defs/uuid"},
+    "target_type":{"type":"string","enum":["WasteDelivery","WasteBatch","ImpactCalculation","EGGOCOIN_Issuance"]},
+    "target_id":{"$ref":"#/$defs/uuid"},
+    "vvb_org":{"type":"string"},
+    "vvb_user_id":{"type":"string"},
+    "decision":{"type":"string","enum":["Approved","Rejected","Approved_With_Findings"]},
+    "decision_note":{"type":"string"},
+    "assessed_at":{"type":"string","format":"date-time"},
+    "assessment_evidence":{"$ref":"#/$defs/evidenceRefs"}
+  },
+  "required":["methodology_id","methodology_version","schema_version","assessment_id","target_type","target_id","decision","assessed_at","assessment_evidence"],
+  "$comment":"Reconstructed from the user-provided EWD-RB v0.3 methodology source on 2026-09-06. Not an authoritative export of the currently published Guardian schema. Corrected an internal source inconsistency: required keys verification_id/verified_at/verification_evidence were changed to assessment_id/assessed_at/assessment_evidence to match the declared properties. Common $defs were embedded to make this file standalone.",
+  "$defs":{
+    "uuid":{"type":"string","pattern":"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"},
+    "evidenceRefs":{"type":"array","items":{"type":"string","format":"uri"},"minItems":1},
+    "geoLocation":{"type":"object","description":"Estructura compatible con el patrón de GeographicLocation descrito en el handbook (longitude, latitude, geoJsonOrKml, file).","properties":{"longitude":{"type":"string","description":"Longitud"},"latitude":{"type":"string","description":"Latitud"},"geoJsonOrKml":{"type":"string","description":"GeoJSON/KML (opcional)"},"geographicLocationFile":{"type":"string","format":"uri","description":"Referencia a archivo de ubicación (opcional)"}},"required":["longitude","latitude"]}
+  }
+}

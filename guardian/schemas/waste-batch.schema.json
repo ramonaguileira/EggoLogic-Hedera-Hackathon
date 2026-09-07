@@ -1,0 +1,25 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"EWD-RB Waste Batch",
+  "type":"object",
+  "additionalProperties":false,
+  "properties":{
+    "methodology_id":{"type":"string","const":"EWD-RB"},
+    "methodology_version":{"type":"string","const":"0.3"},
+    "schema_version":{"type":"string","const":"0.3.0"},
+    "batch_id":{"$ref":"#/$defs/uuid"},
+    "batch_closed_at":{"type":"string","format":"date-time"},
+    "processing_route":{"type":"string","enum":["bsf_bioconversion","composting","mixed","other"]},
+    "delivery_ids":{"type":"array","items":{"$ref":"#/$defs/uuid"},"minItems":1},
+    "batch_kg_ajustados_total":{"type":"number","minimum":0,"description":"Auto Calculate"},
+    "batch_status":{"type":"string","enum":["Draft","Populated","Closed","Calculated","Locked","Superseded","Invalidated"]},
+    "batch_evidence":{"$ref":"#/$defs/evidenceRefs"}
+  },
+  "required":["methodology_id","methodology_version","schema_version","batch_id","processing_route","delivery_ids","batch_status","batch_evidence"],
+  "$comment":"Reconstructed from the user-provided EWD-RB v0.3 methodology source on 2026-09-06. Not an authoritative export of the currently published Guardian schema. Common $defs were embedded to make this file standalone.",
+  "$defs":{
+    "uuid":{"type":"string","pattern":"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"},
+    "evidenceRefs":{"type":"array","items":{"type":"string","format":"uri"},"minItems":1},
+    "geoLocation":{"type":"object","description":"Estructura compatible con el patrón de GeographicLocation descrito en el handbook (longitude, latitude, geoJsonOrKml, file).","properties":{"longitude":{"type":"string","description":"Longitud"},"latitude":{"type":"string","description":"Latitud"},"geoJsonOrKml":{"type":"string","description":"GeoJSON/KML (opcional)"},"geographicLocationFile":{"type":"string","format":"uri","description":"Referencia a archivo de ubicación (opcional)"}},"required":["longitude","latitude"]}
+  }
+}

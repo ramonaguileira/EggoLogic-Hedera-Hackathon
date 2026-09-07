@@ -9,13 +9,12 @@ async function loadGlobalWallet() {
   UI.showSkeletonRows('all-holders', 2);
 
   try {
-    const [supply, allBalances, citSupply] = await Promise.all([
+    const [supply, allBalances, cinSupply] = await Promise.all([
       HederaMirror.getEggocoinSupply(),
       HederaMirror.getAllBalances(),
-      HederaMirror.getCITSupply(),
+      HederaMirror.getCINSupply(),
     ]);
 
-    // Compute monthly growth %: average tokens minted per month vs prior base
     const monthsLive = Math.max(1, (Date.now() - supply.createdTimestamp) / (30.44 * 24 * 60 * 60 * 1000));
     const monthlyMint = supply.totalSupply / monthsLive;
     const prevSupply = supply.totalSupply - monthlyMint;
@@ -25,13 +24,11 @@ async function loadGlobalWallet() {
     UI.setText('hero-supply', `+${growthPct}%`);
     renderHolders(allBalances);
 
-    // CIT card — global view
-    UI.setText('cit-row1-value', `${UI.fmt(supply.totalSupply)} $EGGO`);
-    UI.setText('cit-row2-value', String(citSupply));
+    UI.setText('cin-row1-value', `${UI.fmt(supply.totalSupply)} $EGGO`);
+    UI.setText('cin-row2-value', String(cinSupply));
 
-    // CIT mint log
-    const citNfts = await HederaMirror.getAllCITNfts();
-    renderCITLog(citNfts);
+    const cinNfts = await HederaMirror.getAllCINNfts();
+    renderCINLog(cinNfts);
   } catch (e) {
     console.error('Global wallet error:', e);
   }
@@ -52,7 +49,7 @@ async function loadUserWallet() {
       const balances = JSON.parse(localStorage.getItem('eggologic_balances') || '{}');
       const balance = balances[user.supplierId] || 0;
       UI.setText('hero-balance', `${UI.fmt(balance)} $EGGO`);
-      
+
       const heroHedera = document.getElementById('hero-hedera');
       if (heroHedera) heroHedera.innerHTML = `<span class="bg-[#FBD54E]/20 text-[#10381E] px-2 py-0.5 rounded text-xs font-bold border border-[#FBD54E]/40 flex items-center w-max gap-1"><span class="material-symbols-outlined text-[14px]">lock</span> Custody Wallet (${user.supplierId})</span>`;
 
@@ -65,9 +62,9 @@ async function loadUserWallet() {
       }));
       renderTxHistory(supplierActs);
 
-      const citPanel = document.getElementById('cit-panel');
+      const cinPanel = document.getElementById('cin-panel');
       const impactPanel = document.getElementById('impact-panel');
-      if (citPanel) citPanel.classList.add('hidden');
+      if (cinPanel) cinPanel.classList.add('hidden');
       if (impactPanel) impactPanel.classList.remove('hidden');
 
       const wasteKg = balance / 0.70;
@@ -80,10 +77,10 @@ async function loadUserWallet() {
       return;
     }
 
-    const [balance, txs, userCIT] = await Promise.all([
+    const [balance, txs, userCIN] = await Promise.all([
       HederaMirror.getEggocoinBalance(user.hedera),
       HederaMirror.getTransactions(user.hedera, 25),
-      HederaMirror.getUserCIT(user.hedera),
+      HederaMirror.getUserCIN(user.hedera),
     ]);
 
     UI.setText('hero-balance', `${UI.fmt(balance)} $EGGO`);
@@ -91,27 +88,25 @@ async function loadUserWallet() {
     if (heroHedera) heroHedera.innerHTML = `<a href="${CONFIG.HASHSCAN_URL}/account/${user.hedera}" target="_blank" rel="noopener" class="hover:text-[#C1EDC7] transition-colors no-underline text-inherit">${user.hedera} <span class="material-symbols-outlined text-[10px]">open_in_new</span></a>`;
     renderTxHistory(txs);
 
-    // CIT card — switch to user view
-    UI.setText('cit-row1-label', 'Your Composted');
-    UI.setText('cit-row1-value', `${UI.fmt(balance)} $EGGO`);
-    UI.setText('cit-row2-label', 'Your CIT');
-    UI.setText('cit-row2-value', String(userCIT));
+    UI.setText('cin-row1-label', 'Your Composted');
+    UI.setText('cin-row1-value', `${UI.fmt(balance)} $EGGO`);
+    UI.setText('cin-row2-label', 'Your CIN');
+    UI.setText('cin-row2-value', String(userCIN));
   } catch (e) {
     console.error('User wallet error:', e);
     UI.setText('hero-balance', 'Error loading');
   }
 }
 
-function renderCITLog(nfts) {
-  const container = document.getElementById('cit-log');
+function renderCINLog(nfts) {
+  const container = document.getElementById('cin-log');
   if (!container) return;
 
   if (nfts.length === 0) {
-    container.innerHTML = '<p class="text-stone-400 text-sm text-center py-4">No CIT minted yet</p>';
+    container.innerHTML = '<p class="text-stone-400 text-sm text-center py-4">No CIN minted yet</p>';
     return;
   }
 
-  // Map known accounts
   const knownAccounts = {};
   CONFIG.ACCOUNTS.forEach(a => { knownAccounts[a.hedera] = a.role; });
 
@@ -127,13 +122,13 @@ function renderCITLog(nfts) {
             <span class="material-symbols-outlined text-secondary text-lg">verified</span>
           </div>
           <div>
-            <p class="text-sm font-bold text-primary">CIT #${nft.serial}</p>
+            <p class="text-sm font-bold text-primary">CIN #${nft.serial}</p>
             <p class="text-[10px] text-stone-400">${role} &bull; ${UI.timeAgo(date)}</p>
           </div>
         </div>
         <div class="text-right flex items-center gap-2">
           <div>
-            <p class="text-xs font-bold text-secondary">1 tonne CO&#8322;</p>
+            <p class="text-xs font-bold text-secondary">1,000 kg verified impact</p>
             <span class="text-[8px] bg-[#C1EDC7]/40 text-[#10381E] px-2 py-0.5 rounded-full font-bold uppercase">minted</span>
           </div>
           <span class="material-symbols-outlined text-stone-300 group-hover:text-primary text-sm transition-colors">open_in_new</span>
@@ -233,7 +228,6 @@ function renderHolders(balances) {
     return;
   }
 
-  // Map account IDs to known roles
   const knownAccounts = {};
   CONFIG.ACCOUNTS.forEach(a => { knownAccounts[a.hedera] = a.role; });
 
@@ -268,7 +262,6 @@ function onLogin() {
   loadUserWallet();
 }
 
-// Always load global data; load user-specific data if already logged in
 document.addEventListener('DOMContentLoaded', () => {
   loadGlobalWallet();
   if (GuardianAPI.isLoggedIn()) loadUserWallet();
